@@ -1,156 +1,51 @@
-import { BaseRepository } from './BaseRepository.js'
-import type { Booking, BookingStatus, TimeSlot, SelectedService } from '../../shared/types.js'
+import type { Booking, BookingStatus, TimeSlot } from '../../shared/types.js';
+import { BaseRepository } from './BaseRepository.js';
 
 export class BookingRepository extends BaseRepository<Booking> {
-  private findByUserIdStmt?: import('better-sqlite3').Statement
-  private findByVenueIdStmt?: import('better-sqlite3').Statement
-  private findByUserIdAndStatusStmt?: import('better-sqlite3').Statement
-  private findByVenueIdAndStatusStmt?: import('better-sqlite3').Statement
-  private findByVenueIdAndDateStmt?: import('better-sqlite3').Statement
-  private updateStatusStmt?: import('better-sqlite3').Statement
-  private findOverlappingStmt?: import('better-sqlite3').Statement
-
   constructor() {
-    super('bookings')
+    super('bookings');
   }
 
-  protected initStatements(): void {
-    this.insertStmt = this.db.prepare(`
-      INSERT INTO bookings (
-        id, venueId, userId, date, timeSlot, eventType, estimatedPeople,
-        specialRequirements, selectedServices, totalAmount, deposit, status, hostReply, createdAt
-      ) VALUES (
-        @id, @venueId, @userId, @date, @timeSlot, @eventType, @estimatedPeople,
-        @specialRequirements, @selectedServices, @totalAmount, @deposit, @status, @hostReply, @createdAt
-      )
-    `)
-
-    this.updateStmt = this.db.prepare(`
-      UPDATE bookings SET
-        venueId = @venueId,
-        userId = @userId,
-        date = @date,
-        timeSlot = @timeSlot,
-        eventType = @eventType,
-        estimatedPeople = @estimatedPeople,
-        specialRequirements = @specialRequirements,
-        selectedServices = @selectedServices,
-        totalAmount = @totalAmount,
-        deposit = @deposit,
-        status = @status,
-        hostReply = @hostReply
-      WHERE id = @id
-    `)
-
-    this.findByIdStmt = this.db.prepare('SELECT * FROM bookings WHERE id = ?')
-    this.findAllStmt = this.db.prepare('SELECT * FROM bookings ORDER BY createdAt DESC')
-    this.deleteStmt = this.db.prepare('DELETE FROM bookings WHERE id = ?')
-    this.countStmt = this.db.prepare('SELECT COUNT(*) as count FROM bookings')
-
-    this.findByUserIdStmt = this.db.prepare(`
-      SELECT * FROM bookings WHERE userId = ? ORDER BY createdAt DESC
-    `)
-
-    this.findByVenueIdStmt = this.db.prepare(`
-      SELECT * FROM bookings WHERE venueId = ? ORDER BY createdAt DESC
-    `)
-
-    this.findByUserIdAndStatusStmt = this.db.prepare(`
-      SELECT * FROM bookings WHERE userId = ? AND status = ? ORDER BY createdAt DESC
-    `)
-
-    this.findByVenueIdAndStatusStmt = this.db.prepare(`
-      SELECT * FROM bookings WHERE venueId = ? AND status = ? ORDER BY createdAt DESC
-    `)
-
-    this.findByVenueIdAndDateStmt = this.db.prepare(`
-      SELECT * FROM bookings WHERE venueId = ? AND date = ? AND status IN ('pending', 'approved', 'depositPaid', 'confirmed')
-    `)
-
-    this.updateStatusStmt = this.db.prepare(`
-      UPDATE bookings SET status = ?, hostReply = ? WHERE id = ?
-    `)
-
-    this.findOverlappingStmt = this.db.prepare(`
-      SELECT * FROM bookings 
-      WHERE venueId = ? AND date = ? AND timeSlot = ? AND status IN ('pending', 'approved', 'depositPaid', 'confirmed') AND id != ?
-    `)
+  protected initStatements(): void {}
+  protected toModel(_row: Record<string, unknown>): Booking {
+    return {} as Booking;
   }
 
-  protected toModel(row: Record<string, unknown>): Booking {
-    const parsed = this.parseJsonFields(row, ['selectedServices'])
-    return {
-      id: parsed.id as string,
-      venueId: parsed.venueId as string,
-      userId: parsed.userId as string,
-      date: parsed.date as string,
-      timeSlot: parsed.timeSlot as TimeSlot,
-      eventType: parsed.eventType as string,
-      estimatedPeople: parsed.estimatedPeople as number,
-      specialRequirements: parsed.specialRequirements as string | undefined,
-      selectedServices: parsed.selectedServices as SelectedService[],
-      totalAmount: parsed.totalAmount as number,
-      deposit: parsed.deposit as number,
-      status: parsed.status as BookingStatus,
-      hostReply: parsed.hostReply as string | undefined,
-      createdAt: parsed.createdAt as string,
-    }
+  findByUserId(_userId: string): Booking[] {
+    return [];
   }
 
-  findByUserId(userId: string): Booking[] {
-    const rows = this.findByUserIdStmt!.all(userId) as Record<string, unknown>[]
-    return rows.map(row => this.toModel(row))
+  findByVenueId(_venueId: string): Booking[] {
+    return [];
   }
 
-  findByVenueId(venueId: string): Booking[] {
-    const rows = this.findByVenueIdStmt!.all(venueId) as Record<string, unknown>[]
-    return rows.map(row => this.toModel(row))
+  findByUserIdAndStatus(_userId: string, _status: BookingStatus): Booking[] {
+    return [];
   }
 
-  findByUserIdAndStatus(userId: string, status: BookingStatus): Booking[] {
-    const rows = this.findByUserIdAndStatusStmt!.all(userId, status) as Record<string, unknown>[]
-    return rows.map(row => this.toModel(row))
+  findByVenueIdAndStatus(_venueId: string, _status: BookingStatus): Booking[] {
+    return [];
   }
 
-  findByVenueIdAndStatus(venueId: string, status: BookingStatus): Booking[] {
-    const rows = this.findByVenueIdAndStatusStmt!.all(venueId, status) as Record<string, unknown>[]
-    return rows.map(row => this.toModel(row))
+  findByVenueIdAndDate(_venueId: string, _date: string): Booking[] {
+    return [];
   }
 
-  findByVenueIdAndDate(venueId: string, date: string): Booking[] {
-    const rows = this.findByVenueIdAndDateStmt!.all(venueId, date) as Record<string, unknown>[]
-    return rows.map(row => this.toModel(row))
+  getUpcomingBookingsByHost(_hostId: string): Booking[] {
+    return [];
   }
 
-  updateStatus(id: string, status: BookingStatus, hostReply?: string): Booking | null {
-    this.updateStatusStmt!.run(status, hostReply || null, id)
-    return this.findById(id)
+  getBookingsByHostAndStatus(_hostId: string, _status: BookingStatus): Booking[] {
+    return [];
   }
 
-  checkOverlap(venueId: string, date: string, timeSlot: TimeSlot, excludeBookingId?: string): boolean {
-    const rows = this.findOverlappingStmt!.all(venueId, date, timeSlot, excludeBookingId || '') as Record<string, unknown>[]
-    return rows.length > 0
+  updateStatus(_id: string, _status: BookingStatus, _hostReply?: string): Booking | null {
+    return null;
   }
 
-  getUpcomingBookingsByHost(hostId: string): Booking[] {
-    const sql = `
-      SELECT b.* FROM bookings b
-      INNER JOIN venues v ON b.venueId = v.id
-      WHERE v.hostId = ? AND b.date >= date('now') AND b.status IN ('pending', 'approved', 'depositPaid', 'confirmed')
-      ORDER BY b.date ASC, b.createdAt DESC
-    `
-    return this.query(sql, [hostId])
-  }
-
-  getBookingsByHostAndStatus(hostId: string, status: BookingStatus): Booking[] {
-    const sql = `
-      SELECT b.* FROM bookings b
-      INNER JOIN venues v ON b.venueId = v.id
-      WHERE v.hostId = ? AND b.status = ?
-      ORDER BY b.createdAt DESC
-    `
-    return this.query(sql, [hostId, status])
+  checkOverlap(_venueId: string, _date: string, _timeSlot: TimeSlot): boolean {
+    return false;
   }
 }
 
-export const bookingRepository = new BookingRepository()
+export const bookingRepository = new BookingRepository();

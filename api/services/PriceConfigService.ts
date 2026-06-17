@@ -1,53 +1,65 @@
-import type { PriceConfig, PriceConfigRequest } from '../../shared/types.js'
-import { priceConfigRepository, venueRepository } from '../repositories/index.js'
+import type { PriceConfig, PriceConfigRequest } from '../../shared/types.js';
+import { priceConfigs, venues, generateId } from '../inMemoryData.js';
 
 export class PriceConfigService {
   getPriceConfigsByVenue(venueId: string): PriceConfig[] {
-    return priceConfigRepository.findByVenueId(venueId)
+    return priceConfigs.filter((pc) => pc.venueId === venueId);
   }
 
   getPriceConfigById(id: string): PriceConfig | null {
-    return priceConfigRepository.findById(id)
+    return priceConfigs.find((pc) => pc.id === id) || null;
   }
 
   createPriceConfig(venueId: string, hostId: string, request: PriceConfigRequest): PriceConfig | null {
-    const venue = venueRepository.findById(venueId)
-    if (!venue || venue.hostId !== hostId) return null
+    const venue = venues.find((v) => v.id === venueId);
+    if (!venue || venue.hostId !== hostId) return null;
 
     const isWeekend = (dateStr: string): boolean => {
-      const day = new Date(dateStr).getDay()
-      return day === 0 || day === 6
-    }
+      const day = new Date(dateStr).getDay();
+      return day === 0 || day === 6;
+    };
 
-    return priceConfigRepository.create({
+    const id = generateId('price');
+    const config: PriceConfig = {
+      id,
       venueId,
       date: request.date,
       timeSlot: request.timeSlot,
       price: request.price,
       isHoliday: request.isHoliday || false,
       isWeekend: isWeekend(request.date),
-    })
+    };
+
+    priceConfigs.push(config);
+    return config;
   }
 
   updatePriceConfig(id: string, hostId: string, data: Partial<PriceConfigRequest>): PriceConfig | null {
-    const config = priceConfigRepository.findById(id)
-    if (!config) return null
+    const index = priceConfigs.findIndex((pc) => pc.id === id);
+    if (index === -1) return null;
 
-    const venue = venueRepository.findById(config.venueId)
-    if (!venue || venue.hostId !== hostId) return null
+    const venue = venues.find((v) => v.id === priceConfigs[index].venueId);
+    if (!venue || venue.hostId !== hostId) return null;
 
-    return priceConfigRepository.update(id, data)
+    const updated = { ...priceConfigs[index], ...data };
+    if (data.date) {
+      const day = new Date(data.date).getDay();
+      updated.isWeekend = day === 0 || day === 6;
+    }
+    priceConfigs[index] = updated;
+    return priceConfigs[index];
   }
 
   deletePriceConfig(id: string, hostId: string): boolean {
-    const config = priceConfigRepository.findById(id)
-    if (!config) return false
+    const index = priceConfigs.findIndex((pc) => pc.id === id);
+    if (index === -1) return false;
 
-    const venue = venueRepository.findById(config.venueId)
-    if (!venue || venue.hostId !== hostId) return false
+    const venue = venues.find((v) => v.id === priceConfigs[index].venueId);
+    if (!venue || venue.hostId !== hostId) return false;
 
-    return priceConfigRepository.delete(id)
+    priceConfigs.splice(index, 1);
+    return true;
   }
 }
 
-export const priceConfigService = new PriceConfigService()
+export const priceConfigService = new PriceConfigService();

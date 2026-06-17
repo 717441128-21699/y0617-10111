@@ -1,49 +1,68 @@
-import type { Review, CreateReviewRequest } from '../../shared/types.js'
-import { reviewRepository, bookingRepository, venueRepository } from '../repositories/index.js'
+import type { Review, CreateReviewRequest } from '../../shared/types.js';
+import { reviews, bookings, venues, generateId } from '../inMemoryData.js';
 
 export class ReviewService {
   getReviewsByVenue(venueId: string, page: number = 1, pageSize: number = 10): { reviews: Review[]; total: number } {
-    return reviewRepository.findByVenueId(venueId, page, pageSize)
+    const result = reviews.filter((r) => r.venueId === venueId);
+    const total = result.length;
+    const start = (page - 1) * pageSize;
+    const pagedResult = result.slice(start, start + pageSize);
+    return { reviews: pagedResult, total };
   }
 
   getReviewById(id: string): Review | null {
-    return reviewRepository.findById(id)
+    return reviews.find((r) => r.id === id) || null;
   }
 
   createReview(userId: string, request: CreateReviewRequest): Review | null {
-    const booking = bookingRepository.findById(request.bookingId)
-    if (!booking || booking.userId !== userId) return null
-    if (booking.status !== 'completed') return null
-    if (booking.venueId !== request.venueId) return null
+    const booking = bookings.find((b) => b.id === request.bookingId);
+    if (!booking || booking.userId !== userId) return null;
+    if (booking.status !== 'completed') return null;
+    if (booking.venueId !== request.venueId) return null;
 
-    const existingReview = reviewRepository.findByBookingId(request.bookingId)
-    if (existingReview) return null
+    const existingReview = reviews.find((r) => r.bookingId === request.bookingId);
+    if (existingReview) return null;
 
-    const review = reviewRepository.create({
+    const id = generateId('review');
+    const review: Review = {
+      id,
       bookingId: request.bookingId,
       venueId: request.venueId,
       userId,
       rating: request.rating,
       content: request.content,
       createdAt: new Date().toISOString(),
-    })
+    };
 
-    const { reviews } = reviewRepository.findByVenueId(request.venueId, 1, 1000)
-    const avgRating = reviews.length > 0 ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : request.rating
-    venueRepository.updateRating(request.venueId, Math.round(avgRating * 10) / 10, reviews.length)
+    reviews.push(review);
 
-    return review
+    const venueReviews = reviews.filter((r) => r.venueId === request.venueId);
+    const avgRating = venueReviews.length > 0
+      ? venueReviews.reduce((sum, r) => sum + r.rating, 0) / venueReviews.length
+      : request.rating;
+
+    const venueIndex = venues.findIndex((v) => v.id === request.venueId);
+    if (venueIndex !== -1) {
+      venues[venueIndex] = {
+        ...venues[venueIndex],
+        rating: Math.round(avgRating * 10) / 10,
+        reviewCount: venueReviews.length,
+      };
+    }
+
+    return review;
   }
 
   replyToReview(id: string, hostId: string, reply: string): Review | null {
-    const review = reviewRepository.findById(id)
-    if (!review) return null
+    const index = reviews.findIndex((r) => r.id === id);
+    if (index === -1) return null;
 
-    const venue = venueRepository.findById(review.venueId)
-    if (!venue || venue.hostId !== hostId) return null
+    const venue = venues.find((v) => v.id === reviews[index].venueId);
+    if (!venue || venue.hostId !== hostId) return null;
 
-    return reviewRepository.update(id, { hostReply: reply })
+    reviews[index] = { ...reviews[index], hostReply: reply };
+    return reviews[index];
   }
 }
 
-export const reviewService = new ReviewService()
+export const reviewService = new ReviewService();

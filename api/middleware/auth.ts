@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
 import type { User, UserRole, ApiResponse } from '../../shared/types.js'
-import { userRepository } from '../repositories/index.js'
+import { users } from '../inMemoryData.js'
 
 declare global {
   namespace Express {
@@ -25,7 +25,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction):
 
   try {
     const payload = JSON.parse(Buffer.from(token, 'base64').toString('utf-8'))
-    const user = userRepository.findById(payload.userId)
+    const user = users.find((u) => u.id === payload.userId)
 
     if (!user) {
       res.status(401).json({

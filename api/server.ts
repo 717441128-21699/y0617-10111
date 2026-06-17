@@ -2,25 +2,20 @@
  * local server entry file, for local development
  */
 import app from './app.js';
-import db from './db.js';
-import { seed, checkSeeded } from './seed.js';
+import { seed } from './inMemoryData.js';
 
 try {
-  console.log('Database initialized');
-  if (!checkSeeded()) {
-    console.log('Seeding initial data...');
-    seed();
-  } else {
-    console.log('Database already seeded, skipping...');
-  }
+  console.log('Initializing in-memory data...');
+  seed();
+  console.log('In-memory data initialized');
 } catch (error) {
-  console.error('Database initialization error:', error);
+  console.error('Data initialization error:', error);
 }
 
 /**
  * start server with port
  */
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 const server = app.listen(PORT, () => {
   console.log(`Server ready on port ${PORT}`);

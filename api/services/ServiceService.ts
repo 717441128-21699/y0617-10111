@@ -1,20 +1,22 @@
-import type { Service, CreateServiceRequest } from '../../shared/types.js'
-import { serviceRepository, venueRepository } from '../repositories/index.js'
+import type { Service, CreateServiceRequest } from '../../shared/types.js';
+import { services, venues, generateId } from '../inMemoryData.js';
 
 export class ServiceService {
   getServicesByVenue(venueId: string): Service[] {
-    return serviceRepository.findByVenueId(venueId)
+    return services.filter((s) => s.venueId === venueId);
   }
 
   getServiceById(id: string): Service | null {
-    return serviceRepository.findById(id)
+    return services.find((s) => s.id === id) || null;
   }
 
   createService(venueId: string, hostId: string, request: CreateServiceRequest): Service | null {
-    const venue = venueRepository.findById(venueId)
-    if (!venue || venue.hostId !== hostId) return null
+    const venue = venues.find((v) => v.id === venueId);
+    if (!venue || venue.hostId !== hostId) return null;
 
-    return serviceRepository.create({
+    const id = generateId('service');
+    const service: Service = {
+      id,
       venueId,
       name: request.name,
       category: request.category,
@@ -22,28 +24,33 @@ export class ServiceService {
       unit: request.unit,
       description: request.description,
       image: request.image,
-    })
+    };
+
+    services.push(service);
+    return service;
   }
 
   updateService(id: string, hostId: string, data: Partial<CreateServiceRequest>): Service | null {
-    const service = serviceRepository.findById(id)
-    if (!service) return null
+    const index = services.findIndex((s) => s.id === id);
+    if (index === -1) return null;
 
-    const venue = venueRepository.findById(service.venueId)
-    if (!venue || venue.hostId !== hostId) return null
+    const venue = venues.find((v) => v.id === services[index].venueId);
+    if (!venue || venue.hostId !== hostId) return null;
 
-    return serviceRepository.update(id, data)
+    services[index] = { ...services[index], ...data };
+    return services[index];
   }
 
   deleteService(id: string, hostId: string): boolean {
-    const service = serviceRepository.findById(id)
-    if (!service) return false
+    const index = services.findIndex((s) => s.id === id);
+    if (index === -1) return false;
 
-    const venue = venueRepository.findById(service.venueId)
-    if (!venue || venue.hostId !== hostId) return false
+    const venue = venues.find((v) => v.id === services[index].venueId);
+    if (!venue || venue.hostId !== hostId) return false;
 
-    return serviceRepository.delete(id)
+    services.splice(index, 1);
+    return true;
   }
 }
 
-export const serviceService = new ServiceService()
+export const serviceService = new ServiceService();

@@ -69,209 +69,6 @@ function img(prompt: string): string {
   return `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=${encodeURIComponent(prompt)}&image_size=square_hd`;
 }
 
-function generateMockBookings(): Booking[] {
-  return [
-    {
-      id: 'booking1',
-      venueId: 'venue1',
-      userId: 'cust1',
-      date: '2026-07-20',
-      timeSlot: 'fullDay',
-      eventType: '婚礼婚宴',
-      estimatedPeople: 300,
-      totalAmount: 128000,
-      deposit: 38400,
-      status: 'completed',
-      selectedServices: [],
-      createdAt: '2026-04-01T10:00:00Z',
-      venue: {
-        id: 'venue1',
-        name: '华盛水晶宴会厅',
-        type: 'banquet',
-        city: '上海',
-        address: '浦东新区陆家嘴环路1000号',
-        area: 1200,
-        capacity: 500,
-        description: '',
-        facilities: [],
-        images: [img('luxury banquet hall with crystal chandeliers elegant interior')],
-        styleImages: [],
-        basePrice: 28000,
-        rating: 4.8,
-        reviewCount: 56,
-        status: 'published',
-        hostId: 'host1',
-        createdAt: '',
-      },
-    },
-    {
-      id: 'booking2',
-      venueId: 'venue2',
-      userId: 'cust2',
-      date: '2026-07-15',
-      timeSlot: 'evening',
-      eventType: '企业年会',
-      estimatedPeople: 200,
-      totalAmount: 85000,
-      deposit: 25500,
-      status: 'confirmed',
-      selectedServices: [],
-      createdAt: '2026-04-15T14:30:00Z',
-      venue: {
-        id: 'venue2',
-        name: '璀璨花园宴会厅',
-        type: 'banquet',
-        city: '北京',
-        address: '朝阳区建国路88号',
-        area: 800,
-        capacity: 350,
-        description: '',
-        facilities: [],
-        images: [img('elegant garden banquet hall european style interior')],
-        styleImages: [],
-        basePrice: 22000,
-        rating: 4.6,
-        reviewCount: 38,
-        status: 'published',
-        hostId: 'host1',
-        createdAt: '',
-      },
-    },
-    {
-      id: 'booking3',
-      venueId: 'venue3',
-      userId: 'cust1',
-      date: '2026-07-25',
-      timeSlot: 'fullDay',
-      eventType: '产品发布会',
-      estimatedPeople: 500,
-      totalAmount: 180000,
-      deposit: 54000,
-      status: 'depositPaid',
-      selectedServices: [],
-      createdAt: '2026-05-01T09:00:00Z',
-      venue: {
-        id: 'venue3',
-        name: '国际会展中心A馆',
-        type: 'exhibition',
-        city: '上海',
-        address: '徐汇区漕宝路88号',
-        area: 3000,
-        capacity: 2000,
-        description: '',
-        facilities: [],
-        images: [img('large exhibition hall interior with modern design')],
-        styleImages: [],
-        basePrice: 50000,
-        rating: 4.5,
-        reviewCount: 24,
-        status: 'published',
-        hostId: 'host2',
-        createdAt: '',
-      },
-    },
-    {
-      id: 'booking4',
-      venueId: 'venue4',
-      userId: 'cust2',
-      date: '2026-06-28',
-      timeSlot: 'afternoon',
-      eventType: '婚礼婚宴',
-      estimatedPeople: 150,
-      totalAmount: 45000,
-      deposit: 13500,
-      status: 'approved',
-      selectedServices: [],
-      createdAt: '2026-05-10T11:20:00Z',
-      venue: {
-        id: 'venue4',
-        name: '湖畔户外草坪',
-        type: 'outdoor',
-        city: '杭州',
-        address: '西湖区龙井路1号',
-        area: 2000,
-        capacity: 300,
-        description: '',
-        facilities: [],
-        images: [img('outdoor lawn venue by lake with beautiful scenery')],
-        styleImages: [],
-        basePrice: 15000,
-        rating: 4.7,
-        reviewCount: 42,
-        status: 'published',
-        hostId: 'host2',
-        createdAt: '',
-      },
-    },
-    {
-      id: 'booking5',
-      venueId: 'venue5',
-      userId: 'cust1',
-      date: '2026-06-22',
-      timeSlot: 'morning',
-      eventType: '学术会议',
-      estimatedPeople: 300,
-      totalAmount: 68000,
-      deposit: 20400,
-      status: 'pending',
-      selectedServices: [],
-      createdAt: '2026-06-15T16:00:00Z',
-      venue: {
-        id: 'venue5',
-        name: '云顶国际会议中心',
-        type: 'conference',
-        city: '深圳',
-        address: '福田区深南大道6008号',
-        area: 1500,
-        capacity: 800,
-        description: '',
-        facilities: [],
-        images: [img('modern conference center interior with auditorium')],
-        styleImages: [],
-        basePrice: 35000,
-        rating: 4.4,
-        reviewCount: 31,
-        status: 'published',
-        hostId: 'host1',
-        createdAt: '',
-      },
-    },
-    {
-      id: 'booking6',
-      venueId: 'venue6',
-      userId: 'cust1',
-      date: '2026-06-30',
-      timeSlot: 'evening',
-      eventType: '生日派对',
-      estimatedPeople: 80,
-      totalAmount: 28000,
-      deposit: 8400,
-      status: 'depositPaid',
-      selectedServices: [],
-      createdAt: '2026-05-20T13:00:00Z',
-      venue: {
-        id: 'venue6',
-        name: '艺术空间创意馆',
-        type: 'other',
-        city: '北京',
-        address: '海淀区中关村大街1号',
-        area: 600,
-        capacity: 200,
-        description: '',
-        facilities: [],
-        images: [img('industrial style art space creative venue interior')],
-        styleImages: [],
-        basePrice: 12000,
-        rating: 4.3,
-        reviewCount: 18,
-        status: 'published',
-        hostId: 'host2',
-        createdAt: '',
-      },
-    },
-  ];
-}
-
 export default function UserBookings() {
   const [activeTab, setActiveTab] = useState<TabKey>('all');
   const [loading, setLoading] = useState(true);
@@ -287,13 +84,13 @@ export default function UserBookings() {
       setLoading(true);
       try {
         const res = await bookingsApi.getBookings();
-        if (res.success && res.data && res.data.length > 0) {
+        if (res.success && res.data) {
           setBookings(res.data);
         } else {
-          setBookings(generateMockBookings());
+          setBookings([]);
         }
       } catch {
-        setBookings(generateMockBookings());
+        setBookings([]);
       } finally {
         setLoading(false);
       }
@@ -806,6 +603,8 @@ export default function UserBookings() {
               const servicesDetail: ServiceDetail[] = detailModalBooking.servicesDetail || [];
               const servicesTotal = servicesDetail.reduce((sum, s) => sum + s.subtotal, 0);
               const venueFee = detailModalBooking.totalAmount - servicesTotal;
+              const isAmountInconsistent = venueFee < 0;
+              const displayVenueFee = Math.max(0, venueFee);
               return (
                 <>
                   {servicesDetail.length > 0 && (
@@ -851,10 +650,22 @@ export default function UserBookings() {
                   )}
 
                   <div className="pt-4 border-t border-gray-100 space-y-2">
+                    {isAmountInconsistent && (
+                      <div className="flex items-start gap-2 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 mb-2">
+                        <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-amber-500" />
+                        <div>
+                          <p className="font-semibold mb-0.5">金额数据异常</p>
+                          <p className="text-amber-700/80">
+                            服务明细合计 ¥{servicesTotal.toLocaleString()} 超过订单总价 ¥{detailModalBooking.totalAmount.toLocaleString()}，
+                            可能是历史数据价格变更导致。实际以订单总价为准。
+                          </p>
+                        </div>
+                      </div>
+                    )}
                     <div className="flex items-center justify-between py-1.5 text-sm">
-                      <span className="text-gray-600">场地费</span>
-                      <span className="font-medium text-gray-900">
-                        ¥{venueFee.toLocaleString()}
+                      <span className="text-gray-600">场地费{isAmountInconsistent ? '（估算）' : ''}</span>
+                      <span className={cn('font-medium', isAmountInconsistent ? 'text-amber-700' : 'text-gray-900')}>
+                        ¥{displayVenueFee.toLocaleString()}
                       </span>
                     </div>
                     {servicesDetail.length > 0 && (

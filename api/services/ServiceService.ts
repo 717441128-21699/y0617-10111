@@ -27,6 +27,7 @@ export class ServiceService {
     };
 
     services.push(service);
+    db.write();
     return service;
   }
 
@@ -38,6 +39,7 @@ export class ServiceService {
     if (!venue || venue.hostId !== hostId) return null;
 
     services[index] = { ...services[index], ...data };
+    db.write();
     return services[index];
   }
 

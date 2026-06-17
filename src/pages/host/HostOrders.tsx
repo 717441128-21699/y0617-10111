@@ -16,6 +16,7 @@ import {
   Hash,
   MessageCircle,
   Package,
+  AlertCircle,
 } from 'lucide-react';
 import { useBookingStore } from '@/store/bookingStore';
 import {
@@ -378,6 +379,13 @@ export default function HostOrders() {
                         {booking.status === 'pending' && (
                           <>
                             <button
+                              onClick={() => setDetailModalBooking(booking)}
+                              className="px-4 py-2 rounded-xl text-sm font-medium border border-primary-200 text-primary-600 hover:bg-primary-50 transition-colors flex items-center gap-1.5"
+                            >
+                              <Eye className="w-4 h-4" />
+                              查看详情
+                            </button>
+                            <button
                               onClick={() => handleApprove(booking)}
                               disabled={submitting}
                               className="px-4 py-2 rounded-xl text-sm font-medium bg-emerald-500 text-white hover:bg-emerald-600 disabled:opacity-50 transition-colors flex items-center gap-1.5 shadow-sm shadow-emerald-500/20"
@@ -591,6 +599,8 @@ export default function HostOrders() {
               const servicesDetail: ServiceDetail[] = detailModalBooking.servicesDetail || [];
               const servicesTotal = servicesDetail.reduce((sum, s) => sum + s.subtotal, 0);
               const venueFee = detailModalBooking.totalAmount - servicesTotal;
+              const isAmountInconsistent = venueFee < 0;
+              const displayVenueFee = Math.max(0, venueFee);
               return (
                 <>
                   {servicesDetail.length > 0 && (
@@ -636,10 +646,22 @@ export default function HostOrders() {
                   )}
 
                   <div className="pt-4 border-t border-gray-100 space-y-2">
+                    {isAmountInconsistent && (
+                      <div className="flex items-start gap-2 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 mb-2">
+                        <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-amber-500" />
+                        <div>
+                          <p className="font-semibold mb-0.5">金额数据异常</p>
+                          <p className="text-amber-700/80">
+                            服务明细合计 ¥{servicesTotal.toLocaleString()} 超过订单总价 ¥{detailModalBooking.totalAmount.toLocaleString()}，
+                            可能是历史数据价格变更导致。以下场地费为系统估算值，实际以订单总价为准。
+                          </p>
+                        </div>
+                      </div>
+                    )}
                     <div className="flex items-center justify-between py-1.5 text-sm">
-                      <span className="text-gray-600">场地费</span>
-                      <span className="font-medium text-gray-900">
-                        ¥{venueFee.toLocaleString()}
+                      <span className="text-gray-600">场地费{isAmountInconsistent ? '（估算）' : ''}</span>
+                      <span className={cn('font-medium', isAmountInconsistent ? 'text-amber-700' : 'text-gray-900')}>
+                        ¥{displayVenueFee.toLocaleString()}
                       </span>
                     </div>
                     {servicesDetail.length > 0 && (
@@ -668,6 +690,33 @@ export default function HostOrders() {
                       </span>
                     </div>
                   </div>
+
+                  {detailModalBooking.status === 'pending' && (
+                    <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-100 mt-4">
+                      <button
+                        onClick={() => {
+                          setRejectModalBooking(detailModalBooking);
+                          setDetailModalBooking(null);
+                        }}
+                        disabled={submitting}
+                        className="px-5 py-2.5 rounded-xl text-sm font-medium border border-red-200 text-red-600 hover:bg-red-50 disabled:opacity-50 transition-colors flex items-center gap-1.5"
+                      >
+                        <XCircle className="w-4 h-4" />
+                        审核拒绝
+                      </button>
+                      <button
+                        onClick={async () => {
+                          await handleApprove(detailModalBooking);
+                          setDetailModalBooking(null);
+                        }}
+                        disabled={submitting}
+                        className="px-5 py-2.5 rounded-xl text-sm font-medium bg-emerald-500 text-white hover:bg-emerald-600 disabled:opacity-50 transition-colors flex items-center gap-1.5 shadow-sm shadow-emerald-500/20"
+                      >
+                        <CheckCircle2 className="w-4 h-4" />
+                        审核通过
+                      </button>
+                    </div>
+                  )}
                 </>
               );
             })()}

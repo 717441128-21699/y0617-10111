@@ -18,5 +18,6 @@ router.get('/:id/services', serviceController.getServicesByVenue)
 router.post('/:id/services', authMiddleware, requireHost, serviceController.createService)
 
 router.get('/:id/reviews', reviewController.getReviewsByVenue)
+router.get('/:id/booked-slots', venueController.getBookedSlots)
 
 export default router

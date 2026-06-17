@@ -1,5 +1,5 @@
 import type { User, UserRole } from '../../shared/types.js';
-import { users, generateId } from '../inMemoryData.js';
+import { users, generateId, db } from '../persistedData.js';
 
 export interface LoginRequest {
   email: string;
@@ -45,6 +45,7 @@ export class AuthService {
     };
 
     users.push(user);
+    db.write();
 
     const token = Buffer.from(JSON.stringify({ userId: user.id })).toString('base64');
     return { user, token };

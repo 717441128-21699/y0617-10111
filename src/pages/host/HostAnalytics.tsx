@@ -8,6 +8,9 @@ import {
   BarChart as BarChartIcon,
   Calendar as CalendarIcon,
   Activity,
+  Building2,
+  DollarSign,
+  Sparkles,
 } from 'lucide-react';
 import {
   LineChart,
@@ -30,12 +33,15 @@ import { analyticsApi } from '@/lib/api';
 import {
   type BookingRateData,
   type RevenueData,
+  type RevenueSummary,
   type EventTypeData,
   type MonthlyRevenueData,
 } from '../../../shared/types';
 import { cn } from '@/lib/utils';
 
 const COLORS = ['#1E3A5F', '#D4AF37', '#FF6B35', '#416DAA', '#8DA8CC', '#B8942E'];
+const VENUE_COLOR = '#1E3A5F';
+const SERVICE_COLOR = '#D4AF37';
 
 interface HostOverviewData {
   totalVenues: number;
@@ -51,6 +57,7 @@ const StatCard = ({
   prefix,
   suffix,
   color,
+  highlight,
 }: {
   icon: React.ComponentType<{ className?: string }>;
   label: string;
@@ -58,14 +65,27 @@ const StatCard = ({
   prefix?: string;
   suffix?: string;
   color: string;
+  highlight?: boolean;
 }) => (
-  <div className="bg-white rounded-2xl p-5 shadow-card border border-gray-50">
+  <div
+    className={cn(
+      'bg-white rounded-2xl p-5 shadow-card border border-gray-50 transition-all',
+      highlight && 'ring-2 ring-primary-100 bg-gradient-to-br from-primary-50/30 to-white'
+    )}
+  >
     <div className="flex items-start justify-between">
       <div className="flex-1">
         <p className="text-xs text-gray-500 font-medium">{label}</p>
         <div className="mt-2 flex items-baseline gap-1">
           {prefix && <span className="text-lg text-gray-600 font-medium">{prefix}</span>}
-          <span className="text-2xl font-bold text-primary-900 font-display">{value}</span>
+          <span
+            className={cn(
+              'text-2xl font-bold font-display',
+              highlight ? 'text-primary-700' : 'text-primary-900'
+            )}
+          >
+            {value}
+          </span>
           {suffix && <span className="text-sm text-gray-500 ml-1">{suffix}</span>}
         </div>
       </div>
@@ -87,17 +107,19 @@ export default function HostAnalytics() {
   const [monthlyRevenue, setMonthlyRevenue] = useState<MonthlyRevenueData[]>([]);
   const [bookingRate, setBookingRate] = useState<BookingRateData[]>([]);
   const [revenueData, setRevenueData] = useState<RevenueData[]>([]);
+  const [revenueSummary, setRevenueSummary] = useState<RevenueSummary | null>(null);
   const [eventTypes, setEventTypes] = useState<EventTypeData[]>([]);
 
   useEffect(() => {
     const loadAllData = async () => {
       setLoading(true);
       try {
-        const [overviewRes, monthlyRes, rateRes, revenueRes, eventsRes] = await Promise.all([
+        const [overviewRes, monthlyRes, rateRes, revenueRes, summaryRes, eventsRes] = await Promise.all([
           analyticsApi.getHostOverview(),
           analyticsApi.getMonthlyRevenue(),
           analyticsApi.getBookingRate(),
           analyticsApi.getRevenue(),
+          analyticsApi.getRevenueSummary({ months: 6 }),
           analyticsApi.getEventTypes(),
         ]);
 
@@ -112,6 +134,9 @@ export default function HostAnalytics() {
         }
         if (revenueRes.success && revenueRes.data) {
           setRevenueData(revenueRes.data);
+        }
+        if (summaryRes.success && summaryRes.data) {
+          setRevenueSummary(summaryRes.data);
         }
         if (eventsRes.success && eventsRes.data) {
           setEventTypes(eventsRes.data);
@@ -178,7 +203,7 @@ export default function HostAnalytics() {
           color="bg-accent-gold/20 text-accent-goldDark"
         />
         <StatCard
-          icon={BarChart3}
+          icon={Building2}
           label="总场地数"
           value={overview.totalVenues}
           suffix="个"
@@ -197,6 +222,32 @@ export default function HostAnalytics() {
           value={overview.totalRevenue.toLocaleString()}
           prefix="¥"
           color="bg-emerald-50 text-emerald-600"
+          highlight
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <StatCard
+          icon={DollarSign}
+          label="场地收入"
+          value={revenueSummary?.totalVenueRevenue?.toLocaleString() || '0'}
+          prefix="¥"
+          color="bg-blue-50 text-blue-600"
+        />
+        <StatCard
+          icon={Sparkles}
+          label="服务收入"
+          value={revenueSummary?.totalServiceRevenue?.toLocaleString() || '0'}
+          prefix="¥"
+          color="bg-amber-50 text-amber-600"
+        />
+        <StatCard
+          icon={TrendingUp}
+          label="总收入（拆分）"
+          value={revenueSummary?.totalRevenue?.toLocaleString() || '0'}
+          prefix="¥"
+          color="bg-emerald-50 text-emerald-600"
+          highlight
         />
       </div>
 
@@ -208,16 +259,20 @@ export default function HostAnalytics() {
                 <LineChartIcon className="w-5 h-5 text-primary-600" />
                 月度收入与订单趋势
               </h3>
-              <p className="text-sm text-gray-500 mt-1">全年收入与订单数变化</p>
+              <p className="text-sm text-gray-500 mt-1">全年收入与订单数变化（拆分场地/服务）</p>
             </div>
           </div>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={monthlyRevenue} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <defs>
-                  <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#1E3A5F" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#1E3A5F" stopOpacity={0} />
+                  <linearGradient id="colorVenue" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={VENUE_COLOR} stopOpacity={0.3} />
+                    <stop offset="95%" stopColor={VENUE_COLOR} stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="colorService" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={SERVICE_COLOR} stopOpacity={0.3} />
+                    <stop offset="95%" stopColor={SERVICE_COLOR} stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
@@ -240,27 +295,46 @@ export default function HostAnalytics() {
                     borderRadius: '12px',
                     boxShadow: '0 12px 40px rgba(30, 58, 95, 0.12)',
                   }}
-                  formatter={(value: number, name: string) => [
-                    name === 'revenue' ? `¥${value.toLocaleString()}` : `${value} 单`,
-                    name === 'revenue' ? '收入' : '订单数',
-                  ]}
+                  formatter={(value: number, name: string) => {
+                    const labelMap: Record<string, string> = {
+                      revenue: '总收入',
+                      venueRevenue: '场地收入',
+                      serviceRevenue: '服务收入',
+                      bookings: '订单数',
+                    };
+                    return [
+                      name === 'bookings' ? `${value} 单` : `¥${value.toLocaleString()}`,
+                      labelMap[name] || name,
+                    ];
+                  }}
                 />
                 <Legend />
                 <Area
                   type="monotone"
-                  dataKey="revenue"
-                  name="收入"
-                  stroke="#1E3A5F"
-                  strokeWidth={3}
-                  fill="url(#colorRevenue)"
+                  dataKey="venueRevenue"
+                  name="场地收入"
+                  stackId="1"
+                  stroke={VENUE_COLOR}
+                  strokeWidth={2}
+                  fill="url(#colorVenue)"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="serviceRevenue"
+                  name="服务收入"
+                  stackId="1"
+                  stroke={SERVICE_COLOR}
+                  strokeWidth={2}
+                  fill="url(#colorService)"
                 />
                 <Line
                   type="monotone"
                   dataKey="bookings"
                   name="订单数"
-                  stroke="#D4AF37"
+                  stroke="#FF6B35"
                   strokeWidth={2}
-                  dot={{ fill: '#D4AF37', r: 4, strokeWidth: 2, stroke: '#fff' }}
+                  dot={{ fill: '#FF6B35', r: 4, strokeWidth: 2, stroke: '#fff' }}
+                  yAxisId={undefined}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -290,8 +364,11 @@ export default function HostAnalytics() {
                   dataKey="value"
                   strokeWidth={0}
                 >
-                  {pieData.map((_, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  {pieData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={entry.name === '场地收入' ? VENUE_COLOR : SERVICE_COLOR}
+                    />
                   ))}
                 </Pie>
                 <Tooltip
@@ -305,21 +382,36 @@ export default function HostAnalytics() {
                 />
               </PieChart>
             </ResponsiveContainer>
-            <div className="flex-1 space-y-3 pl-4">
+            <div className="flex-1 space-y-4 pl-4">
               {pieData.map((entry, index) => (
-                <div key={entry.name} className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="w-3 h-3 rounded-full"
-                      style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                    />
-                    <span className="text-sm text-gray-700">{entry.name}</span>
+                <div key={entry.name} className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="w-3 h-3 rounded-full"
+                        style={{ backgroundColor: entry.name === '场地收入' ? VENUE_COLOR : SERVICE_COLOR }}
+                      />
+                      <span className="text-sm text-gray-700 font-medium">{entry.name}</span>
+                    </div>
+                    <span className="text-sm font-bold text-primary-900">
+                      {entry.percentage}%
+                    </span>
                   </div>
-                  <span className="text-sm font-semibold text-primary-900">
-                    {entry.percentage}%
-                  </span>
+                  <div className="text-xs text-gray-500 pl-5">
+                    ¥{entry.value.toLocaleString()}
+                  </div>
                 </div>
               ))}
+              {revenueSummary && (
+                <div className="pt-3 mt-3 border-t border-gray-100">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-semibold text-primary-900">总收入</span>
+                    <span className="text-lg font-bold bg-gradient-to-r from-primary-700 to-primary-500 bg-clip-text text-transparent">
+                      ¥{revenueSummary.totalRevenue.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

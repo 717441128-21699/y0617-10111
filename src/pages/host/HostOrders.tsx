@@ -15,13 +15,16 @@ import {
   Filter,
   Hash,
   MessageCircle,
+  Package,
 } from 'lucide-react';
 import { useBookingStore } from '@/store/bookingStore';
 import {
   BOOKING_STATUS_LABELS,
   TIME_SLOT_LABELS,
+  SERVICE_CATEGORY_LABELS,
   type Booking,
   type BookingStatus,
+  type ServiceDetail,
 } from '../../../shared/types';
 import { cn } from '@/lib/utils';
 import Modal from '@/components/Modal';
@@ -338,6 +341,22 @@ export default function HostOrders() {
                         </div>
                       </div>
 
+                      {booking.status === 'depositPaid' && (
+                        <div className="mb-4 p-3 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 flex items-center gap-2.5">
+                          <span className="text-2xl">💰</span>
+                          <div className="flex-1">
+                            <p className="text-sm font-semibold text-emerald-800">定金已到账</p>
+                            <p className="text-xs text-emerald-600/80 mt-0.5">
+                              客户已支付定金 ¥{booking.deposit.toLocaleString()}，请及时确认订单
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-lg font-bold text-emerald-700">¥{booking.deposit.toLocaleString()}</p>
+                            <p className="text-[10px] text-emerald-600/70">已收款</p>
+                          </div>
+                        </div>
+                      )}
+
                       {booking.user && (
                         <div className="flex items-center gap-4 p-3 rounded-xl bg-neutral-cream/60 border border-neutral-cream">
                           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
@@ -568,29 +587,90 @@ export default function HostOrders() {
               </div>
             )}
 
-            <div className="pt-4 border-t border-gray-100">
-              <div className="flex items-center justify-between py-2">
-                <span className="text-gray-600">预订定金</span>
-                <span className="font-semibold flex items-center gap-1">
-                  <DollarSign className="w-4 h-4 text-gray-400" />
-                  ¥{detailModalBooking.deposit.toLocaleString()}
-                </span>
-              </div>
-              {detailModalBooking.selectedServices.length > 0 && (
-                <div className="flex items-center justify-between py-2">
-                  <span className="text-gray-600">
-                    配套服务 ({detailModalBooking.selectedServices.length}项)
-                  </span>
-                  <span className="font-medium text-gray-700">已包含</span>
-                </div>
-              )}
-              <div className="flex items-center justify-between py-3 mt-2 rounded-xl bg-primary-50/50 px-4">
-                <span className="font-semibold text-primary-900">订单总价</span>
-                <span className="text-2xl font-bold text-primary-900 font-display">
-                  ¥{detailModalBooking.totalAmount.toLocaleString()}
-                </span>
-              </div>
-            </div>
+            {(() => {
+              const servicesDetail: ServiceDetail[] = detailModalBooking.servicesDetail || [];
+              const servicesTotal = servicesDetail.reduce((sum, s) => sum + s.subtotal, 0);
+              const venueFee = detailModalBooking.totalAmount - servicesTotal;
+              return (
+                <>
+                  {servicesDetail.length > 0 && (
+                    <div className="pt-4 border-t border-gray-100">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Package className="w-4 h-4 text-primary-500" />
+                        <p className="text-sm font-semibold text-gray-900">配套服务明细</p>
+                      </div>
+                      <div className="overflow-x-auto rounded-xl border border-gray-100">
+                        <table className="w-full text-sm">
+                          <thead className="bg-gray-50 text-xs text-gray-500">
+                            <tr>
+                              <th className="px-4 py-3 text-left font-medium">服务名称</th>
+                              <th className="px-4 py-3 text-left font-medium">类别</th>
+                              <th className="px-4 py-3 text-right font-medium">单价</th>
+                              <th className="px-4 py-3 text-right font-medium">数量</th>
+                              <th className="px-4 py-3 text-right font-medium">小计</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-50">
+                            {servicesDetail.map((s, idx) => (
+                              <tr key={idx} className="hover:bg-gray-50/50">
+                                <td className="px-4 py-3 font-medium text-gray-900">{s.name}</td>
+                                <td className="px-4 py-3">
+                                  <span className="inline-block px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded">
+                                    {SERVICE_CATEGORY_LABELS[s.category]}
+                                  </span>
+                                </td>
+                                <td className="px-4 py-3 text-right text-gray-700">
+                                  ¥{s.price.toLocaleString()}
+                                  <span className="text-gray-400 text-xs">/{s.unit}</span>
+                                </td>
+                                <td className="px-4 py-3 text-right text-gray-700">{s.quantity}</td>
+                                <td className="px-4 py-3 text-right font-semibold text-gray-900">
+                                  ¥{s.subtotal.toLocaleString()}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="pt-4 border-t border-gray-100 space-y-2">
+                    <div className="flex items-center justify-between py-1.5 text-sm">
+                      <span className="text-gray-600">场地费</span>
+                      <span className="font-medium text-gray-900">
+                        ¥{venueFee.toLocaleString()}
+                      </span>
+                    </div>
+                    {servicesDetail.length > 0 && (
+                      <div className="flex items-center justify-between py-1.5 text-sm">
+                        <span className="text-gray-600">
+                          服务费合计 ({servicesDetail.length}项)
+                        </span>
+                        <span className="font-medium text-gray-900">
+                          ¥{servicesTotal.toLocaleString()}
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex items-center justify-between py-1.5 text-sm border-t border-dashed border-gray-200 pt-3">
+                      <span className="font-semibold text-gray-800">订单总额</span>
+                      <span className="font-bold text-gray-900 text-lg">
+                        ¥{detailModalBooking.totalAmount.toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 rounded-xl bg-amber-50/80 border border-amber-100 px-4 mt-3">
+                      <span className="text-sm text-amber-700 flex items-center gap-1.5">
+                        <DollarSign className="w-4 h-4" />
+                        预订定金（30%）
+                      </span>
+                      <span className="font-bold text-amber-800 text-lg">
+                        ¥{detailModalBooking.deposit.toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                </>
+              );
+            })()}
           </div>
         )}
       </Modal>

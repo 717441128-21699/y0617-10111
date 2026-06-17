@@ -94,6 +94,7 @@ export default function VenueDetail() {
     type: 'success' | 'error';
     text: string;
   } | null>(null);
+  const [bookedSlots, setBookedSlots] = useState<Map<string, Set<TimeSlot>>>(new Map());
 
   useEffect(() => {
     if (!id) return;
@@ -102,12 +103,13 @@ export default function VenueDetail() {
       setLoading(true);
       setError(null);
       try {
-        const [venueRes, servicesRes, pricingRes, reviewsRes] =
+        const [venueRes, servicesRes, pricingRes, reviewsRes, bookedSlotsRes] =
           await Promise.all([
             venuesApi.getVenueById(id),
             servicesApi.getServicesByVenue(id),
             pricingApi.getPriceConfigsByVenue(id),
             reviewsApi.getReviewsByVenue(id),
+            venuesApi.getBookedSlots(id),
           ]);
 
         if (!venueRes.success || !venueRes.data) {
@@ -119,6 +121,15 @@ export default function VenueDetail() {
         setServices(servicesRes.data || []);
         setPriceConfigs(pricingRes.data || []);
         setReviews(reviewsRes.data || []);
+
+        const slotsMap = new Map<string, Set<TimeSlot>>();
+        (bookedSlotsRes.data || []).forEach((s) => {
+          if (!slotsMap.has(s.date)) {
+            slotsMap.set(s.date, new Set());
+          }
+          slotsMap.get(s.date)!.add(s.timeSlot);
+        });
+        setBookedSlots(slotsMap);
 
         const initial = new Map<string, SelectedService & { checked: boolean }>();
         (servicesRes.data || []).forEach((s) => {
@@ -218,22 +229,13 @@ export default function VenueDetail() {
       });
     }
 
-    const bookedDatesSet = new Set<string>();
-    priceConfigs.forEach((p) => {
-      const allSlotsForDate = priceConfigs.filter(
-        (pc) => pc.date === p.date
-      );
-      const hasFullDay = allSlotsForDate.some(
-        (pc) => pc.timeSlot === 'fullDay' && pc.price === -1
-      );
-      if (hasFullDay) bookedDatesSet.add(p.date);
-      if (timeSlot !== 'fullDay') {
-        const slotBooked = allSlotsForDate.some(
-          (pc) => pc.timeSlot === timeSlot && pc.price === -1
-        );
-        if (slotBooked) bookedDatesSet.add(p.date);
-      }
-    });
+    const isSlotBookedForDate = (dateStr: string, slot: TimeSlot): boolean => {
+      const slotsForDate = bookedSlots.get(dateStr);
+      if (!slotsForDate) return false;
+      if (slotsForDate.has('fullDay')) return true;
+      if (slot === 'fullDay') return slotsForDate.size > 0;
+      return slotsForDate.has(slot);
+    };
 
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(calendarYear, calendarMonth, day);
@@ -244,7 +246,9 @@ export default function VenueDetail() {
         (p) => p.date === dateStr && p.timeSlot === timeSlot
       );
       const isHoliday = !!config?.isHoliday;
-      const isBooked = bookedDatesSet.has(dateStr) || config?.price === -1;
+      const priceCfgBooked = config?.price === -1;
+      const realBooked = isSlotBookedForDate(dateStr, timeSlot);
+      const isBooked = priceCfgBooked || realBooked;
       cells.push({
         day,
         date: dateStr,
@@ -335,6 +339,27 @@ export default function VenueDetail() {
     }
     if (estimatedPeople <= 0) {
       setSubmitMessage({ type: 'error', text: '请输入有效人数' });
+      return;
+    }
+    if (venue && estimatedPeople > venue.capacity) {
+      setSubmitMessage({ type: 'error', text: `预估人数(${estimatedPeople}人)超过场地最大容量(${venue.capacity}人)` });
+      return;
+    }
+
+    const slotsForDate = selectedDate ? bookedSlots.get(selectedDate) : undefined;
+    const hasFullDay = slotsForDate?.has('fullDay');
+    let slotLocked = false;
+    if (hasFullDay) {
+      slotLocked = true;
+    } else if (slotsForDate) {
+      if (timeSlot === 'fullDay') {
+        slotLocked = slotsForDate.size > 0;
+      } else {
+        slotLocked = slotsForDate.has(timeSlot);
+      }
+    }
+    if (slotLocked) {
+      setSubmitMessage({ type: 'error', text: '该日期时段已被预订，请选择其他日期或时段。' });
       return;
     }
 
@@ -956,21 +981,46 @@ export default function VenueDetail() {
                     <div className="grid grid-cols-2 gap-2">
                       {(
                         Object.keys(TIME_SLOT_LABELS) as TimeSlot[]
-                      ).map((slot) => (
-                        <button
-                          key={slot}
-                          onClick={() => setTimeSlot(slot)}
-                          className={cn(
-                            'px-3 py-2.5 rounded-lg text-sm font-medium transition-all border text-left',
-                            timeSlot === slot
-                              ? 'bg-primary-50 border-primary-500 text-primary-700'
-                              : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
-                          )}
-                        >
-                          {TIME_SLOT_LABELS[slot]}
-                        </button>
-                      ))}
+                      ).map((slot) => {
+                        const slotsForDate = selectedDate ? bookedSlots.get(selectedDate) : undefined;
+                        const hasFullDay = slotsForDate?.has('fullDay');
+                        let slotLocked = false;
+                        if (hasFullDay) {
+                          slotLocked = true;
+                        } else if (slotsForDate) {
+                          if (slot === 'fullDay') {
+                            slotLocked = slotsForDate.size > 0;
+                          } else {
+                            slotLocked = slotsForDate.has(slot);
+                          }
+                        }
+                        return (
+                          <button
+                            key={slot}
+                            onClick={() => !slotLocked && setTimeSlot(slot)}
+                            disabled={slotLocked}
+                            className={cn(
+                              'px-3 py-2.5 rounded-lg text-sm font-medium transition-all border text-left relative',
+                              slotLocked
+                                ? 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
+                                : timeSlot === slot
+                                ? 'bg-primary-50 border-primary-500 text-primary-700'
+                                : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
+                            )}
+                          >
+                            <div>{TIME_SLOT_LABELS[slot]}</div>
+                            {slotLocked && (
+                              <div className="text-[10px] text-red-500 font-medium mt-0.5">
+                                已锁定
+                              </div>
+                            )}
+                          </button>
+                        );
+                      })}
                     </div>
+                    {!selectedDate && (
+                      <div className="text-xs text-gray-400 mt-1">请先选择日期以查看时段可用状态</div>
+                    )}
                   </div>
 
                   <div>
@@ -1004,10 +1054,19 @@ export default function VenueDetail() {
                           Math.max(1, Number(e.target.value) || 1)
                         )
                       }
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm text-gray-900 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all"
+                      className={cn(
+                        'w-full px-3.5 py-2.5 rounded-xl border bg-white text-sm text-gray-900 focus:ring-2 outline-none transition-all',
+                        estimatedPeople > venue.capacity
+                          ? 'border-red-400 bg-red-50 focus:border-red-500 focus:ring-red-100'
+                          : 'border-gray-200 focus:border-primary-500 focus:ring-primary-100'
+                      )}
                     />
-                    <div className="text-xs text-gray-400 mt-1">
+                    <div className={cn(
+                      'text-xs mt-1',
+                      estimatedPeople > venue.capacity ? 'text-red-500' : 'text-gray-400'
+                    )}>
                       场地最大容纳 {venue.capacity} 人
+                      {estimatedPeople > venue.capacity && ' · 当前人数已超出容量'}
                     </div>
                   </div>
 

@@ -1,5 +1,5 @@
 import type { Venue, CreateVenueRequest, VenueFilterParams, PaginationParams, VenueStatus, TimeSlot } from '../../shared/types.js';
-import { venues, priceConfigs, bookings, generateId } from '../inMemoryData.js';
+import { venues, priceConfigs, bookings, generateId, db } from '../persistedData.js';
 
 export class VenueService {
   getVenueById(id: string): Venue | null {
@@ -159,6 +159,7 @@ export class VenueService {
     };
 
     venues.push(venue);
+    db.write();
     return venue;
   }
 
@@ -175,6 +176,7 @@ export class VenueService {
     if (index === -1) return false;
 
     venues.splice(index, 1);
+    db.write();
     return true;
   }
 
@@ -183,6 +185,7 @@ export class VenueService {
     if (index === -1) return null;
 
     venues[index] = { ...venues[index], status };
+    db.write();
     return venues[index];
   }
 }

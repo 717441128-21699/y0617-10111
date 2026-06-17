@@ -1,5 +1,5 @@
 import type { Service, CreateServiceRequest } from '../../shared/types.js';
-import { services, venues, generateId } from '../inMemoryData.js';
+import { services, venues, generateId, db } from '../persistedData.js';
 
 export class ServiceService {
   getServicesByVenue(venueId: string): Service[] {
@@ -49,6 +49,7 @@ export class ServiceService {
     if (!venue || venue.hostId !== hostId) return false;
 
     services.splice(index, 1);
+    db.write();
     return true;
   }
 }

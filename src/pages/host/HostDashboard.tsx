@@ -8,6 +8,8 @@ import {
   Calendar,
   Users,
   Eye,
+  PieChart as PieChartIcon,
+  Sparkles,
 } from 'lucide-react';
 import {
   LineChart,
@@ -18,6 +20,8 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
+  Area,
+  AreaChart,
 } from 'recharts';
 import { analyticsApi, bookingsApi } from '@/lib/api';
 import { useBookingStore } from '@/store/bookingStore';
@@ -26,6 +30,7 @@ import {
   TIME_SLOT_LABELS,
   type Booking,
   type MonthlyRevenueData,
+  type RevenueSummary,
 } from '../../../shared/types';
 import { cn } from '@/lib/utils';
 
@@ -46,6 +51,9 @@ const statusColors: Record<string, string> = {
   cancelled: 'bg-gray-100 text-gray-500 border-gray-200',
 };
 
+const VENUE_COLOR = '#1E3A5F';
+const SERVICE_COLOR = '#D4AF37';
+
 const StatCard = ({
   icon: Icon,
   label,
@@ -54,6 +62,7 @@ const StatCard = ({
   suffix,
   trend,
   color,
+  highlight,
 }: {
   icon: React.ComponentType<{ className?: string }>;
   label: string;
@@ -62,14 +71,27 @@ const StatCard = ({
   suffix?: string;
   trend?: { value: string; positive: boolean };
   color: string;
+  highlight?: boolean;
 }) => (
-  <div className="bg-white rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 border border-gray-50">
+  <div
+    className={cn(
+      'bg-white rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 border border-gray-50',
+      highlight && 'ring-2 ring-primary-100 bg-gradient-to-br from-primary-50/30 to-white'
+    )}
+  >
     <div className="flex items-start justify-between">
       <div className="flex-1">
         <p className="text-sm text-gray-500 font-medium">{label}</p>
         <div className="mt-3 flex items-baseline gap-1">
           {prefix && <span className="text-2xl text-gray-600 font-medium">{prefix}</span>}
-          <span className="text-3xl font-bold text-primary-900 font-display">{value}</span>
+          <span
+            className={cn(
+              'text-3xl font-bold font-display',
+              highlight ? 'text-primary-700' : 'text-primary-900'
+            )}
+          >
+            {value}
+          </span>
           {suffix && <span className="text-lg text-gray-500 ml-1">{suffix}</span>}
         </div>
         {trend && (
@@ -106,6 +128,7 @@ export default function HostDashboard() {
     avgRating: 0,
   });
   const [monthlyRevenue, setMonthlyRevenue] = useState<MonthlyRevenueData[]>([]);
+  const [revenueSummary, setRevenueSummary] = useState<RevenueSummary | null>(null);
   const [pendingCount, setPendingCount] = useState(0);
   const [recentBookings, setRecentBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
@@ -115,9 +138,10 @@ export default function HostDashboard() {
     const loadData = async () => {
       setLoading(true);
       try {
-        const [overviewRes, revenueRes, bookingsRes] = await Promise.all([
+        const [overviewRes, revenueRes, summaryRes, bookingsRes] = await Promise.all([
           analyticsApi.getHostOverview(),
           analyticsApi.getMonthlyRevenue({ year: new Date().getFullYear() }),
+          analyticsApi.getRevenueSummary({ months: 6 }),
           bookingsApi.getBookings(),
         ]);
 
@@ -126,6 +150,9 @@ export default function HostDashboard() {
         }
         if (revenueRes.success && revenueRes.data) {
           setMonthlyRevenue(revenueRes.data);
+        }
+        if (summaryRes.success && summaryRes.data) {
+          setRevenueSummary(summaryRes.data);
         }
         if (bookingsRes.success && bookingsRes.data) {
           const allBookings = bookingsRes.data;
@@ -189,6 +216,7 @@ export default function HostDashboard() {
           prefix="¥"
           trend={{ value: '+8.5% 同比', positive: true }}
           color="bg-emerald-50 text-emerald-600"
+          highlight
         />
         <StatCard
           icon={Clock}
@@ -199,27 +227,113 @@ export default function HostDashboard() {
         />
       </div>
 
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <StatCard
+          icon={DollarSign}
+          label="场地收入"
+          value={revenueSummary?.totalVenueRevenue?.toLocaleString() || '0'}
+          prefix="¥"
+          color="bg-blue-50 text-blue-600"
+        />
+        <StatCard
+          icon={Sparkles}
+          label="服务收入"
+          value={revenueSummary?.totalServiceRevenue?.toLocaleString() || '0'}
+          prefix="¥"
+          color="bg-amber-50 text-amber-600"
+        />
+        <div className="bg-white rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 border border-gray-50">
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <p className="text-sm text-gray-500 font-medium">收入占比</p>
+              <p className="mt-1 text-xs text-gray-400">
+                场地 vs 服务
+              </p>
+            </div>
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary-50 to-accent-gold/20 flex items-center justify-center">
+              <PieChartIcon className="w-5 h-5 text-primary-600" />
+            </div>
+          </div>
+          <div className="space-y-3">
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: VENUE_COLOR }} />
+                  <span className="text-xs text-gray-600 font-medium">场地收入</span>
+                </div>
+                <span className="text-xs font-bold text-primary-900">
+                  {revenueSummary?.venuePercentage?.toFixed(1) || '0'}%
+                </span>
+              </div>
+              <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{
+                    width: `${revenueSummary?.venuePercentage || 0}%`,
+                    backgroundColor: VENUE_COLOR,
+                  }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: SERVICE_COLOR }} />
+                  <span className="text-xs text-gray-600 font-medium">服务收入</span>
+                </div>
+                <span className="text-xs font-bold text-primary-900">
+                  {revenueSummary?.servicePercentage?.toFixed(1) || '0'}%
+                </span>
+              </div>
+              <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{
+                    width: `${revenueSummary?.servicePercentage || 0}%`,
+                    backgroundColor: SERVICE_COLOR,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 bg-white rounded-2xl p-6 shadow-card border border-gray-50">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h3 className="text-lg font-bold text-primary-900 font-display">月度收入趋势</h3>
-              <p className="text-sm text-gray-500 mt-1">全年订单收入变化情况</p>
+              <p className="text-sm text-gray-500 mt-1">全年订单收入变化情况（拆分场地/服务）</p>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <span className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded-full bg-primary-600" />
-                收入
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: VENUE_COLOR }} />
+                场地收入
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: SERVICE_COLOR }} />
+                服务收入
               </span>
               <span className="flex items-center gap-1.5 text-gray-500">
-                <span className="w-3 h-3 rounded-full bg-accent-gold" />
+                <span className="w-3 h-3 rounded-full bg-orange-500" />
                 订单数
               </span>
             </div>
           </div>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={monthlyRevenue} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+              <AreaChart data={monthlyRevenue} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                <defs>
+                  <linearGradient id="dashColorVenue" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={VENUE_COLOR} stopOpacity={0.3} />
+                    <stop offset="95%" stopColor={VENUE_COLOR} stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="dashColorService" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={SERVICE_COLOR} stopOpacity={0.3} />
+                    <stop offset="95%" stopColor={SERVICE_COLOR} stopOpacity={0} />
+                  </linearGradient>
+                </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
                 <XAxis
                   dataKey="month"
@@ -248,33 +362,51 @@ export default function HostDashboard() {
                     borderRadius: '12px',
                     boxShadow: '0 12px 40px rgba(30, 58, 95, 0.12)',
                   }}
-                  formatter={(value: number, name: string) => [
-                    name === 'revenue' ? `¥${value.toLocaleString()}` : `${value} 单`,
-                    name === 'revenue' ? '收入' : '订单数',
-                  ]}
+                  formatter={(value: number, name: string) => {
+                    const labelMap: Record<string, string> = {
+                      revenue: '总收入',
+                      venueRevenue: '场地收入',
+                      serviceRevenue: '服务收入',
+                      bookings: '订单数',
+                    };
+                    return [
+                      name === 'bookings' ? `${value} 单` : `¥${value.toLocaleString()}`,
+                      labelMap[name] || name,
+                    ];
+                  }}
                 />
                 <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                <Line
+                <Area
                   yAxisId="left"
                   type="monotone"
-                  dataKey="revenue"
-                  name="收入"
-                  stroke="#1E3A5F"
+                  dataKey="venueRevenue"
+                  name="场地收入"
+                  stackId="1"
+                  stroke={VENUE_COLOR}
                   strokeWidth={3}
-                  dot={{ fill: '#1E3A5F', r: 4, strokeWidth: 2, stroke: '#fff' }}
-                  activeDot={{ r: 6, stroke: '#1E3A5F', strokeWidth: 2 }}
+                  fill="url(#dashColorVenue)"
+                />
+                <Area
+                  yAxisId="left"
+                  type="monotone"
+                  dataKey="serviceRevenue"
+                  name="服务收入"
+                  stackId="1"
+                  stroke={SERVICE_COLOR}
+                  strokeWidth={3}
+                  fill="url(#dashColorService)"
                 />
                 <Line
                   yAxisId="right"
                   type="monotone"
                   dataKey="bookings"
                   name="订单数"
-                  stroke="#D4AF37"
+                  stroke="#FF6B35"
                   strokeWidth={3}
-                  dot={{ fill: '#D4AF37', r: 4, strokeWidth: 2, stroke: '#fff' }}
-                  activeDot={{ r: 6, stroke: '#D4AF37', strokeWidth: 2 }}
+                  dot={{ fill: '#FF6B35', r: 4, strokeWidth: 2, stroke: '#fff' }}
+                  activeDot={{ r: 6, stroke: '#FF6B35', strokeWidth: 2 }}
                 />
-              </LineChart>
+              </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>

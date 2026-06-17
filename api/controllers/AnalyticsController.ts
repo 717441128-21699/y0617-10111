@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express'
-import type { ApiResponse, BookingRateData, RevenueData, EventTypeData, MonthlyRevenueData } from '../../shared/types.js'
+import type { ApiResponse, BookingRateData, RevenueData, RevenueSummary, EventTypeData, MonthlyRevenueData } from '../../shared/types.js'
 import { analyticsService } from '../services/index.js'
 
 export class AnalyticsController {
@@ -43,11 +43,13 @@ export class AnalyticsController {
         return
       }
 
-      const { startDate, endDate } = req.query
+      const { startDate, endDate, venueId, months } = req.query
 
-      const data = analyticsService.getRevenueBySource(req.user.id, {
+      const data = analyticsService.getRevenueBySourceLegacy(req.user.id, {
         startDate: startDate as string | undefined,
         endDate: endDate as string | undefined,
+        venueId: venueId as string | undefined,
+        months: months ? parseInt(months as string, 10) : undefined,
       })
 
       res.json({
@@ -58,6 +60,37 @@ export class AnalyticsController {
       res.status(500).json({
         success: false,
         message: '获取收入数据失败',
+      } as ApiResponse<null>)
+    }
+  }
+
+  async getRevenueSummary(req: Request, res: Response): Promise<void> {
+    try {
+      if (!req.user) {
+        res.status(401).json({
+          success: false,
+          message: '需要登录',
+        } as ApiResponse<null>)
+        return
+      }
+
+      const { startDate, endDate, venueId, months } = req.query
+
+      const data = analyticsService.getRevenueBySource(req.user.id, {
+        startDate: startDate as string | undefined,
+        endDate: endDate as string | undefined,
+        venueId: venueId as string | undefined,
+        months: months ? parseInt(months as string, 10) : undefined,
+      })
+
+      res.json({
+        success: true,
+        data,
+      } as ApiResponse<RevenueSummary>)
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: '获取收入汇总数据失败',
       } as ApiResponse<null>)
     }
   }

@@ -2,15 +2,18 @@
  * local server entry file, for local development
  */
 import app from './app.js';
-import { seed } from './inMemoryData.js';
+import { seed } from './persistedData.js';
 
-try {
-  console.log('Initializing in-memory data...');
-  seed();
-  console.log('In-memory data initialized');
-} catch (error) {
-  console.error('Data initialization error:', error);
-}
+(async () => {
+  try {
+    console.log('Initializing persisted data...');
+    await seed();
+    console.log('Persisted data initialized');
+  } catch (error) {
+    console.error('Data initialization error:', error);
+  }
+})();
+
 
 /**
  * start server with port

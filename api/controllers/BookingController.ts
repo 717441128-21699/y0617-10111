@@ -98,23 +98,16 @@ export class BookingController {
 
       const booking = bookingService.createBooking(req.user.id, data)
 
-      if (!booking) {
-        res.status(400).json({
-          success: false,
-          message: '该时段已被预订，请选择其他时段',
-        } as ApiResponse<null>)
-        return
-      }
-
       res.status(201).json({
         success: true,
         data: booking,
         message: '预订创建成功',
       } as ApiResponse<Booking>)
     } catch (error) {
-      res.status(500).json({
+      const message = error instanceof Error ? error.message : '创建预订失败'
+      res.status(400).json({
         success: false,
-        message: '创建预订失败',
+        message,
       } as ApiResponse<null>)
     }
   }
@@ -190,9 +183,10 @@ export class BookingController {
         message: '定金支付成功',
       } as ApiResponse<Booking>)
     } catch (error) {
-      res.status(500).json({
+      const message = error instanceof Error ? error.message : '支付定金失败'
+      res.status(400).json({
         success: false,
-        message: '支付定金失败',
+        message,
       } as ApiResponse<null>)
     }
   }

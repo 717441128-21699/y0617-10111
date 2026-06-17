@@ -1,30 +1,83 @@
-import type { Booking, CreateBookingRequest, BookingStatus, SelectedService, TimeSlot } from '../../shared/types.js';
-import { bookings, venues, priceConfigs, services, generateId } from '../inMemoryData.js';
+import type { Booking, CreateBookingRequest, BookingStatus, SelectedService, TimeSlot, ServiceDetail, Venue } from '../../shared/types.js';
+import { bookings, venues, priceConfigs, services, generateId, db } from '../persistedData.js';
+import { TIME_SLOT_LABELS } from '../../shared/types.js';
 
-function checkOverlap(venueId: string, date: string, timeSlot: TimeSlot): boolean {
+const ACTIVE_STATUSES: BookingStatus[] = ['pending', 'approved', 'depositPaid', 'confirmed', 'completed'];
+
+function formatDateLabel(dateStr: string): string {
+  const d = new Date(dateStr);
+  return `${d.getMonth() + 1}月${d.getDate()}日`;
+}
+
+function buildServicesDetail(booking: { selectedServices: SelectedService[] }, venueId: string): ServiceDetail[] {
+  const result: ServiceDetail[] = [];
+  for (const ss of booking.selectedServices) {
+    const service = services.find((s) => s.id === ss.serviceId && s.venueId === venueId);
+    if (service) {
+      result.push({
+        name: service.name,
+        category: service.category,
+        price: service.price,
+        unit: service.unit,
+        quantity: ss.quantity,
+        subtotal: service.price * ss.quantity,
+      });
+    }
+  }
+  return result;
+}
+
+function attachVenueAndUser(booking: Booking): Booking {
+  const venue = venues.find((v) => v.id === booking.venueId);
+  const withDetail: Booking = {
+    ...booking,
+    servicesDetail: buildServicesDetail(booking, booking.venueId),
+  };
+  if (venue) {
+    withDetail.venue = venue;
+  }
+  return withDetail;
+}
+
+interface ConflictResult {
+  conflict: boolean;
+  dateLabel?: string;
+  slotLabel?: string;
+}
+
+function checkOverlap(venueId: string, date: string, timeSlot: TimeSlot, excludeBookingId?: string): ConflictResult {
   const existingBookings = bookings.filter(
     (b) =>
       b.venueId === venueId &&
       b.date === date &&
-      b.status !== 'cancelled' &&
-      b.status !== 'rejected'
+      ACTIVE_STATUSES.includes(b.status) &&
+      (excludeBookingId ? b.id !== excludeBookingId : true)
   );
 
   for (const existing of existingBookings) {
+    let isConflict = false;
     if (existing.timeSlot === 'fullDay' || timeSlot === 'fullDay') {
-      return true;
+      isConflict = true;
+    } else if (existing.timeSlot === timeSlot) {
+      isConflict = true;
     }
-    if (existing.timeSlot === timeSlot) {
-      return true;
+    if (isConflict) {
+      return {
+        conflict: true,
+        dateLabel: formatDateLabel(date),
+        slotLabel: TIME_SLOT_LABELS[existing.timeSlot],
+      };
     }
   }
 
-  return false;
+  return { conflict: false };
 }
 
 export class BookingService {
   getBookingById(id: string): Booking | null {
-    return bookings.find((b) => b.id === id) || null;
+    const booking = bookings.find((b) => b.id === id) || null;
+    if (!booking) return null;
+    return attachVenueAndUser(booking);
   }
 
   getBookingsByUser(userId: string, status?: BookingStatus): Booking[] {
@@ -32,7 +85,7 @@ export class BookingService {
     if (status) {
       result = result.filter((b) => b.status === status);
     }
-    return result;
+    return result.map(attachVenueAndUser);
   }
 
   getBookingsByHost(hostId: string, status?: BookingStatus): Booking[] {
@@ -41,14 +94,23 @@ export class BookingService {
     if (status) {
       result = result.filter((b) => b.status === status);
     }
-    return result;
+    return result.map(attachVenueAndUser);
   }
 
-  createBooking(userId: string, request: CreateBookingRequest): Booking | null {
+  createBooking(userId: string, request: CreateBookingRequest): Booking {
     const venue = venues.find((v) => v.id === request.venueId);
-    if (!venue) return null;
+    if (!venue) {
+      throw new Error('场地不存在');
+    }
 
-    if (checkOverlap(request.venueId, request.date, request.timeSlot)) return null;
+    if (request.estimatedPeople > venue.capacity) {
+      throw new Error(`预估人数(${request.estimatedPeople}人)超过场地最大容量(${venue.capacity}人)`);
+    }
+
+    const overlap = checkOverlap(request.venueId, request.date, request.timeSlot);
+    if (overlap.conflict && overlap.dateLabel && overlap.slotLabel) {
+      throw new Error(`该日期时段已被预订，请选择其他日期或时段。已锁定：${overlap.dateLabel} ${overlap.slotLabel}`);
+    }
 
     const priceConfig = priceConfigs.find(
       (pc) =>
@@ -91,7 +153,8 @@ export class BookingService {
     };
 
     bookings.push(booking);
-    return booking;
+    db.write();
+    return attachVenueAndUser(booking);
   }
 
   updateBookingStatus(id: string, hostId: string, status: BookingStatus, hostReply?: string): Booking | null {
@@ -105,21 +168,28 @@ export class BookingService {
     if (hostReply) {
       bookings[index].hostReply = hostReply;
     }
-    return bookings[index];
+    db.write();
+    return attachVenueAndUser(bookings[index]);
   }
 
   payDeposit(id: string, userId: string): Booking | null {
     const index = bookings.findIndex((b) => b.id === id);
     if (index === -1) return null;
     if (bookings[index].userId !== userId) return null;
-    if (bookings[index].status !== 'approved') return null;
+    if (bookings[index].status !== 'approved') {
+      throw new Error('该订单状态不支持支付定金');
+    }
+
+    const booking = bookings[index];
 
     bookings[index] = {
-      ...bookings[index],
+      ...booking,
       status: 'depositPaid' as BookingStatus,
       hostReply: '定金已支付',
     };
-    return bookings[index];
+    db.write();
+
+    return attachVenueAndUser(bookings[index]);
   }
 
   deleteBooking(id: string, userId: string): boolean {
@@ -129,7 +199,18 @@ export class BookingService {
     if (!['pending', 'approved'].includes(bookings[index].status)) return false;
 
     bookings.splice(index, 1);
+    db.write();
     return true;
+  }
+
+  getBookedSlotsByVenue(venueId: string): { date: string; timeSlot: TimeSlot }[] {
+    const result: { date: string; timeSlot: TimeSlot }[] = [];
+    for (const b of bookings) {
+      if (b.venueId !== venueId) continue;
+      if (!ACTIVE_STATUSES.includes(b.status)) continue;
+      result.push({ date: b.date, timeSlot: b.timeSlot });
+    }
+    return result;
   }
 }
 

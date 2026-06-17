@@ -16,25 +16,31 @@ import {
   XCircle,
   Package,
   MessageSquare,
+  Check,
+  Phone,
+  DollarSign,
 } from 'lucide-react';
 import { bookingsApi } from '@/lib/api';
-import type { Booking, BookingStatus } from '../../../shared/types';
-import { BOOKING_STATUS_LABELS, TIME_SLOT_LABELS } from '../../../shared/types';
+import type { Booking, BookingStatus, ServiceDetail } from '../../../shared/types';
+import { BOOKING_STATUS_LABELS, TIME_SLOT_LABELS, SERVICE_CATEGORY_LABELS } from '../../../shared/types';
 import { cn } from '@/lib/utils';
+import Modal from '@/components/Modal';
 
-type TabStatus = 'all' | BookingStatus;
+type TabKey = 'all' | 'pending' | 'approved' | 'confirmed' | 'completed' | 'cancelled';
 
 interface BookingTab {
-  value: TabStatus;
+  value: TabKey;
   label: string;
+  statuses: BookingStatus[];
 }
 
 const TABS: BookingTab[] = [
-  { value: 'all', label: '全部' },
-  { value: 'pending', label: '待审核' },
-  { value: 'approved', label: '待支付定金' },
-  { value: 'confirmed', label: '已确认' },
-  { value: 'completed', label: '已完成' },
+  { value: 'all', label: '全部', statuses: ['pending', 'approved', 'depositPaid', 'confirmed', 'completed', 'cancelled', 'rejected'] },
+  { value: 'pending', label: '待审核', statuses: ['pending'] },
+  { value: 'approved', label: '待支付定金', statuses: ['approved'] },
+  { value: 'confirmed', label: '已确认', statuses: ['depositPaid', 'confirmed'] },
+  { value: 'completed', label: '已完成', statuses: ['completed'] },
+  { value: 'cancelled', label: '已取消', statuses: ['cancelled', 'rejected'] },
 ];
 
 const STATUS_CONFIG: Record<BookingStatus, { bg: string; text: string; icon: typeof CheckCircle2 }> = {
@@ -46,6 +52,13 @@ const STATUS_CONFIG: Record<BookingStatus, { bg: string; text: string; icon: typ
   cancelled: { bg: 'bg-red-50', text: 'text-red-600', icon: XCircle },
   rejected: { bg: 'bg-red-50', text: 'text-red-600', icon: AlertCircle },
 };
+
+const STATUS_FLOW = [
+  { key: 'pending', label: '待审核' },
+  { key: 'approved', label: '已通过待支付' },
+  { key: 'depositPaid', label: '已确认' },
+  { key: 'completed', label: '已完成' },
+];
 
 function formatDisplayDate(dateStr: string): string {
   const date = new Date(dateStr);
@@ -260,11 +273,14 @@ function generateMockBookings(): Booking[] {
 }
 
 export default function UserBookings() {
-  const [activeTab, setActiveTab] = useState<TabStatus>('all');
+  const [activeTab, setActiveTab] = useState<TabKey>('all');
   const [loading, setLoading] = useState(true);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [payingId, setPayingId] = useState<string | null>(null);
+  const [payConfirmBooking, setPayConfirmBooking] = useState<Booking | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [detailModalBooking, setDetailModalBooking] = useState<Booking | null>(null);
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -285,8 +301,24 @@ export default function UserBookings() {
     fetchBookings();
   }, []);
 
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
+  const showToast = (message: string, type: 'success' | 'error') => {
+    setToast({ message, type });
+  };
+
+  const getTabStatuses = (tab: TabKey): BookingStatus[] => {
+    return TABS.find((t) => t.value === tab)?.statuses || [];
+  };
+
   const filteredBookings = bookings.filter((booking) => {
-    const matchesTab = activeTab === 'all' || booking.status === activeTab;
+    const tabStatuses = getTabStatuses(activeTab);
+    const matchesTab = tabStatuses.includes(booking.status);
     const matchesSearch = !searchKeyword ||
       booking.venue?.name?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
       booking.eventType.toLowerCase().includes(searchKeyword.toLowerCase());
@@ -297,10 +329,20 @@ export default function UserBookings() {
     if (tab.value === 'all') {
       acc[tab.value] = bookings.length;
     } else {
-      acc[tab.value] = bookings.filter((b) => b.status === tab.value).length;
+      acc[tab.value] = bookings.filter((b) => tab.statuses.includes(b.status)).length;
     }
     return acc;
   }, {} as Record<string, number>);
+
+  const refreshBookings = async () => {
+    try {
+      const res = await bookingsApi.getBookings();
+      if (res.success && res.data) {
+        setBookings(res.data);
+      }
+    } catch {
+    }
+  };
 
   const handlePayDeposit = async (bookingId: string) => {
     setPayingId(bookingId);
@@ -309,18 +351,19 @@ export default function UserBookings() {
       if (res.success) {
         setBookings((prev) =>
           prev.map((b) =>
-            b.id === bookingId ? { ...b, status: 'depositPaid' as BookingStatus } : b
+            b.id === bookingId ? { ...b, status: 'depositPaid' as BookingStatus, hostReply: '定金已支付' } : b
           )
         );
+        showToast('定金支付成功，档期已锁定', 'success');
+        await refreshBookings();
+      } else {
+        showToast(res.message || '支付失败，请重试', 'error');
       }
     } catch {
-      setBookings((prev) =>
-        prev.map((b) =>
-          b.id === bookingId ? { ...b, status: 'depositPaid' as BookingStatus } : b
-        )
-      );
+      showToast('支付失败，请重试', 'error');
     } finally {
       setPayingId(null);
+      setPayConfirmBooking(null);
     }
   };
 
@@ -328,6 +371,67 @@ export default function UserBookings() {
     if (status === 'approved') return '待支付定金';
     if (status === 'depositPaid') return '已确认';
     return BOOKING_STATUS_LABELS[status];
+  };
+
+  const getStatusFlowIndex = (status: BookingStatus): number => {
+    if (status === 'pending') return 0;
+    if (status === 'approved') return 1;
+    if (status === 'depositPaid' || status === 'confirmed') return 2;
+    if (status === 'completed') return 3;
+    if (status === 'cancelled' || status === 'rejected') return -1;
+    return -1;
+  };
+
+  const renderStatusFlow = (booking: Booking) => {
+    const currentIdx = getStatusFlowIndex(booking.status);
+    if (currentIdx === -1) return null;
+
+    return (
+      <div className="mb-5 p-4 rounded-xl bg-gradient-to-r from-primary-50/80 to-accent-gold/10 border border-primary-100/50">
+        <p className="text-xs text-gray-500 mb-3 font-medium">订单状态流转</p>
+        <div className="flex items-center gap-1 sm:gap-2">
+          {STATUS_FLOW.map((step, idx) => {
+            const isDone = idx <= currentIdx;
+            const isCurrent = idx === currentIdx;
+            const isLast = idx === STATUS_FLOW.length - 1;
+            return (
+              <div key={step.key} className="flex items-center flex-1 min-w-0">
+                <div className="flex flex-col items-center flex-shrink-0">
+                  <div
+                    className={cn(
+                      'w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all',
+                      isDone
+                        ? isCurrent
+                          ? 'bg-gradient-to-br from-primary-600 to-primary-700 text-white shadow-md shadow-primary-500/30 scale-110'
+                          : 'bg-emerald-500 text-white'
+                        : 'bg-gray-200 text-gray-400'
+                    )}
+                  >
+                    {isDone && !isCurrent ? <Check className="w-3.5 h-3.5" /> : idx + 1}
+                  </div>
+                  <span
+                    className={cn(
+                      'text-[10px] sm:text-xs mt-1.5 whitespace-nowrap font-medium',
+                      isCurrent ? 'text-primary-700' : isDone ? 'text-emerald-600' : 'text-gray-400'
+                    )}
+                  >
+                    {step.label}
+                  </span>
+                </div>
+                {!isLast && (
+                  <div
+                    className={cn(
+                      'flex-1 h-0.5 mx-1 sm:mx-2 rounded-full transition-all',
+                      idx < currentIdx ? 'bg-emerald-400' : 'bg-gray-200'
+                    )}
+                  />
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
   };
 
   if (loading) {
@@ -410,6 +514,7 @@ export default function UserBookings() {
               const venueName = booking.venue?.name || '未知场地';
               const venueCity = booking.venue?.city || '';
               const venueAddress = booking.venue?.address || '';
+              const isDepositPaid = booking.status === 'depositPaid' || booking.status === 'confirmed' || booking.status === 'completed';
 
               return (
                 <div
@@ -439,15 +544,25 @@ export default function UserBookings() {
                             <span>{venueCity} · {venueAddress}</span>
                           </div>
                         </div>
-                        <div className={cn(
-                          'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium w-fit',
-                          statusConfig.bg,
-                          statusConfig.text
-                        )}>
-                          <StatusIcon className="w-4 h-4" />
-                          {getStatusLabel(booking.status)}
+                        <div className="flex flex-col items-end gap-2">
+                          <div className={cn(
+                            'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium w-fit',
+                            statusConfig.bg,
+                            statusConfig.text
+                          )}>
+                            <StatusIcon className="w-4 h-4" />
+                            {getStatusLabel(booking.status)}
+                          </div>
+                          {isDepositPaid && (
+                            <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-50 to-teal-50 text-emerald-700 border border-emerald-200 text-xs font-semibold">
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              定金已支付 ✅
+                            </div>
+                          )}
                         </div>
                       </div>
+
+                      {renderStatusFlow(booking)}
 
                       <div className="grid grid-cols-2 gap-3 mb-5">
                         <InfoItem icon={Calendar} label="使用日期" value={formatDisplayDate(booking.date)} />
@@ -482,9 +597,9 @@ export default function UserBookings() {
                         <div className="flex items-center gap-2">
                           {booking.status === 'approved' && (
                             <button
-                              onClick={() => handlePayDeposit(booking.id)}
+                              onClick={() => setPayConfirmBooking(booking)}
                               disabled={payingId === booking.id}
-                              className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white font-medium rounded-xl transition-all active:scale-95"
+                              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 disabled:from-orange-300 disabled:to-amber-300 text-white font-semibold rounded-xl transition-all active:scale-95 shadow-md shadow-orange-500/25 ring-2 ring-orange-500/10"
                             >
                               {payingId === booking.id ? (
                                 <>
@@ -494,7 +609,7 @@ export default function UserBookings() {
                               ) : (
                                 <>
                                   <CreditCard className="w-4 h-4" />
-                                  支付定金
+                                  立即支付定金
                                 </>
                               )}
                             </button>
@@ -505,7 +620,10 @@ export default function UserBookings() {
                               发表评价
                             </button>
                           )}
-                          <button className="inline-flex items-center gap-1.5 px-4 py-2.5 border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-600 text-sm font-medium rounded-xl transition-colors">
+                          <button
+                            onClick={() => setDetailModalBooking(booking)}
+                            className="inline-flex items-center gap-1.5 px-4 py-2.5 border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-600 text-sm font-medium rounded-xl transition-colors"
+                          >
                             订单详情
                             <ChevronRight className="w-4 h-4" />
                           </button>
@@ -519,6 +637,284 @@ export default function UserBookings() {
           </div>
         )}
       </div>
+
+      <Modal
+        isOpen={!!payConfirmBooking}
+        onClose={() => !payingId && setPayConfirmBooking(null)}
+        title="确认支付定金"
+        description="请确认以下定金支付信息"
+        size="md"
+        closeOnOverlayClick={!payingId}
+        closeOnEsc={!payingId}
+        footer={
+          <div className="flex items-center justify-end gap-3">
+            <button
+              onClick={() => setPayConfirmBooking(null)}
+              disabled={!!payingId}
+              className="px-4 py-2 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors disabled:opacity-50"
+            >
+              取消
+            </button>
+            <button
+              onClick={() => payConfirmBooking && handlePayDeposit(payConfirmBooking.id)}
+              disabled={!!payingId}
+              className="px-5 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 disabled:from-orange-300 disabled:to-amber-300 text-white transition-all shadow-md shadow-orange-500/25 disabled:shadow-none flex items-center gap-2"
+            >
+              {payingId ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  支付中...
+                </>
+              ) : (
+                <>
+                  <CreditCard className="w-4 h-4" />
+                  确认支付
+                </>
+              )}
+            </button>
+          </div>
+        }
+      >
+        {payConfirmBooking && (
+          <div className="space-y-5">
+            <div className="p-4 rounded-xl bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-100">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-gray-600">支付定金金额</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-orange-100 text-orange-700 font-medium">
+                  30% 预付款
+                </span>
+              </div>
+              <div className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
+                ¥{payConfirmBooking.deposit.toLocaleString()}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between py-2 border-b border-gray-50">
+                <span className="text-sm text-gray-500">场地名称</span>
+                <span className="text-sm font-medium text-gray-900">{payConfirmBooking.venue?.name || '未知场地'}</span>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-gray-50">
+                <span className="text-sm text-gray-500">使用日期</span>
+                <span className="text-sm font-medium text-gray-900">{formatDisplayDate(payConfirmBooking.date)}</span>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-gray-50">
+                <span className="text-sm text-gray-500">使用时段</span>
+                <span className="text-sm font-medium text-gray-900">{TIME_SLOT_LABELS[payConfirmBooking.timeSlot]}</span>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-gray-50">
+                <span className="text-sm text-gray-500">订单总价</span>
+                <span className="text-sm font-medium text-gray-900">¥{payConfirmBooking.totalAmount.toLocaleString()}</span>
+              </div>
+              <div className="flex items-center justify-between py-2">
+                <span className="text-sm text-gray-500">尾款（活动前支付）</span>
+                <span className="text-sm font-medium text-gray-900">¥{(payConfirmBooking.totalAmount - payConfirmBooking.deposit).toLocaleString()}</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2 p-3 rounded-xl bg-emerald-50 border border-emerald-100 text-xs text-emerald-700">
+              <CheckCircle2 className="w-4 h-4 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold mb-0.5">支付保障</p>
+                <p className="text-emerald-600/80">定金支付后档期将立即锁定，场地方会为您保留场地。活动前7天可申请无理由退款。</p>
+              </div>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      <Modal
+        isOpen={!!detailModalBooking}
+        onClose={() => setDetailModalBooking(null)}
+        title="订单详情"
+        size="lg"
+      >
+        {detailModalBooking && (
+          <div className="space-y-5">
+            <div className="flex items-center justify-between pb-4 border-b border-gray-100">
+              <div>
+                <p className="text-xs text-gray-500">订单号</p>
+                <p className="text-lg font-mono font-bold text-primary-900">
+                  #{detailModalBooking.id.slice(0, 12).toUpperCase()}
+                </p>
+              </div>
+              {(() => {
+                const cfg = STATUS_CONFIG[detailModalBooking.status];
+                const StatusIcon = cfg.icon;
+                return (
+                  <span className={cn(
+                    'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium border',
+                    cfg.bg,
+                    cfg.text
+                  )}>
+                    <StatusIcon className="w-4 h-4" />
+                    {getStatusLabel(detailModalBooking.status)}
+                  </span>
+                );
+              })()}
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-xs text-gray-500 mb-1">预订日期</p>
+                <p className="font-medium text-gray-900">{formatDisplayDate(detailModalBooking.date)}</p>
+              </div>
+              <div>
+                <p className="text-xs text-gray-500 mb-1">预订时段</p>
+                <p className="font-medium text-gray-900">{TIME_SLOT_LABELS[detailModalBooking.timeSlot]}</p>
+              </div>
+              <div>
+                <p className="text-xs text-gray-500 mb-1">活动类型</p>
+                <p className="font-medium text-gray-900">{detailModalBooking.eventType}</p>
+              </div>
+              <div>
+                <p className="text-xs text-gray-500 mb-1">预估人数</p>
+                <p className="font-medium text-gray-900">{detailModalBooking.estimatedPeople} 人</p>
+              </div>
+            </div>
+
+            {detailModalBooking.venue && (
+              <div className="p-4 rounded-xl bg-gray-50">
+                <p className="text-xs text-gray-500 mb-2">场地信息</p>
+                <p className="font-medium text-primary-900">{detailModalBooking.venue.name}</p>
+                <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5" />
+                  {detailModalBooking.venue.city} · {detailModalBooking.venue.address}
+                </p>
+              </div>
+            )}
+
+            {detailModalBooking.specialRequirements && (
+              <div>
+                <p className="text-xs text-gray-500 mb-2">特殊需求</p>
+                <p className="text-gray-700 p-3 rounded-xl bg-gray-50 text-sm">
+                  {detailModalBooking.specialRequirements}
+                </p>
+              </div>
+            )}
+
+            {detailModalBooking.hostReply && (
+              <div>
+                <p className="text-xs text-gray-500 mb-2">场地方回复</p>
+                <p className="text-gray-700 p-3 rounded-xl bg-blue-50 text-sm border border-blue-100">
+                  {detailModalBooking.hostReply}
+                </p>
+              </div>
+            )}
+
+            {(() => {
+              const servicesDetail: ServiceDetail[] = detailModalBooking.servicesDetail || [];
+              const servicesTotal = servicesDetail.reduce((sum, s) => sum + s.subtotal, 0);
+              const venueFee = detailModalBooking.totalAmount - servicesTotal;
+              return (
+                <>
+                  {servicesDetail.length > 0 && (
+                    <div className="pt-4 border-t border-gray-100">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Package className="w-4 h-4 text-primary-500" />
+                        <p className="text-sm font-semibold text-gray-900">配套服务明细</p>
+                      </div>
+                      <div className="overflow-x-auto rounded-xl border border-gray-100">
+                        <table className="w-full text-sm">
+                          <thead className="bg-gray-50 text-xs text-gray-500">
+                            <tr>
+                              <th className="px-4 py-3 text-left font-medium">服务名称</th>
+                              <th className="px-4 py-3 text-left font-medium">类别</th>
+                              <th className="px-4 py-3 text-right font-medium">单价</th>
+                              <th className="px-4 py-3 text-right font-medium">数量</th>
+                              <th className="px-4 py-3 text-right font-medium">小计</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-50">
+                            {servicesDetail.map((s, idx) => (
+                              <tr key={idx} className="hover:bg-gray-50/50">
+                                <td className="px-4 py-3 font-medium text-gray-900">{s.name}</td>
+                                <td className="px-4 py-3">
+                                  <span className="inline-block px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded">
+                                    {SERVICE_CATEGORY_LABELS[s.category]}
+                                  </span>
+                                </td>
+                                <td className="px-4 py-3 text-right text-gray-700">
+                                  ¥{s.price.toLocaleString()}
+                                  <span className="text-gray-400 text-xs">/{s.unit}</span>
+                                </td>
+                                <td className="px-4 py-3 text-right text-gray-700">{s.quantity}</td>
+                                <td className="px-4 py-3 text-right font-semibold text-gray-900">
+                                  ¥{s.subtotal.toLocaleString()}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="pt-4 border-t border-gray-100 space-y-2">
+                    <div className="flex items-center justify-between py-1.5 text-sm">
+                      <span className="text-gray-600">场地费</span>
+                      <span className="font-medium text-gray-900">
+                        ¥{venueFee.toLocaleString()}
+                      </span>
+                    </div>
+                    {servicesDetail.length > 0 && (
+                      <div className="flex items-center justify-between py-1.5 text-sm">
+                        <span className="text-gray-600">
+                          服务费合计 ({servicesDetail.length}项)
+                        </span>
+                        <span className="font-medium text-gray-900">
+                          ¥{servicesTotal.toLocaleString()}
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex items-center justify-between py-1.5 text-sm border-t border-dashed border-gray-200 pt-3">
+                      <span className="font-semibold text-gray-800">订单总价</span>
+                      <span className="font-bold text-gray-900 text-lg">
+                        ¥{detailModalBooking.totalAmount.toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 rounded-xl bg-amber-50/80 border border-amber-100 px-4 mt-3">
+                      <span className="text-sm text-amber-700 flex items-center gap-1.5">
+                        <DollarSign className="w-4 h-4" />
+                        定金金额（30%）
+                      </span>
+                      <span className="font-bold text-amber-800 text-lg">
+                        ¥{detailModalBooking.deposit.toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 rounded-xl bg-gray-50 border border-gray-100 px-4">
+                      <span className="text-sm text-gray-600">
+                        尾款（活动前支付）
+                      </span>
+                      <span className="font-semibold text-gray-700">
+                        ¥{(detailModalBooking.totalAmount - detailModalBooking.deposit).toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+        )}
+      </Modal>
+
+      {toast && (
+        <div
+          className={cn(
+            'fixed bottom-8 right-8 z-[200] px-5 py-3 rounded-xl shadow-floating animate-fade-in-up flex items-center gap-2 text-sm font-medium',
+            toast.type === 'success'
+              ? 'bg-emerald-500 text-white'
+              : 'bg-red-500 text-white'
+          )}
+        >
+          {toast.type === 'success' ? (
+            <CheckCircle2 className="w-4 h-4" />
+          ) : (
+            <XCircle className="w-4 h-4" />
+          )}
+          {toast.message}
+        </div>
+      )}
     </div>
   );
 }

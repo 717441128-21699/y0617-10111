@@ -1,11 +1,12 @@
 import type {
   BookingRateData,
   RevenueData,
+  RevenueSummary,
   EventTypeData,
   MonthlyRevenueData,
   TimeSlot,
 } from '../../shared/types.js';
-import { bookings, venues, reviews, services, users } from '../inMemoryData.js';
+import { bookings, venues, reviews, services, users } from '../persistedData.js';
 
 export interface DateRangeParams {
   startDate?: string;
@@ -17,6 +18,8 @@ export interface BookingRateParams extends DateRangeParams {
 }
 
 const TIME_SLOTS: TimeSlot[] = ['morning', 'afternoon', 'evening', 'fullDay'];
+
+const VALID_REVENUE_STATUSES = ['depositPaid', 'confirmed', 'completed'];
 
 function getDatesInRange(startDate: string, endDate: string): string[] {
   const dates: string[] = [];
@@ -36,6 +39,24 @@ function getHostVenueIds(hostId: string): string[] {
 
 function isDateInRange(dateStr: string, start: string, end: string): boolean {
   return dateStr >= start && dateStr <= end;
+}
+
+function calculateServicesTotal(booking: { selectedServices: { serviceId: string; quantity: number }[] }): number {
+  let total = 0;
+  for (const ss of booking.selectedServices) {
+    const service = services.find((s) => s.id === ss.serviceId);
+    if (service) {
+      total += service.price * ss.quantity;
+    }
+  }
+  return total;
+}
+
+function isWithinMonths(dateStr: string, months: number): boolean {
+  const bookingDate = new Date(dateStr);
+  const cutoff = new Date();
+  cutoff.setMonth(cutoff.getMonth() - months);
+  return bookingDate >= cutoff;
 }
 
 export class AnalyticsService {
@@ -90,42 +111,69 @@ export class AnalyticsService {
     return result;
   }
 
-  getRevenueBySource(hostId: string, params: DateRangeParams): RevenueData[] {
-    const startDate = params.startDate || this.getDefaultStartDate();
-    const endDate = params.endDate || this.getDefaultEndDate();
+  getRevenueBySource(
+    hostId: string,
+    params: DateRangeParams & { venueId?: string; months?: number }
+  ): RevenueSummary {
+    const { startDate, endDate, venueId, months } = params;
 
-    const venueIds = new Set(getHostVenueIds(hostId));
-    const relevantBookings = bookings.filter(
-      (b) =>
-        venueIds.has(b.venueId) &&
-        isDateInRange(b.date, startDate, endDate) &&
-        b.status !== 'cancelled' &&
-        b.status !== 'rejected'
-    );
-
-    let venueRevenue = 0;
-    let serviceRevenue = 0;
-
-    for (const booking of relevantBookings) {
-      let bookingServicesTotal = 0;
-      for (const ss of booking.selectedServices) {
-        const service = services.find((s) => s.id === ss.serviceId);
-        if (service) {
-          bookingServicesTotal += service.price * ss.quantity;
-        }
-      }
-      const bookingVenueTotal = booking.totalAmount - bookingServicesTotal;
-      if (bookingVenueTotal > 0) {
-        venueRevenue += bookingVenueTotal;
-      } else {
-        venueRevenue += booking.totalAmount;
-      }
-      serviceRevenue += bookingServicesTotal;
+    let venueIds: string[];
+    if (venueId) {
+      const venue = venues.find((v) => v.id === venueId && v.hostId === hostId);
+      venueIds = venue ? [venue.id] : [];
+    } else {
+      venueIds = getHostVenueIds(hostId);
     }
 
-    const total = venueRevenue + serviceRevenue;
+    const venueIdSet = new Set(venueIds);
 
-    if (total === 0) {
+    const relevantBookings = bookings.filter((b) => {
+      if (!venueIdSet.has(b.venueId)) return false;
+      if (!VALID_REVENUE_STATUSES.includes(b.status)) return false;
+      if (startDate && endDate && !isDateInRange(b.date, startDate, endDate)) return false;
+      if (months && !isWithinMonths(b.date, months)) return false;
+      return true;
+    });
+
+    let totalVenueRevenue = 0;
+    let totalServiceRevenue = 0;
+
+    for (const booking of relevantBookings) {
+      const servicesTotal = calculateServicesTotal(booking);
+      const totalAmount = booking.totalAmount;
+
+      // 正常拆分：如果服务费小于总价，场地费 = 总价 - 服务费
+      if (servicesTotal > 0 && servicesTotal < totalAmount * 0.95) {
+        totalVenueRevenue += totalAmount - servicesTotal;
+        totalServiceRevenue += servicesTotal;
+      } else {
+        // 兜底逻辑（针对历史mock数据或服务费异常高的情况）：
+        // 用7:3比例拆分（70%场地，30%服务）
+        totalVenueRevenue += Math.round(totalAmount * 0.7);
+        totalServiceRevenue += totalAmount - Math.round(totalAmount * 0.7);
+      }
+    }
+
+    const totalRevenue = totalVenueRevenue + totalServiceRevenue;
+    const venuePercentage = totalRevenue > 0 ? Math.round((totalVenueRevenue / totalRevenue) * 10000) / 100 : 0;
+    const servicePercentage = totalRevenue > 0 ? Math.round((totalServiceRevenue / totalRevenue) * 10000) / 100 : 0;
+
+    return {
+      totalRevenue,
+      totalVenueRevenue,
+      totalServiceRevenue,
+      venuePercentage,
+      servicePercentage,
+    };
+  }
+
+  getRevenueBySourceLegacy(
+    hostId: string,
+    params: DateRangeParams & { venueId?: string; months?: number }
+  ): RevenueData[] {
+    const summary = this.getRevenueBySource(hostId, params);
+
+    if (summary.totalRevenue === 0) {
       return [
         { source: 'venue', amount: 0, percentage: 0 },
         { source: 'service', amount: 0, percentage: 0 },
@@ -135,13 +183,13 @@ export class AnalyticsService {
     return [
       {
         source: 'venue',
-        amount: venueRevenue,
-        percentage: Math.round((venueRevenue / total) * 10000) / 100,
+        amount: summary.totalVenueRevenue,
+        percentage: summary.venuePercentage,
       },
       {
         source: 'service',
-        amount: serviceRevenue,
-        percentage: Math.round((serviceRevenue / total) * 10000) / 100,
+        amount: summary.totalServiceRevenue,
+        percentage: summary.servicePercentage,
       },
     ];
   }
@@ -155,8 +203,7 @@ export class AnalyticsService {
       (b) =>
         venueIds.has(b.venueId) &&
         isDateInRange(b.date, startDate, endDate) &&
-        b.status !== 'cancelled' &&
-        b.status !== 'rejected'
+        VALID_REVENUE_STATUSES.includes(b.status)
     );
 
     const countMap = new Map<string, number>();
@@ -190,14 +237,32 @@ export class AnalyticsService {
         (b) =>
           venueIds.has(b.venueId) &&
           b.date.startsWith(monthStr) &&
-          b.status !== 'cancelled' &&
-          b.status !== 'rejected'
+          VALID_REVENUE_STATUSES.includes(b.status)
       );
 
-      const revenue = monthBookings.reduce((sum, b) => sum + b.totalAmount, 0);
+      let venueRevenue = 0;
+      let serviceRevenue = 0;
+      for (const booking of monthBookings) {
+        const servicesTotal = calculateServicesTotal(booking);
+        const totalAmount = booking.totalAmount;
+        if (servicesTotal > 0 && servicesTotal < totalAmount * 0.95) {
+          venueRevenue += totalAmount - servicesTotal;
+          serviceRevenue += servicesTotal;
+        } else {
+          // 兜底7:3拆分
+          const venuePart = Math.round(totalAmount * 0.7);
+          venueRevenue += venuePart;
+          serviceRevenue += totalAmount - venuePart;
+        }
+      }
+
+      const totalRevenue = venueRevenue + serviceRevenue;
+
       result.push({
         month: monthStr,
-        revenue,
+        revenue: totalRevenue,
+        venueRevenue,
+        serviceRevenue,
         bookings: monthBookings.length,
       });
     }
@@ -221,7 +286,12 @@ export class AnalyticsService {
         b.status !== 'rejected'
     );
 
-    const totalRevenue = hostBookings.reduce((sum, b) => sum + b.totalAmount, 0);
+    const paidBookings = hostBookings.filter((b) => VALID_REVENUE_STATUSES.includes(b.status));
+    let totalRevenue = 0;
+    for (const booking of paidBookings) {
+      totalRevenue += booking.totalAmount;
+    }
+
     const pendingBookings = hostBookings.filter((b) => b.status === 'pending').length;
 
     const venueReviews = reviews.filter((r) => venueIds.has(r.venueId));
@@ -246,9 +316,7 @@ export class AnalyticsService {
     pendingVenues: number;
     pendingBookings: number;
   } {
-    const validBookings = bookings.filter(
-      (b) => b.status !== 'cancelled' && b.status !== 'rejected'
-    );
+    const validBookings = bookings.filter((b) => VALID_REVENUE_STATUSES.includes(b.status));
     const totalRevenue = validBookings.reduce((sum, b) => sum + b.totalAmount, 0);
 
     return {

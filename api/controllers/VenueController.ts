@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express'
-import type { ApiResponse, Venue, CreateVenueRequest, VenueFilterParams, PaginationParams } from '../../shared/types.js'
+import type { ApiResponse, Venue, CreateVenueRequest, VenueFilterParams, PaginationParams, TimeSlot } from '../../shared/types.js'
 import { venueService } from '../services/index.js'
+import { bookingService } from '../services/index.js'
 
 export class VenueController {
   async getVenues(req: Request, res: Response): Promise<void> {
@@ -206,6 +207,22 @@ export class VenueController {
       res.status(500).json({
         success: false,
         message: '删除场地失败',
+      } as ApiResponse<null>)
+    }
+  }
+
+  async getBookedSlots(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params
+      const slots = bookingService.getBookedSlotsByVenue(id)
+      res.json({
+        success: true,
+        data: slots,
+      } as ApiResponse<{ date: string; timeSlot: TimeSlot }[]>)
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: '获取已预订时段失败',
       } as ApiResponse<null>)
     }
   }

@@ -61,6 +61,14 @@ app.use(
  * error handler middleware
  */
 app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+  if (error instanceof SyntaxError && 'body' in error) {
+    res.status(400).json({
+      success: false,
+      message: '请求体JSON格式错误，请检查提交内容',
+    } as ApiResponse<null>)
+    return
+  }
+  console.error('Unhandled error:', error.message);
   res.status(500).json({
     success: false,
     message: 'Server internal error',

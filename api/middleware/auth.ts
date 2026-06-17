@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
 import type { User, UserRole, ApiResponse } from '../../shared/types.js'
-import { users } from '../inMemoryData.js'
+import { users } from '../persistedData.js'
 
 declare global {
   namespace Express {

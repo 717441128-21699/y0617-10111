@@ -1,0 +1,7337 @@
+{
+  "users": [
+    {
+      "id": "host1",
+      "role": "host",
+      "name": "华盛宴会厅",
+      "email": "host1@venue.com",
+      "phone": "13800138001",
+      "company": "华盛酒店管理集团",
+      "createdAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "host2",
+      "role": "host",
+      "name": "会展中心",
+      "email": "host2@venue.com",
+      "phone": "13800138002",
+      "company": "国际会展有限公司",
+      "createdAt": "2024-01-02T00:00:00Z"
+    },
+    {
+      "id": "cust1",
+      "role": "customer",
+      "name": "张先生",
+      "email": "cust1@test.com",
+      "phone": "13900139001",
+      "createdAt": "2024-02-01T00:00:00Z"
+    },
+    {
+      "id": "cust2",
+      "role": "customer",
+      "name": "李女士",
+      "email": "cust2@test.com",
+      "phone": "13900139002",
+      "createdAt": "2024-02-02T00:00:00Z"
+    },
+    {
+      "id": "admin1",
+      "role": "admin",
+      "name": "平台管理员",
+      "email": "admin@venue.com",
+      "phone": "13000130001",
+      "createdAt": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "venues": [
+    {
+      "id": "venue1",
+      "hostId": "host1",
+      "name": "华盛水晶宴会厅",
+      "type": "banquet",
+      "city": "上海",
+      "address": "浦东新区陆家嘴环路1000号",
+      "area": 1200,
+      "capacity": 500,
+      "height": 8,
+      "description": "五星级酒店宴会厅，可承办婚宴、年会、发布会等各类大型活动",
+      "facilities": [
+        "舞台",
+        "灯光",
+        "音响",
+        "投影",
+        "化妆间",
+        "停车场",
+        "WIFI"
+      ],
+      "images": [
+        "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20banquet%20hall%20with%20crystal%20chandeliers%20elegant%20interior&image_size=square_hd",
+        "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=grand%20ballroom%20wedding%20venue%20interior%20design&image_size=square_hd"
+      ],
+      "styleImages": [
+        {
+          "name": "中式婚礼",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=chinese%20traditional%20wedding%20venue%20decoration%20red%20theme&image_size=square_hd"
+        },
+        {
+          "name": "西式婚礼",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=western%20wedding%20venue%20white%20flowers%20elegant&image_size=square_hd"
+        },
+        {
+          "name": "企业年会",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=corporate%20annual%20gala%20dinner%20stage%20lighting&image_size=square_hd"
+        }
+      ],
+      "basePrice": 28000,
+      "rating": 4.8,
+      "reviewCount": 56,
+      "status": "published",
+      "createdAt": "2024-03-01T00:00:00Z"
+    },
+    {
+      "id": "venue2",
+      "hostId": "host1",
+      "name": "璀璨花园宴会厅",
+      "type": "banquet",
+      "city": "北京",
+      "address": "朝阳区建国路88号",
+      "area": 800,
+      "capacity": 350,
+      "height": 6,
+      "description": "欧式花园风格宴会厅，环境优雅，适合举办婚礼和高端商务活动",
+      "facilities": [
+        "舞台",
+        "灯光",
+        "音响",
+        "投影",
+        "化妆间",
+        "停车场",
+        "WIFI",
+        "空调",
+        "桌椅"
+      ],
+      "images": [
+        "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20garden%20banquet%20hall%20european%20style%20interior&image_size=square_hd",
+        "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20wedding%20reception%20hall%20with%20garden%20view&image_size=square_hd"
+      ],
+      "styleImages": [
+        {
+          "name": "花园婚礼",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=garden%20wedding%20venue%20with%20flowers%20and%20greenery&image_size=square_hd"
+        },
+        {
+          "name": "晚宴布置",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20dinner%20party%20setup%20with%20round%20tables&image_size=square_hd"
+        }
+      ],
+      "basePrice": 22000,
+      "rating": 4.6,
+      "reviewCount": 38,
+      "status": "published",
+      "createdAt": "2024-03-05T00:00:00Z"
+    },
+    {
+      "id": "venue3",
+      "hostId": "host2",
+      "name": "国际会展中心A馆",
+      "type": "exhibition",
+      "city": "上海",
+      "address": "徐汇区漕宝路88号",
+      "area": 3000,
+      "capacity": 2000,
+      "height": 12,
+      "description": "大型专业展览馆，可举办大型展会、博览会、新品发布会等活动",
+      "facilities": [
+        "舞台",
+        "灯光",
+        "音响",
+        "投影",
+        "停车场",
+        "WIFI",
+        "空调",
+        "电梯",
+        "无障碍通道",
+        "电源接口"
+      ],
+      "images": [
+        "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=large%20exhibition%20hall%20interior%20with%20modern%20design&image_size=square_hd",
+        "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20trade%20show%20venue%20empty%20space&image_size=square_hd"
+      ],
+      "styleImages": [
+        {
+          "name": "展会布置",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=exhibition%20booth%20setup%20trade%20show%20event&image_size=square_hd"
+        },
+        {
+          "name": "发布会",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=product%20launch%20event%20stage%20with%20large%20screen&image_size=square_hd"
+        }
+      ],
+      "basePrice": 50000,
+      "rating": 4.5,
+      "reviewCount": 24,
+      "status": "published",
+      "createdAt": "2024-03-10T00:00:00Z"
+    },
+    {
+      "id": "venue4",
+      "hostId": "host2",
+      "name": "湖畔户外草坪",
+      "type": "outdoor",
+      "city": "杭州",
+      "address": "西湖区龙井路1号",
+      "area": 2000,
+      "capacity": 300,
+      "description": "紧邻西湖的户外草坪场地，风景优美，适合举办户外婚礼、派对和团建活动",
+      "facilities": [
+        "舞台",
+        "灯光",
+        "音响",
+        "停车场",
+        "WIFI",
+        "桌椅"
+      ],
+      "images": [
+        "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=outdoor%20lawn%20venue%20by%20lake%20with%20beautiful%20scenery&image_size=square_hd",
+        "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=garden%20wedding%20venue%20with%20lake%20view&image_size=square_hd"
+      ],
+      "styleImages": [
+        {
+          "name": "户外婚礼",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=outdoor%20wedding%20ceremony%20on%20lawn%20by%20lake&image_size=square_hd"
+        },
+        {
+          "name": "团建活动",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=corporate%20team%20building%20event%20outdoor%20lawn&image_size=square_hd"
+        }
+      ],
+      "basePrice": 15000,
+      "rating": 4.7,
+      "reviewCount": 42,
+      "status": "published",
+      "createdAt": "2024-03-15T00:00:00Z"
+    },
+    {
+      "id": "venue5",
+      "hostId": "host1",
+      "name": "云顶国际会议中心",
+      "type": "conference",
+      "city": "深圳",
+      "address": "福田区深南大道6008号",
+      "area": 1500,
+      "capacity": 800,
+      "height": 5,
+      "description": "现代化专业会议中心，配备先进的音视频设备，适合举办各类会议和论坛",
+      "facilities": [
+        "舞台",
+        "灯光",
+        "音响",
+        "投影",
+        "化妆间",
+        "停车场",
+        "WIFI",
+        "空调",
+        "桌椅",
+        "电梯",
+        "无障碍通道",
+        "电源接口"
+      ],
+      "images": [
+        "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20conference%20center%20interior%20with%20auditorium&image_size=square_hd",
+        "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20meeting%20room%20with%20stage%20and%20seats&image_size=square_hd"
+      ],
+      "styleImages": [
+        {
+          "name": "大型会议",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=large%20business%20conference%20with%20audience%20on%20stage&image_size=square_hd"
+        },
+        {
+          "name": "论坛活动",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=business%20forum%20panel%20discussion%20on%20stage&image_size=square_hd"
+        }
+      ],
+      "basePrice": 35000,
+      "rating": 4.4,
+      "reviewCount": 31,
+      "status": "published",
+      "createdAt": "2024-03-20T00:00:00Z"
+    },
+    {
+      "id": "venue6",
+      "hostId": "host2",
+      "name": "艺术空间创意馆",
+      "type": "other",
+      "city": "北京",
+      "address": "海淀区中关村大街1号",
+      "area": 600,
+      "capacity": 200,
+      "height": 4.5,
+      "description": "工业风艺术空间，可灵活布置，适合举办艺术展览、创意活动、小型发布会等",
+      "facilities": [
+        "灯光",
+        "音响",
+        "投影",
+        "停车场",
+        "WIFI",
+        "空调",
+        "电源接口"
+      ],
+      "images": [
+        "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=industrial%20style%20art%20space%20creative%20venue%20interior&image_size=square_hd",
+        "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20exhibition%20space%20with%20white%20walls&image_size=square_hd"
+      ],
+      "styleImages": [
+        {
+          "name": "艺术展览",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=art%20exhibition%20gallery%20space%20with%20paintings&image_size=square_hd"
+        },
+        {
+          "name": "创意活动",
+          "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=creative%20workshop%20event%20in%20modern%20space&image_size=square_hd"
+        }
+      ],
+      "basePrice": 12000,
+      "rating": 4.3,
+      "reviewCount": 18,
+      "status": "published",
+      "createdAt": "2024-03-25T00:00:00Z"
+    }
+  ],
+  "priceConfigs": [
+    {
+      "id": "price1",
+      "venueId": "venue1",
+      "date": "2026-06-17",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price2",
+      "venueId": "venue1",
+      "date": "2026-06-17",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price3",
+      "venueId": "venue1",
+      "date": "2026-06-17",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price4",
+      "venueId": "venue1",
+      "date": "2026-06-17",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price5",
+      "venueId": "venue1",
+      "date": "2026-06-18",
+      "timeSlot": "morning",
+      "price": 42000,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price6",
+      "venueId": "venue1",
+      "date": "2026-06-18",
+      "timeSlot": "afternoon",
+      "price": 46200,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price7",
+      "venueId": "venue1",
+      "date": "2026-06-18",
+      "timeSlot": "evening",
+      "price": 54600,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price8",
+      "venueId": "venue1",
+      "date": "2026-06-18",
+      "timeSlot": "fullDay",
+      "price": 105000,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price9",
+      "venueId": "venue1",
+      "date": "2026-06-19",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price10",
+      "venueId": "venue1",
+      "date": "2026-06-19",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price11",
+      "venueId": "venue1",
+      "date": "2026-06-19",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price12",
+      "venueId": "venue1",
+      "date": "2026-06-19",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price13",
+      "venueId": "venue1",
+      "date": "2026-06-20",
+      "timeSlot": "morning",
+      "price": 33600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price14",
+      "venueId": "venue1",
+      "date": "2026-06-20",
+      "timeSlot": "afternoon",
+      "price": 37000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price15",
+      "venueId": "venue1",
+      "date": "2026-06-20",
+      "timeSlot": "evening",
+      "price": 43700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price16",
+      "venueId": "venue1",
+      "date": "2026-06-20",
+      "timeSlot": "fullDay",
+      "price": 84000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price17",
+      "venueId": "venue1",
+      "date": "2026-06-21",
+      "timeSlot": "morning",
+      "price": 33600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price18",
+      "venueId": "venue1",
+      "date": "2026-06-21",
+      "timeSlot": "afternoon",
+      "price": 37000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price19",
+      "venueId": "venue1",
+      "date": "2026-06-21",
+      "timeSlot": "evening",
+      "price": 43700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price20",
+      "venueId": "venue1",
+      "date": "2026-06-21",
+      "timeSlot": "fullDay",
+      "price": 84000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price21",
+      "venueId": "venue1",
+      "date": "2026-06-22",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price22",
+      "venueId": "venue1",
+      "date": "2026-06-22",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price23",
+      "venueId": "venue1",
+      "date": "2026-06-22",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price24",
+      "venueId": "venue1",
+      "date": "2026-06-22",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price25",
+      "venueId": "venue1",
+      "date": "2026-06-23",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price26",
+      "venueId": "venue1",
+      "date": "2026-06-23",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price27",
+      "venueId": "venue1",
+      "date": "2026-06-23",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price28",
+      "venueId": "venue1",
+      "date": "2026-06-23",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price29",
+      "venueId": "venue1",
+      "date": "2026-06-24",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price30",
+      "venueId": "venue1",
+      "date": "2026-06-24",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price31",
+      "venueId": "venue1",
+      "date": "2026-06-24",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price32",
+      "venueId": "venue1",
+      "date": "2026-06-24",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price33",
+      "venueId": "venue1",
+      "date": "2026-06-25",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price34",
+      "venueId": "venue1",
+      "date": "2026-06-25",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price35",
+      "venueId": "venue1",
+      "date": "2026-06-25",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price36",
+      "venueId": "venue1",
+      "date": "2026-06-25",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price37",
+      "venueId": "venue1",
+      "date": "2026-06-26",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price38",
+      "venueId": "venue1",
+      "date": "2026-06-26",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price39",
+      "venueId": "venue1",
+      "date": "2026-06-26",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price40",
+      "venueId": "venue1",
+      "date": "2026-06-26",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price41",
+      "venueId": "venue1",
+      "date": "2026-06-27",
+      "timeSlot": "morning",
+      "price": 33600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price42",
+      "venueId": "venue1",
+      "date": "2026-06-27",
+      "timeSlot": "afternoon",
+      "price": 37000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price43",
+      "venueId": "venue1",
+      "date": "2026-06-27",
+      "timeSlot": "evening",
+      "price": 43700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price44",
+      "venueId": "venue1",
+      "date": "2026-06-27",
+      "timeSlot": "fullDay",
+      "price": 84000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price45",
+      "venueId": "venue1",
+      "date": "2026-06-28",
+      "timeSlot": "morning",
+      "price": 33600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price46",
+      "venueId": "venue1",
+      "date": "2026-06-28",
+      "timeSlot": "afternoon",
+      "price": 37000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price47",
+      "venueId": "venue1",
+      "date": "2026-06-28",
+      "timeSlot": "evening",
+      "price": 43700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price48",
+      "venueId": "venue1",
+      "date": "2026-06-28",
+      "timeSlot": "fullDay",
+      "price": 84000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price49",
+      "venueId": "venue1",
+      "date": "2026-06-29",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price50",
+      "venueId": "venue1",
+      "date": "2026-06-29",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price51",
+      "venueId": "venue1",
+      "date": "2026-06-29",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price52",
+      "venueId": "venue1",
+      "date": "2026-06-29",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price53",
+      "venueId": "venue1",
+      "date": "2026-06-30",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price54",
+      "venueId": "venue1",
+      "date": "2026-06-30",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price55",
+      "venueId": "venue1",
+      "date": "2026-06-30",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price56",
+      "venueId": "venue1",
+      "date": "2026-06-30",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price57",
+      "venueId": "venue1",
+      "date": "2026-07-01",
+      "timeSlot": "morning",
+      "price": 42000,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price58",
+      "venueId": "venue1",
+      "date": "2026-07-01",
+      "timeSlot": "afternoon",
+      "price": 46200,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price59",
+      "venueId": "venue1",
+      "date": "2026-07-01",
+      "timeSlot": "evening",
+      "price": 54600,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price60",
+      "venueId": "venue1",
+      "date": "2026-07-01",
+      "timeSlot": "fullDay",
+      "price": 105000,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price61",
+      "venueId": "venue1",
+      "date": "2026-07-02",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price62",
+      "venueId": "venue1",
+      "date": "2026-07-02",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price63",
+      "venueId": "venue1",
+      "date": "2026-07-02",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price64",
+      "venueId": "venue1",
+      "date": "2026-07-02",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price65",
+      "venueId": "venue1",
+      "date": "2026-07-03",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price66",
+      "venueId": "venue1",
+      "date": "2026-07-03",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price67",
+      "venueId": "venue1",
+      "date": "2026-07-03",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price68",
+      "venueId": "venue1",
+      "date": "2026-07-03",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price69",
+      "venueId": "venue1",
+      "date": "2026-07-04",
+      "timeSlot": "morning",
+      "price": 33600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price70",
+      "venueId": "venue1",
+      "date": "2026-07-04",
+      "timeSlot": "afternoon",
+      "price": 37000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price71",
+      "venueId": "venue1",
+      "date": "2026-07-04",
+      "timeSlot": "evening",
+      "price": 43700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price72",
+      "venueId": "venue1",
+      "date": "2026-07-04",
+      "timeSlot": "fullDay",
+      "price": 84000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price73",
+      "venueId": "venue1",
+      "date": "2026-07-05",
+      "timeSlot": "morning",
+      "price": 33600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price74",
+      "venueId": "venue1",
+      "date": "2026-07-05",
+      "timeSlot": "afternoon",
+      "price": 37000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price75",
+      "venueId": "venue1",
+      "date": "2026-07-05",
+      "timeSlot": "evening",
+      "price": 43700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price76",
+      "venueId": "venue1",
+      "date": "2026-07-05",
+      "timeSlot": "fullDay",
+      "price": 84000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price77",
+      "venueId": "venue1",
+      "date": "2026-07-06",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price78",
+      "venueId": "venue1",
+      "date": "2026-07-06",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price79",
+      "venueId": "venue1",
+      "date": "2026-07-06",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price80",
+      "venueId": "venue1",
+      "date": "2026-07-06",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price81",
+      "venueId": "venue1",
+      "date": "2026-07-07",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price82",
+      "venueId": "venue1",
+      "date": "2026-07-07",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price83",
+      "venueId": "venue1",
+      "date": "2026-07-07",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price84",
+      "venueId": "venue1",
+      "date": "2026-07-07",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price85",
+      "venueId": "venue1",
+      "date": "2026-07-08",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price86",
+      "venueId": "venue1",
+      "date": "2026-07-08",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price87",
+      "venueId": "venue1",
+      "date": "2026-07-08",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price88",
+      "venueId": "venue1",
+      "date": "2026-07-08",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price89",
+      "venueId": "venue1",
+      "date": "2026-07-09",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price90",
+      "venueId": "venue1",
+      "date": "2026-07-09",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price91",
+      "venueId": "venue1",
+      "date": "2026-07-09",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price92",
+      "venueId": "venue1",
+      "date": "2026-07-09",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price93",
+      "venueId": "venue1",
+      "date": "2026-07-10",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price94",
+      "venueId": "venue1",
+      "date": "2026-07-10",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price95",
+      "venueId": "venue1",
+      "date": "2026-07-10",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price96",
+      "venueId": "venue1",
+      "date": "2026-07-10",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price97",
+      "venueId": "venue1",
+      "date": "2026-07-11",
+      "timeSlot": "morning",
+      "price": 33600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price98",
+      "venueId": "venue1",
+      "date": "2026-07-11",
+      "timeSlot": "afternoon",
+      "price": 37000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price99",
+      "venueId": "venue1",
+      "date": "2026-07-11",
+      "timeSlot": "evening",
+      "price": 43700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price100",
+      "venueId": "venue1",
+      "date": "2026-07-11",
+      "timeSlot": "fullDay",
+      "price": 84000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price101",
+      "venueId": "venue1",
+      "date": "2026-07-12",
+      "timeSlot": "morning",
+      "price": 33600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price102",
+      "venueId": "venue1",
+      "date": "2026-07-12",
+      "timeSlot": "afternoon",
+      "price": 37000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price103",
+      "venueId": "venue1",
+      "date": "2026-07-12",
+      "timeSlot": "evening",
+      "price": 43700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price104",
+      "venueId": "venue1",
+      "date": "2026-07-12",
+      "timeSlot": "fullDay",
+      "price": 84000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price105",
+      "venueId": "venue1",
+      "date": "2026-07-13",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price106",
+      "venueId": "venue1",
+      "date": "2026-07-13",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price107",
+      "venueId": "venue1",
+      "date": "2026-07-13",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price108",
+      "venueId": "venue1",
+      "date": "2026-07-13",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price109",
+      "venueId": "venue1",
+      "date": "2026-07-14",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price110",
+      "venueId": "venue1",
+      "date": "2026-07-14",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price111",
+      "venueId": "venue1",
+      "date": "2026-07-14",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price112",
+      "venueId": "venue1",
+      "date": "2026-07-14",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price113",
+      "venueId": "venue1",
+      "date": "2026-07-15",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price114",
+      "venueId": "venue1",
+      "date": "2026-07-15",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price115",
+      "venueId": "venue1",
+      "date": "2026-07-15",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price116",
+      "venueId": "venue1",
+      "date": "2026-07-15",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price117",
+      "venueId": "venue1",
+      "date": "2026-07-16",
+      "timeSlot": "morning",
+      "price": 28000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price118",
+      "venueId": "venue1",
+      "date": "2026-07-16",
+      "timeSlot": "afternoon",
+      "price": 30800,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price119",
+      "venueId": "venue1",
+      "date": "2026-07-16",
+      "timeSlot": "evening",
+      "price": 36400,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price120",
+      "venueId": "venue1",
+      "date": "2026-07-16",
+      "timeSlot": "fullDay",
+      "price": 70000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price121",
+      "venueId": "venue2",
+      "date": "2026-06-17",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price122",
+      "venueId": "venue2",
+      "date": "2026-06-17",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price123",
+      "venueId": "venue2",
+      "date": "2026-06-17",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price124",
+      "venueId": "venue2",
+      "date": "2026-06-17",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price125",
+      "venueId": "venue2",
+      "date": "2026-06-18",
+      "timeSlot": "morning",
+      "price": 33000,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price126",
+      "venueId": "venue2",
+      "date": "2026-06-18",
+      "timeSlot": "afternoon",
+      "price": 36300,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price127",
+      "venueId": "venue2",
+      "date": "2026-06-18",
+      "timeSlot": "evening",
+      "price": 42900,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price128",
+      "venueId": "venue2",
+      "date": "2026-06-18",
+      "timeSlot": "fullDay",
+      "price": 82500,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price129",
+      "venueId": "venue2",
+      "date": "2026-06-19",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price130",
+      "venueId": "venue2",
+      "date": "2026-06-19",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price131",
+      "venueId": "venue2",
+      "date": "2026-06-19",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price132",
+      "venueId": "venue2",
+      "date": "2026-06-19",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price133",
+      "venueId": "venue2",
+      "date": "2026-06-20",
+      "timeSlot": "morning",
+      "price": 26400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price134",
+      "venueId": "venue2",
+      "date": "2026-06-20",
+      "timeSlot": "afternoon",
+      "price": 29000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price135",
+      "venueId": "venue2",
+      "date": "2026-06-20",
+      "timeSlot": "evening",
+      "price": 34300,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price136",
+      "venueId": "venue2",
+      "date": "2026-06-20",
+      "timeSlot": "fullDay",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price137",
+      "venueId": "venue2",
+      "date": "2026-06-21",
+      "timeSlot": "morning",
+      "price": 26400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price138",
+      "venueId": "venue2",
+      "date": "2026-06-21",
+      "timeSlot": "afternoon",
+      "price": 29000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price139",
+      "venueId": "venue2",
+      "date": "2026-06-21",
+      "timeSlot": "evening",
+      "price": 34300,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price140",
+      "venueId": "venue2",
+      "date": "2026-06-21",
+      "timeSlot": "fullDay",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price141",
+      "venueId": "venue2",
+      "date": "2026-06-22",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price142",
+      "venueId": "venue2",
+      "date": "2026-06-22",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price143",
+      "venueId": "venue2",
+      "date": "2026-06-22",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price144",
+      "venueId": "venue2",
+      "date": "2026-06-22",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price145",
+      "venueId": "venue2",
+      "date": "2026-06-23",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price146",
+      "venueId": "venue2",
+      "date": "2026-06-23",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price147",
+      "venueId": "venue2",
+      "date": "2026-06-23",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price148",
+      "venueId": "venue2",
+      "date": "2026-06-23",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price149",
+      "venueId": "venue2",
+      "date": "2026-06-24",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price150",
+      "venueId": "venue2",
+      "date": "2026-06-24",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price151",
+      "venueId": "venue2",
+      "date": "2026-06-24",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price152",
+      "venueId": "venue2",
+      "date": "2026-06-24",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price153",
+      "venueId": "venue2",
+      "date": "2026-06-25",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price154",
+      "venueId": "venue2",
+      "date": "2026-06-25",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price155",
+      "venueId": "venue2",
+      "date": "2026-06-25",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price156",
+      "venueId": "venue2",
+      "date": "2026-06-25",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price157",
+      "venueId": "venue2",
+      "date": "2026-06-26",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price158",
+      "venueId": "venue2",
+      "date": "2026-06-26",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price159",
+      "venueId": "venue2",
+      "date": "2026-06-26",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price160",
+      "venueId": "venue2",
+      "date": "2026-06-26",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price161",
+      "venueId": "venue2",
+      "date": "2026-06-27",
+      "timeSlot": "morning",
+      "price": 26400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price162",
+      "venueId": "venue2",
+      "date": "2026-06-27",
+      "timeSlot": "afternoon",
+      "price": 29000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price163",
+      "venueId": "venue2",
+      "date": "2026-06-27",
+      "timeSlot": "evening",
+      "price": 34300,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price164",
+      "venueId": "venue2",
+      "date": "2026-06-27",
+      "timeSlot": "fullDay",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price165",
+      "venueId": "venue2",
+      "date": "2026-06-28",
+      "timeSlot": "morning",
+      "price": 26400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price166",
+      "venueId": "venue2",
+      "date": "2026-06-28",
+      "timeSlot": "afternoon",
+      "price": 29000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price167",
+      "venueId": "venue2",
+      "date": "2026-06-28",
+      "timeSlot": "evening",
+      "price": 34300,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price168",
+      "venueId": "venue2",
+      "date": "2026-06-28",
+      "timeSlot": "fullDay",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price169",
+      "venueId": "venue2",
+      "date": "2026-06-29",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price170",
+      "venueId": "venue2",
+      "date": "2026-06-29",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price171",
+      "venueId": "venue2",
+      "date": "2026-06-29",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price172",
+      "venueId": "venue2",
+      "date": "2026-06-29",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price173",
+      "venueId": "venue2",
+      "date": "2026-06-30",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price174",
+      "venueId": "venue2",
+      "date": "2026-06-30",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price175",
+      "venueId": "venue2",
+      "date": "2026-06-30",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price176",
+      "venueId": "venue2",
+      "date": "2026-06-30",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price177",
+      "venueId": "venue2",
+      "date": "2026-07-01",
+      "timeSlot": "morning",
+      "price": 33000,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price178",
+      "venueId": "venue2",
+      "date": "2026-07-01",
+      "timeSlot": "afternoon",
+      "price": 36300,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price179",
+      "venueId": "venue2",
+      "date": "2026-07-01",
+      "timeSlot": "evening",
+      "price": 42900,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price180",
+      "venueId": "venue2",
+      "date": "2026-07-01",
+      "timeSlot": "fullDay",
+      "price": 82500,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price181",
+      "venueId": "venue2",
+      "date": "2026-07-02",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price182",
+      "venueId": "venue2",
+      "date": "2026-07-02",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price183",
+      "venueId": "venue2",
+      "date": "2026-07-02",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price184",
+      "venueId": "venue2",
+      "date": "2026-07-02",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price185",
+      "venueId": "venue2",
+      "date": "2026-07-03",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price186",
+      "venueId": "venue2",
+      "date": "2026-07-03",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price187",
+      "venueId": "venue2",
+      "date": "2026-07-03",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price188",
+      "venueId": "venue2",
+      "date": "2026-07-03",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price189",
+      "venueId": "venue2",
+      "date": "2026-07-04",
+      "timeSlot": "morning",
+      "price": 26400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price190",
+      "venueId": "venue2",
+      "date": "2026-07-04",
+      "timeSlot": "afternoon",
+      "price": 29000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price191",
+      "venueId": "venue2",
+      "date": "2026-07-04",
+      "timeSlot": "evening",
+      "price": 34300,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price192",
+      "venueId": "venue2",
+      "date": "2026-07-04",
+      "timeSlot": "fullDay",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price193",
+      "venueId": "venue2",
+      "date": "2026-07-05",
+      "timeSlot": "morning",
+      "price": 26400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price194",
+      "venueId": "venue2",
+      "date": "2026-07-05",
+      "timeSlot": "afternoon",
+      "price": 29000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price195",
+      "venueId": "venue2",
+      "date": "2026-07-05",
+      "timeSlot": "evening",
+      "price": 34300,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price196",
+      "venueId": "venue2",
+      "date": "2026-07-05",
+      "timeSlot": "fullDay",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price197",
+      "venueId": "venue2",
+      "date": "2026-07-06",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price198",
+      "venueId": "venue2",
+      "date": "2026-07-06",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price199",
+      "venueId": "venue2",
+      "date": "2026-07-06",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price200",
+      "venueId": "venue2",
+      "date": "2026-07-06",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price201",
+      "venueId": "venue2",
+      "date": "2026-07-07",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price202",
+      "venueId": "venue2",
+      "date": "2026-07-07",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price203",
+      "venueId": "venue2",
+      "date": "2026-07-07",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price204",
+      "venueId": "venue2",
+      "date": "2026-07-07",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price205",
+      "venueId": "venue2",
+      "date": "2026-07-08",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price206",
+      "venueId": "venue2",
+      "date": "2026-07-08",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price207",
+      "venueId": "venue2",
+      "date": "2026-07-08",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price208",
+      "venueId": "venue2",
+      "date": "2026-07-08",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price209",
+      "venueId": "venue2",
+      "date": "2026-07-09",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price210",
+      "venueId": "venue2",
+      "date": "2026-07-09",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price211",
+      "venueId": "venue2",
+      "date": "2026-07-09",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price212",
+      "venueId": "venue2",
+      "date": "2026-07-09",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price213",
+      "venueId": "venue2",
+      "date": "2026-07-10",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price214",
+      "venueId": "venue2",
+      "date": "2026-07-10",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price215",
+      "venueId": "venue2",
+      "date": "2026-07-10",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price216",
+      "venueId": "venue2",
+      "date": "2026-07-10",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price217",
+      "venueId": "venue2",
+      "date": "2026-07-11",
+      "timeSlot": "morning",
+      "price": 26400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price218",
+      "venueId": "venue2",
+      "date": "2026-07-11",
+      "timeSlot": "afternoon",
+      "price": 29000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price219",
+      "venueId": "venue2",
+      "date": "2026-07-11",
+      "timeSlot": "evening",
+      "price": 34300,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price220",
+      "venueId": "venue2",
+      "date": "2026-07-11",
+      "timeSlot": "fullDay",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price221",
+      "venueId": "venue2",
+      "date": "2026-07-12",
+      "timeSlot": "morning",
+      "price": 26400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price222",
+      "venueId": "venue2",
+      "date": "2026-07-12",
+      "timeSlot": "afternoon",
+      "price": 29000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price223",
+      "venueId": "venue2",
+      "date": "2026-07-12",
+      "timeSlot": "evening",
+      "price": 34300,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price224",
+      "venueId": "venue2",
+      "date": "2026-07-12",
+      "timeSlot": "fullDay",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price225",
+      "venueId": "venue2",
+      "date": "2026-07-13",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price226",
+      "venueId": "venue2",
+      "date": "2026-07-13",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price227",
+      "venueId": "venue2",
+      "date": "2026-07-13",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price228",
+      "venueId": "venue2",
+      "date": "2026-07-13",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price229",
+      "venueId": "venue2",
+      "date": "2026-07-14",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price230",
+      "venueId": "venue2",
+      "date": "2026-07-14",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price231",
+      "venueId": "venue2",
+      "date": "2026-07-14",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price232",
+      "venueId": "venue2",
+      "date": "2026-07-14",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price233",
+      "venueId": "venue2",
+      "date": "2026-07-15",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price234",
+      "venueId": "venue2",
+      "date": "2026-07-15",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price235",
+      "venueId": "venue2",
+      "date": "2026-07-15",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price236",
+      "venueId": "venue2",
+      "date": "2026-07-15",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price237",
+      "venueId": "venue2",
+      "date": "2026-07-16",
+      "timeSlot": "morning",
+      "price": 22000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price238",
+      "venueId": "venue2",
+      "date": "2026-07-16",
+      "timeSlot": "afternoon",
+      "price": 24200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price239",
+      "venueId": "venue2",
+      "date": "2026-07-16",
+      "timeSlot": "evening",
+      "price": 28600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price240",
+      "venueId": "venue2",
+      "date": "2026-07-16",
+      "timeSlot": "fullDay",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price241",
+      "venueId": "venue3",
+      "date": "2026-06-17",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price242",
+      "venueId": "venue3",
+      "date": "2026-06-17",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price243",
+      "venueId": "venue3",
+      "date": "2026-06-17",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price244",
+      "venueId": "venue3",
+      "date": "2026-06-17",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price245",
+      "venueId": "venue3",
+      "date": "2026-06-18",
+      "timeSlot": "morning",
+      "price": 75000,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price246",
+      "venueId": "venue3",
+      "date": "2026-06-18",
+      "timeSlot": "afternoon",
+      "price": 82500,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price247",
+      "venueId": "venue3",
+      "date": "2026-06-18",
+      "timeSlot": "evening",
+      "price": 97500,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price248",
+      "venueId": "venue3",
+      "date": "2026-06-18",
+      "timeSlot": "fullDay",
+      "price": 187500,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price249",
+      "venueId": "venue3",
+      "date": "2026-06-19",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price250",
+      "venueId": "venue3",
+      "date": "2026-06-19",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price251",
+      "venueId": "venue3",
+      "date": "2026-06-19",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price252",
+      "venueId": "venue3",
+      "date": "2026-06-19",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price253",
+      "venueId": "venue3",
+      "date": "2026-06-20",
+      "timeSlot": "morning",
+      "price": 60000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price254",
+      "venueId": "venue3",
+      "date": "2026-06-20",
+      "timeSlot": "afternoon",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price255",
+      "venueId": "venue3",
+      "date": "2026-06-20",
+      "timeSlot": "evening",
+      "price": 78000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price256",
+      "venueId": "venue3",
+      "date": "2026-06-20",
+      "timeSlot": "fullDay",
+      "price": 150000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price257",
+      "venueId": "venue3",
+      "date": "2026-06-21",
+      "timeSlot": "morning",
+      "price": 60000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price258",
+      "venueId": "venue3",
+      "date": "2026-06-21",
+      "timeSlot": "afternoon",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price259",
+      "venueId": "venue3",
+      "date": "2026-06-21",
+      "timeSlot": "evening",
+      "price": 78000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price260",
+      "venueId": "venue3",
+      "date": "2026-06-21",
+      "timeSlot": "fullDay",
+      "price": 150000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price261",
+      "venueId": "venue3",
+      "date": "2026-06-22",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price262",
+      "venueId": "venue3",
+      "date": "2026-06-22",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price263",
+      "venueId": "venue3",
+      "date": "2026-06-22",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price264",
+      "venueId": "venue3",
+      "date": "2026-06-22",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price265",
+      "venueId": "venue3",
+      "date": "2026-06-23",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price266",
+      "venueId": "venue3",
+      "date": "2026-06-23",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price267",
+      "venueId": "venue3",
+      "date": "2026-06-23",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price268",
+      "venueId": "venue3",
+      "date": "2026-06-23",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price269",
+      "venueId": "venue3",
+      "date": "2026-06-24",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price270",
+      "venueId": "venue3",
+      "date": "2026-06-24",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price271",
+      "venueId": "venue3",
+      "date": "2026-06-24",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price272",
+      "venueId": "venue3",
+      "date": "2026-06-24",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price273",
+      "venueId": "venue3",
+      "date": "2026-06-25",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price274",
+      "venueId": "venue3",
+      "date": "2026-06-25",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price275",
+      "venueId": "venue3",
+      "date": "2026-06-25",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price276",
+      "venueId": "venue3",
+      "date": "2026-06-25",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price277",
+      "venueId": "venue3",
+      "date": "2026-06-26",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price278",
+      "venueId": "venue3",
+      "date": "2026-06-26",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price279",
+      "venueId": "venue3",
+      "date": "2026-06-26",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price280",
+      "venueId": "venue3",
+      "date": "2026-06-26",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price281",
+      "venueId": "venue3",
+      "date": "2026-06-27",
+      "timeSlot": "morning",
+      "price": 60000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price282",
+      "venueId": "venue3",
+      "date": "2026-06-27",
+      "timeSlot": "afternoon",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price283",
+      "venueId": "venue3",
+      "date": "2026-06-27",
+      "timeSlot": "evening",
+      "price": 78000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price284",
+      "venueId": "venue3",
+      "date": "2026-06-27",
+      "timeSlot": "fullDay",
+      "price": 150000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price285",
+      "venueId": "venue3",
+      "date": "2026-06-28",
+      "timeSlot": "morning",
+      "price": 60000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price286",
+      "venueId": "venue3",
+      "date": "2026-06-28",
+      "timeSlot": "afternoon",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price287",
+      "venueId": "venue3",
+      "date": "2026-06-28",
+      "timeSlot": "evening",
+      "price": 78000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price288",
+      "venueId": "venue3",
+      "date": "2026-06-28",
+      "timeSlot": "fullDay",
+      "price": 150000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price289",
+      "venueId": "venue3",
+      "date": "2026-06-29",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price290",
+      "venueId": "venue3",
+      "date": "2026-06-29",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price291",
+      "venueId": "venue3",
+      "date": "2026-06-29",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price292",
+      "venueId": "venue3",
+      "date": "2026-06-29",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price293",
+      "venueId": "venue3",
+      "date": "2026-06-30",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price294",
+      "venueId": "venue3",
+      "date": "2026-06-30",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price295",
+      "venueId": "venue3",
+      "date": "2026-06-30",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price296",
+      "venueId": "venue3",
+      "date": "2026-06-30",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price297",
+      "venueId": "venue3",
+      "date": "2026-07-01",
+      "timeSlot": "morning",
+      "price": 75000,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price298",
+      "venueId": "venue3",
+      "date": "2026-07-01",
+      "timeSlot": "afternoon",
+      "price": 82500,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price299",
+      "venueId": "venue3",
+      "date": "2026-07-01",
+      "timeSlot": "evening",
+      "price": 97500,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price300",
+      "venueId": "venue3",
+      "date": "2026-07-01",
+      "timeSlot": "fullDay",
+      "price": 187500,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price301",
+      "venueId": "venue3",
+      "date": "2026-07-02",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price302",
+      "venueId": "venue3",
+      "date": "2026-07-02",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price303",
+      "venueId": "venue3",
+      "date": "2026-07-02",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price304",
+      "venueId": "venue3",
+      "date": "2026-07-02",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price305",
+      "venueId": "venue3",
+      "date": "2026-07-03",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price306",
+      "venueId": "venue3",
+      "date": "2026-07-03",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price307",
+      "venueId": "venue3",
+      "date": "2026-07-03",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price308",
+      "venueId": "venue3",
+      "date": "2026-07-03",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price309",
+      "venueId": "venue3",
+      "date": "2026-07-04",
+      "timeSlot": "morning",
+      "price": 60000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price310",
+      "venueId": "venue3",
+      "date": "2026-07-04",
+      "timeSlot": "afternoon",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price311",
+      "venueId": "venue3",
+      "date": "2026-07-04",
+      "timeSlot": "evening",
+      "price": 78000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price312",
+      "venueId": "venue3",
+      "date": "2026-07-04",
+      "timeSlot": "fullDay",
+      "price": 150000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price313",
+      "venueId": "venue3",
+      "date": "2026-07-05",
+      "timeSlot": "morning",
+      "price": 60000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price314",
+      "venueId": "venue3",
+      "date": "2026-07-05",
+      "timeSlot": "afternoon",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price315",
+      "venueId": "venue3",
+      "date": "2026-07-05",
+      "timeSlot": "evening",
+      "price": 78000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price316",
+      "venueId": "venue3",
+      "date": "2026-07-05",
+      "timeSlot": "fullDay",
+      "price": 150000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price317",
+      "venueId": "venue3",
+      "date": "2026-07-06",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price318",
+      "venueId": "venue3",
+      "date": "2026-07-06",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price319",
+      "venueId": "venue3",
+      "date": "2026-07-06",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price320",
+      "venueId": "venue3",
+      "date": "2026-07-06",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price321",
+      "venueId": "venue3",
+      "date": "2026-07-07",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price322",
+      "venueId": "venue3",
+      "date": "2026-07-07",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price323",
+      "venueId": "venue3",
+      "date": "2026-07-07",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price324",
+      "venueId": "venue3",
+      "date": "2026-07-07",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price325",
+      "venueId": "venue3",
+      "date": "2026-07-08",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price326",
+      "venueId": "venue3",
+      "date": "2026-07-08",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price327",
+      "venueId": "venue3",
+      "date": "2026-07-08",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price328",
+      "venueId": "venue3",
+      "date": "2026-07-08",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price329",
+      "venueId": "venue3",
+      "date": "2026-07-09",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price330",
+      "venueId": "venue3",
+      "date": "2026-07-09",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price331",
+      "venueId": "venue3",
+      "date": "2026-07-09",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price332",
+      "venueId": "venue3",
+      "date": "2026-07-09",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price333",
+      "venueId": "venue3",
+      "date": "2026-07-10",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price334",
+      "venueId": "venue3",
+      "date": "2026-07-10",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price335",
+      "venueId": "venue3",
+      "date": "2026-07-10",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price336",
+      "venueId": "venue3",
+      "date": "2026-07-10",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price337",
+      "venueId": "venue3",
+      "date": "2026-07-11",
+      "timeSlot": "morning",
+      "price": 60000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price338",
+      "venueId": "venue3",
+      "date": "2026-07-11",
+      "timeSlot": "afternoon",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price339",
+      "venueId": "venue3",
+      "date": "2026-07-11",
+      "timeSlot": "evening",
+      "price": 78000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price340",
+      "venueId": "venue3",
+      "date": "2026-07-11",
+      "timeSlot": "fullDay",
+      "price": 150000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price341",
+      "venueId": "venue3",
+      "date": "2026-07-12",
+      "timeSlot": "morning",
+      "price": 60000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price342",
+      "venueId": "venue3",
+      "date": "2026-07-12",
+      "timeSlot": "afternoon",
+      "price": 66000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price343",
+      "venueId": "venue3",
+      "date": "2026-07-12",
+      "timeSlot": "evening",
+      "price": 78000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price344",
+      "venueId": "venue3",
+      "date": "2026-07-12",
+      "timeSlot": "fullDay",
+      "price": 150000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price345",
+      "venueId": "venue3",
+      "date": "2026-07-13",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price346",
+      "venueId": "venue3",
+      "date": "2026-07-13",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price347",
+      "venueId": "venue3",
+      "date": "2026-07-13",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price348",
+      "venueId": "venue3",
+      "date": "2026-07-13",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price349",
+      "venueId": "venue3",
+      "date": "2026-07-14",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price350",
+      "venueId": "venue3",
+      "date": "2026-07-14",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price351",
+      "venueId": "venue3",
+      "date": "2026-07-14",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price352",
+      "venueId": "venue3",
+      "date": "2026-07-14",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price353",
+      "venueId": "venue3",
+      "date": "2026-07-15",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price354",
+      "venueId": "venue3",
+      "date": "2026-07-15",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price355",
+      "venueId": "venue3",
+      "date": "2026-07-15",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price356",
+      "venueId": "venue3",
+      "date": "2026-07-15",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price357",
+      "venueId": "venue3",
+      "date": "2026-07-16",
+      "timeSlot": "morning",
+      "price": 50000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price358",
+      "venueId": "venue3",
+      "date": "2026-07-16",
+      "timeSlot": "afternoon",
+      "price": 55000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price359",
+      "venueId": "venue3",
+      "date": "2026-07-16",
+      "timeSlot": "evening",
+      "price": 65000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price360",
+      "venueId": "venue3",
+      "date": "2026-07-16",
+      "timeSlot": "fullDay",
+      "price": 125000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price361",
+      "venueId": "venue4",
+      "date": "2026-06-17",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price362",
+      "venueId": "venue4",
+      "date": "2026-06-17",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price363",
+      "venueId": "venue4",
+      "date": "2026-06-17",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price364",
+      "venueId": "venue4",
+      "date": "2026-06-17",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price365",
+      "venueId": "venue4",
+      "date": "2026-06-18",
+      "timeSlot": "morning",
+      "price": 22500,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price366",
+      "venueId": "venue4",
+      "date": "2026-06-18",
+      "timeSlot": "afternoon",
+      "price": 24800,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price367",
+      "venueId": "venue4",
+      "date": "2026-06-18",
+      "timeSlot": "evening",
+      "price": 29300,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price368",
+      "venueId": "venue4",
+      "date": "2026-06-18",
+      "timeSlot": "fullDay",
+      "price": 56300,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price369",
+      "venueId": "venue4",
+      "date": "2026-06-19",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price370",
+      "venueId": "venue4",
+      "date": "2026-06-19",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price371",
+      "venueId": "venue4",
+      "date": "2026-06-19",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price372",
+      "venueId": "venue4",
+      "date": "2026-06-19",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price373",
+      "venueId": "venue4",
+      "date": "2026-06-20",
+      "timeSlot": "morning",
+      "price": 18000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price374",
+      "venueId": "venue4",
+      "date": "2026-06-20",
+      "timeSlot": "afternoon",
+      "price": 19800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price375",
+      "venueId": "venue4",
+      "date": "2026-06-20",
+      "timeSlot": "evening",
+      "price": 23400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price376",
+      "venueId": "venue4",
+      "date": "2026-06-20",
+      "timeSlot": "fullDay",
+      "price": 45000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price377",
+      "venueId": "venue4",
+      "date": "2026-06-21",
+      "timeSlot": "morning",
+      "price": 18000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price378",
+      "venueId": "venue4",
+      "date": "2026-06-21",
+      "timeSlot": "afternoon",
+      "price": 19800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price379",
+      "venueId": "venue4",
+      "date": "2026-06-21",
+      "timeSlot": "evening",
+      "price": 23400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price380",
+      "venueId": "venue4",
+      "date": "2026-06-21",
+      "timeSlot": "fullDay",
+      "price": 45000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price381",
+      "venueId": "venue4",
+      "date": "2026-06-22",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price382",
+      "venueId": "venue4",
+      "date": "2026-06-22",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price383",
+      "venueId": "venue4",
+      "date": "2026-06-22",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price384",
+      "venueId": "venue4",
+      "date": "2026-06-22",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price385",
+      "venueId": "venue4",
+      "date": "2026-06-23",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price386",
+      "venueId": "venue4",
+      "date": "2026-06-23",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price387",
+      "venueId": "venue4",
+      "date": "2026-06-23",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price388",
+      "venueId": "venue4",
+      "date": "2026-06-23",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price389",
+      "venueId": "venue4",
+      "date": "2026-06-24",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price390",
+      "venueId": "venue4",
+      "date": "2026-06-24",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price391",
+      "venueId": "venue4",
+      "date": "2026-06-24",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price392",
+      "venueId": "venue4",
+      "date": "2026-06-24",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price393",
+      "venueId": "venue4",
+      "date": "2026-06-25",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price394",
+      "venueId": "venue4",
+      "date": "2026-06-25",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price395",
+      "venueId": "venue4",
+      "date": "2026-06-25",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price396",
+      "venueId": "venue4",
+      "date": "2026-06-25",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price397",
+      "venueId": "venue4",
+      "date": "2026-06-26",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price398",
+      "venueId": "venue4",
+      "date": "2026-06-26",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price399",
+      "venueId": "venue4",
+      "date": "2026-06-26",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price400",
+      "venueId": "venue4",
+      "date": "2026-06-26",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price401",
+      "venueId": "venue4",
+      "date": "2026-06-27",
+      "timeSlot": "morning",
+      "price": 18000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price402",
+      "venueId": "venue4",
+      "date": "2026-06-27",
+      "timeSlot": "afternoon",
+      "price": 19800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price403",
+      "venueId": "venue4",
+      "date": "2026-06-27",
+      "timeSlot": "evening",
+      "price": 23400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price404",
+      "venueId": "venue4",
+      "date": "2026-06-27",
+      "timeSlot": "fullDay",
+      "price": 45000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price405",
+      "venueId": "venue4",
+      "date": "2026-06-28",
+      "timeSlot": "morning",
+      "price": 18000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price406",
+      "venueId": "venue4",
+      "date": "2026-06-28",
+      "timeSlot": "afternoon",
+      "price": 19800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price407",
+      "venueId": "venue4",
+      "date": "2026-06-28",
+      "timeSlot": "evening",
+      "price": 23400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price408",
+      "venueId": "venue4",
+      "date": "2026-06-28",
+      "timeSlot": "fullDay",
+      "price": 45000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price409",
+      "venueId": "venue4",
+      "date": "2026-06-29",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price410",
+      "venueId": "venue4",
+      "date": "2026-06-29",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price411",
+      "venueId": "venue4",
+      "date": "2026-06-29",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price412",
+      "venueId": "venue4",
+      "date": "2026-06-29",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price413",
+      "venueId": "venue4",
+      "date": "2026-06-30",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price414",
+      "venueId": "venue4",
+      "date": "2026-06-30",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price415",
+      "venueId": "venue4",
+      "date": "2026-06-30",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price416",
+      "venueId": "venue4",
+      "date": "2026-06-30",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price417",
+      "venueId": "venue4",
+      "date": "2026-07-01",
+      "timeSlot": "morning",
+      "price": 22500,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price418",
+      "venueId": "venue4",
+      "date": "2026-07-01",
+      "timeSlot": "afternoon",
+      "price": 24800,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price419",
+      "venueId": "venue4",
+      "date": "2026-07-01",
+      "timeSlot": "evening",
+      "price": 29300,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price420",
+      "venueId": "venue4",
+      "date": "2026-07-01",
+      "timeSlot": "fullDay",
+      "price": 56300,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price421",
+      "venueId": "venue4",
+      "date": "2026-07-02",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price422",
+      "venueId": "venue4",
+      "date": "2026-07-02",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price423",
+      "venueId": "venue4",
+      "date": "2026-07-02",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price424",
+      "venueId": "venue4",
+      "date": "2026-07-02",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price425",
+      "venueId": "venue4",
+      "date": "2026-07-03",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price426",
+      "venueId": "venue4",
+      "date": "2026-07-03",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price427",
+      "venueId": "venue4",
+      "date": "2026-07-03",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price428",
+      "venueId": "venue4",
+      "date": "2026-07-03",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price429",
+      "venueId": "venue4",
+      "date": "2026-07-04",
+      "timeSlot": "morning",
+      "price": 18000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price430",
+      "venueId": "venue4",
+      "date": "2026-07-04",
+      "timeSlot": "afternoon",
+      "price": 19800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price431",
+      "venueId": "venue4",
+      "date": "2026-07-04",
+      "timeSlot": "evening",
+      "price": 23400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price432",
+      "venueId": "venue4",
+      "date": "2026-07-04",
+      "timeSlot": "fullDay",
+      "price": 45000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price433",
+      "venueId": "venue4",
+      "date": "2026-07-05",
+      "timeSlot": "morning",
+      "price": 18000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price434",
+      "venueId": "venue4",
+      "date": "2026-07-05",
+      "timeSlot": "afternoon",
+      "price": 19800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price435",
+      "venueId": "venue4",
+      "date": "2026-07-05",
+      "timeSlot": "evening",
+      "price": 23400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price436",
+      "venueId": "venue4",
+      "date": "2026-07-05",
+      "timeSlot": "fullDay",
+      "price": 45000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price437",
+      "venueId": "venue4",
+      "date": "2026-07-06",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price438",
+      "venueId": "venue4",
+      "date": "2026-07-06",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price439",
+      "venueId": "venue4",
+      "date": "2026-07-06",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price440",
+      "venueId": "venue4",
+      "date": "2026-07-06",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price441",
+      "venueId": "venue4",
+      "date": "2026-07-07",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price442",
+      "venueId": "venue4",
+      "date": "2026-07-07",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price443",
+      "venueId": "venue4",
+      "date": "2026-07-07",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price444",
+      "venueId": "venue4",
+      "date": "2026-07-07",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price445",
+      "venueId": "venue4",
+      "date": "2026-07-08",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price446",
+      "venueId": "venue4",
+      "date": "2026-07-08",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price447",
+      "venueId": "venue4",
+      "date": "2026-07-08",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price448",
+      "venueId": "venue4",
+      "date": "2026-07-08",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price449",
+      "venueId": "venue4",
+      "date": "2026-07-09",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price450",
+      "venueId": "venue4",
+      "date": "2026-07-09",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price451",
+      "venueId": "venue4",
+      "date": "2026-07-09",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price452",
+      "venueId": "venue4",
+      "date": "2026-07-09",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price453",
+      "venueId": "venue4",
+      "date": "2026-07-10",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price454",
+      "venueId": "venue4",
+      "date": "2026-07-10",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price455",
+      "venueId": "venue4",
+      "date": "2026-07-10",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price456",
+      "venueId": "venue4",
+      "date": "2026-07-10",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price457",
+      "venueId": "venue4",
+      "date": "2026-07-11",
+      "timeSlot": "morning",
+      "price": 18000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price458",
+      "venueId": "venue4",
+      "date": "2026-07-11",
+      "timeSlot": "afternoon",
+      "price": 19800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price459",
+      "venueId": "venue4",
+      "date": "2026-07-11",
+      "timeSlot": "evening",
+      "price": 23400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price460",
+      "venueId": "venue4",
+      "date": "2026-07-11",
+      "timeSlot": "fullDay",
+      "price": 45000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price461",
+      "venueId": "venue4",
+      "date": "2026-07-12",
+      "timeSlot": "morning",
+      "price": 18000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price462",
+      "venueId": "venue4",
+      "date": "2026-07-12",
+      "timeSlot": "afternoon",
+      "price": 19800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price463",
+      "venueId": "venue4",
+      "date": "2026-07-12",
+      "timeSlot": "evening",
+      "price": 23400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price464",
+      "venueId": "venue4",
+      "date": "2026-07-12",
+      "timeSlot": "fullDay",
+      "price": 45000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price465",
+      "venueId": "venue4",
+      "date": "2026-07-13",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price466",
+      "venueId": "venue4",
+      "date": "2026-07-13",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price467",
+      "venueId": "venue4",
+      "date": "2026-07-13",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price468",
+      "venueId": "venue4",
+      "date": "2026-07-13",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price469",
+      "venueId": "venue4",
+      "date": "2026-07-14",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price470",
+      "venueId": "venue4",
+      "date": "2026-07-14",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price471",
+      "venueId": "venue4",
+      "date": "2026-07-14",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price472",
+      "venueId": "venue4",
+      "date": "2026-07-14",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price473",
+      "venueId": "venue4",
+      "date": "2026-07-15",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price474",
+      "venueId": "venue4",
+      "date": "2026-07-15",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price475",
+      "venueId": "venue4",
+      "date": "2026-07-15",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price476",
+      "venueId": "venue4",
+      "date": "2026-07-15",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price477",
+      "venueId": "venue4",
+      "date": "2026-07-16",
+      "timeSlot": "morning",
+      "price": 15000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price478",
+      "venueId": "venue4",
+      "date": "2026-07-16",
+      "timeSlot": "afternoon",
+      "price": 16500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price479",
+      "venueId": "venue4",
+      "date": "2026-07-16",
+      "timeSlot": "evening",
+      "price": 19500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price480",
+      "venueId": "venue4",
+      "date": "2026-07-16",
+      "timeSlot": "fullDay",
+      "price": 37500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price481",
+      "venueId": "venue5",
+      "date": "2026-06-17",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price482",
+      "venueId": "venue5",
+      "date": "2026-06-17",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price483",
+      "venueId": "venue5",
+      "date": "2026-06-17",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price484",
+      "venueId": "venue5",
+      "date": "2026-06-17",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price485",
+      "venueId": "venue5",
+      "date": "2026-06-18",
+      "timeSlot": "morning",
+      "price": 52500,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price486",
+      "venueId": "venue5",
+      "date": "2026-06-18",
+      "timeSlot": "afternoon",
+      "price": 57800,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price487",
+      "venueId": "venue5",
+      "date": "2026-06-18",
+      "timeSlot": "evening",
+      "price": 68300,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price488",
+      "venueId": "venue5",
+      "date": "2026-06-18",
+      "timeSlot": "fullDay",
+      "price": 131300,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price489",
+      "venueId": "venue5",
+      "date": "2026-06-19",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price490",
+      "venueId": "venue5",
+      "date": "2026-06-19",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price491",
+      "venueId": "venue5",
+      "date": "2026-06-19",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price492",
+      "venueId": "venue5",
+      "date": "2026-06-19",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price493",
+      "venueId": "venue5",
+      "date": "2026-06-20",
+      "timeSlot": "morning",
+      "price": 42000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price494",
+      "venueId": "venue5",
+      "date": "2026-06-20",
+      "timeSlot": "afternoon",
+      "price": 46200,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price495",
+      "venueId": "venue5",
+      "date": "2026-06-20",
+      "timeSlot": "evening",
+      "price": 54600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price496",
+      "venueId": "venue5",
+      "date": "2026-06-20",
+      "timeSlot": "fullDay",
+      "price": 105000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price497",
+      "venueId": "venue5",
+      "date": "2026-06-21",
+      "timeSlot": "morning",
+      "price": 42000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price498",
+      "venueId": "venue5",
+      "date": "2026-06-21",
+      "timeSlot": "afternoon",
+      "price": 46200,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price499",
+      "venueId": "venue5",
+      "date": "2026-06-21",
+      "timeSlot": "evening",
+      "price": 54600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price500",
+      "venueId": "venue5",
+      "date": "2026-06-21",
+      "timeSlot": "fullDay",
+      "price": 105000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price501",
+      "venueId": "venue5",
+      "date": "2026-06-22",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price502",
+      "venueId": "venue5",
+      "date": "2026-06-22",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price503",
+      "venueId": "venue5",
+      "date": "2026-06-22",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price504",
+      "venueId": "venue5",
+      "date": "2026-06-22",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price505",
+      "venueId": "venue5",
+      "date": "2026-06-23",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price506",
+      "venueId": "venue5",
+      "date": "2026-06-23",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price507",
+      "venueId": "venue5",
+      "date": "2026-06-23",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price508",
+      "venueId": "venue5",
+      "date": "2026-06-23",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price509",
+      "venueId": "venue5",
+      "date": "2026-06-24",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price510",
+      "venueId": "venue5",
+      "date": "2026-06-24",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price511",
+      "venueId": "venue5",
+      "date": "2026-06-24",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price512",
+      "venueId": "venue5",
+      "date": "2026-06-24",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price513",
+      "venueId": "venue5",
+      "date": "2026-06-25",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price514",
+      "venueId": "venue5",
+      "date": "2026-06-25",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price515",
+      "venueId": "venue5",
+      "date": "2026-06-25",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price516",
+      "venueId": "venue5",
+      "date": "2026-06-25",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price517",
+      "venueId": "venue5",
+      "date": "2026-06-26",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price518",
+      "venueId": "venue5",
+      "date": "2026-06-26",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price519",
+      "venueId": "venue5",
+      "date": "2026-06-26",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price520",
+      "venueId": "venue5",
+      "date": "2026-06-26",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price521",
+      "venueId": "venue5",
+      "date": "2026-06-27",
+      "timeSlot": "morning",
+      "price": 42000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price522",
+      "venueId": "venue5",
+      "date": "2026-06-27",
+      "timeSlot": "afternoon",
+      "price": 46200,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price523",
+      "venueId": "venue5",
+      "date": "2026-06-27",
+      "timeSlot": "evening",
+      "price": 54600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price524",
+      "venueId": "venue5",
+      "date": "2026-06-27",
+      "timeSlot": "fullDay",
+      "price": 105000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price525",
+      "venueId": "venue5",
+      "date": "2026-06-28",
+      "timeSlot": "morning",
+      "price": 42000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price526",
+      "venueId": "venue5",
+      "date": "2026-06-28",
+      "timeSlot": "afternoon",
+      "price": 46200,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price527",
+      "venueId": "venue5",
+      "date": "2026-06-28",
+      "timeSlot": "evening",
+      "price": 54600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price528",
+      "venueId": "venue5",
+      "date": "2026-06-28",
+      "timeSlot": "fullDay",
+      "price": 105000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price529",
+      "venueId": "venue5",
+      "date": "2026-06-29",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price530",
+      "venueId": "venue5",
+      "date": "2026-06-29",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price531",
+      "venueId": "venue5",
+      "date": "2026-06-29",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price532",
+      "venueId": "venue5",
+      "date": "2026-06-29",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price533",
+      "venueId": "venue5",
+      "date": "2026-06-30",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price534",
+      "venueId": "venue5",
+      "date": "2026-06-30",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price535",
+      "venueId": "venue5",
+      "date": "2026-06-30",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price536",
+      "venueId": "venue5",
+      "date": "2026-06-30",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price537",
+      "venueId": "venue5",
+      "date": "2026-07-01",
+      "timeSlot": "morning",
+      "price": 52500,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price538",
+      "venueId": "venue5",
+      "date": "2026-07-01",
+      "timeSlot": "afternoon",
+      "price": 57800,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price539",
+      "venueId": "venue5",
+      "date": "2026-07-01",
+      "timeSlot": "evening",
+      "price": 68300,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price540",
+      "venueId": "venue5",
+      "date": "2026-07-01",
+      "timeSlot": "fullDay",
+      "price": 131300,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price541",
+      "venueId": "venue5",
+      "date": "2026-07-02",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price542",
+      "venueId": "venue5",
+      "date": "2026-07-02",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price543",
+      "venueId": "venue5",
+      "date": "2026-07-02",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price544",
+      "venueId": "venue5",
+      "date": "2026-07-02",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price545",
+      "venueId": "venue5",
+      "date": "2026-07-03",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price546",
+      "venueId": "venue5",
+      "date": "2026-07-03",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price547",
+      "venueId": "venue5",
+      "date": "2026-07-03",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price548",
+      "venueId": "venue5",
+      "date": "2026-07-03",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price549",
+      "venueId": "venue5",
+      "date": "2026-07-04",
+      "timeSlot": "morning",
+      "price": 42000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price550",
+      "venueId": "venue5",
+      "date": "2026-07-04",
+      "timeSlot": "afternoon",
+      "price": 46200,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price551",
+      "venueId": "venue5",
+      "date": "2026-07-04",
+      "timeSlot": "evening",
+      "price": 54600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price552",
+      "venueId": "venue5",
+      "date": "2026-07-04",
+      "timeSlot": "fullDay",
+      "price": 105000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price553",
+      "venueId": "venue5",
+      "date": "2026-07-05",
+      "timeSlot": "morning",
+      "price": 42000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price554",
+      "venueId": "venue5",
+      "date": "2026-07-05",
+      "timeSlot": "afternoon",
+      "price": 46200,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price555",
+      "venueId": "venue5",
+      "date": "2026-07-05",
+      "timeSlot": "evening",
+      "price": 54600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price556",
+      "venueId": "venue5",
+      "date": "2026-07-05",
+      "timeSlot": "fullDay",
+      "price": 105000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price557",
+      "venueId": "venue5",
+      "date": "2026-07-06",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price558",
+      "venueId": "venue5",
+      "date": "2026-07-06",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price559",
+      "venueId": "venue5",
+      "date": "2026-07-06",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price560",
+      "venueId": "venue5",
+      "date": "2026-07-06",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price561",
+      "venueId": "venue5",
+      "date": "2026-07-07",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price562",
+      "venueId": "venue5",
+      "date": "2026-07-07",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price563",
+      "venueId": "venue5",
+      "date": "2026-07-07",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price564",
+      "venueId": "venue5",
+      "date": "2026-07-07",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price565",
+      "venueId": "venue5",
+      "date": "2026-07-08",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price566",
+      "venueId": "venue5",
+      "date": "2026-07-08",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price567",
+      "venueId": "venue5",
+      "date": "2026-07-08",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price568",
+      "venueId": "venue5",
+      "date": "2026-07-08",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price569",
+      "venueId": "venue5",
+      "date": "2026-07-09",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price570",
+      "venueId": "venue5",
+      "date": "2026-07-09",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price571",
+      "venueId": "venue5",
+      "date": "2026-07-09",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price572",
+      "venueId": "venue5",
+      "date": "2026-07-09",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price573",
+      "venueId": "venue5",
+      "date": "2026-07-10",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price574",
+      "venueId": "venue5",
+      "date": "2026-07-10",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price575",
+      "venueId": "venue5",
+      "date": "2026-07-10",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price576",
+      "venueId": "venue5",
+      "date": "2026-07-10",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price577",
+      "venueId": "venue5",
+      "date": "2026-07-11",
+      "timeSlot": "morning",
+      "price": 42000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price578",
+      "venueId": "venue5",
+      "date": "2026-07-11",
+      "timeSlot": "afternoon",
+      "price": 46200,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price579",
+      "venueId": "venue5",
+      "date": "2026-07-11",
+      "timeSlot": "evening",
+      "price": 54600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price580",
+      "venueId": "venue5",
+      "date": "2026-07-11",
+      "timeSlot": "fullDay",
+      "price": 105000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price581",
+      "venueId": "venue5",
+      "date": "2026-07-12",
+      "timeSlot": "morning",
+      "price": 42000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price582",
+      "venueId": "venue5",
+      "date": "2026-07-12",
+      "timeSlot": "afternoon",
+      "price": 46200,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price583",
+      "venueId": "venue5",
+      "date": "2026-07-12",
+      "timeSlot": "evening",
+      "price": 54600,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price584",
+      "venueId": "venue5",
+      "date": "2026-07-12",
+      "timeSlot": "fullDay",
+      "price": 105000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price585",
+      "venueId": "venue5",
+      "date": "2026-07-13",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price586",
+      "venueId": "venue5",
+      "date": "2026-07-13",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price587",
+      "venueId": "venue5",
+      "date": "2026-07-13",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price588",
+      "venueId": "venue5",
+      "date": "2026-07-13",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price589",
+      "venueId": "venue5",
+      "date": "2026-07-14",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price590",
+      "venueId": "venue5",
+      "date": "2026-07-14",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price591",
+      "venueId": "venue5",
+      "date": "2026-07-14",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price592",
+      "venueId": "venue5",
+      "date": "2026-07-14",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price593",
+      "venueId": "venue5",
+      "date": "2026-07-15",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price594",
+      "venueId": "venue5",
+      "date": "2026-07-15",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price595",
+      "venueId": "venue5",
+      "date": "2026-07-15",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price596",
+      "venueId": "venue5",
+      "date": "2026-07-15",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price597",
+      "venueId": "venue5",
+      "date": "2026-07-16",
+      "timeSlot": "morning",
+      "price": 35000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price598",
+      "venueId": "venue5",
+      "date": "2026-07-16",
+      "timeSlot": "afternoon",
+      "price": 38500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price599",
+      "venueId": "venue5",
+      "date": "2026-07-16",
+      "timeSlot": "evening",
+      "price": 45500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price600",
+      "venueId": "venue5",
+      "date": "2026-07-16",
+      "timeSlot": "fullDay",
+      "price": 87500,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price601",
+      "venueId": "venue6",
+      "date": "2026-06-17",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price602",
+      "venueId": "venue6",
+      "date": "2026-06-17",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price603",
+      "venueId": "venue6",
+      "date": "2026-06-17",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price604",
+      "venueId": "venue6",
+      "date": "2026-06-17",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price605",
+      "venueId": "venue6",
+      "date": "2026-06-18",
+      "timeSlot": "morning",
+      "price": 18000,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price606",
+      "venueId": "venue6",
+      "date": "2026-06-18",
+      "timeSlot": "afternoon",
+      "price": 19800,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price607",
+      "venueId": "venue6",
+      "date": "2026-06-18",
+      "timeSlot": "evening",
+      "price": 23400,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price608",
+      "venueId": "venue6",
+      "date": "2026-06-18",
+      "timeSlot": "fullDay",
+      "price": 45000,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price609",
+      "venueId": "venue6",
+      "date": "2026-06-19",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price610",
+      "venueId": "venue6",
+      "date": "2026-06-19",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price611",
+      "venueId": "venue6",
+      "date": "2026-06-19",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price612",
+      "venueId": "venue6",
+      "date": "2026-06-19",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price613",
+      "venueId": "venue6",
+      "date": "2026-06-20",
+      "timeSlot": "morning",
+      "price": 14400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price614",
+      "venueId": "venue6",
+      "date": "2026-06-20",
+      "timeSlot": "afternoon",
+      "price": 15800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price615",
+      "venueId": "venue6",
+      "date": "2026-06-20",
+      "timeSlot": "evening",
+      "price": 18700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price616",
+      "venueId": "venue6",
+      "date": "2026-06-20",
+      "timeSlot": "fullDay",
+      "price": 36000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price617",
+      "venueId": "venue6",
+      "date": "2026-06-21",
+      "timeSlot": "morning",
+      "price": 14400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price618",
+      "venueId": "venue6",
+      "date": "2026-06-21",
+      "timeSlot": "afternoon",
+      "price": 15800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price619",
+      "venueId": "venue6",
+      "date": "2026-06-21",
+      "timeSlot": "evening",
+      "price": 18700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price620",
+      "venueId": "venue6",
+      "date": "2026-06-21",
+      "timeSlot": "fullDay",
+      "price": 36000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price621",
+      "venueId": "venue6",
+      "date": "2026-06-22",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price622",
+      "venueId": "venue6",
+      "date": "2026-06-22",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price623",
+      "venueId": "venue6",
+      "date": "2026-06-22",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price624",
+      "venueId": "venue6",
+      "date": "2026-06-22",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price625",
+      "venueId": "venue6",
+      "date": "2026-06-23",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price626",
+      "venueId": "venue6",
+      "date": "2026-06-23",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price627",
+      "venueId": "venue6",
+      "date": "2026-06-23",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price628",
+      "venueId": "venue6",
+      "date": "2026-06-23",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price629",
+      "venueId": "venue6",
+      "date": "2026-06-24",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price630",
+      "venueId": "venue6",
+      "date": "2026-06-24",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price631",
+      "venueId": "venue6",
+      "date": "2026-06-24",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price632",
+      "venueId": "venue6",
+      "date": "2026-06-24",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price633",
+      "venueId": "venue6",
+      "date": "2026-06-25",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price634",
+      "venueId": "venue6",
+      "date": "2026-06-25",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price635",
+      "venueId": "venue6",
+      "date": "2026-06-25",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price636",
+      "venueId": "venue6",
+      "date": "2026-06-25",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price637",
+      "venueId": "venue6",
+      "date": "2026-06-26",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price638",
+      "venueId": "venue6",
+      "date": "2026-06-26",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price639",
+      "venueId": "venue6",
+      "date": "2026-06-26",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price640",
+      "venueId": "venue6",
+      "date": "2026-06-26",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price641",
+      "venueId": "venue6",
+      "date": "2026-06-27",
+      "timeSlot": "morning",
+      "price": 14400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price642",
+      "venueId": "venue6",
+      "date": "2026-06-27",
+      "timeSlot": "afternoon",
+      "price": 15800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price643",
+      "venueId": "venue6",
+      "date": "2026-06-27",
+      "timeSlot": "evening",
+      "price": 18700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price644",
+      "venueId": "venue6",
+      "date": "2026-06-27",
+      "timeSlot": "fullDay",
+      "price": 36000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price645",
+      "venueId": "venue6",
+      "date": "2026-06-28",
+      "timeSlot": "morning",
+      "price": 14400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price646",
+      "venueId": "venue6",
+      "date": "2026-06-28",
+      "timeSlot": "afternoon",
+      "price": 15800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price647",
+      "venueId": "venue6",
+      "date": "2026-06-28",
+      "timeSlot": "evening",
+      "price": 18700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price648",
+      "venueId": "venue6",
+      "date": "2026-06-28",
+      "timeSlot": "fullDay",
+      "price": 36000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price649",
+      "venueId": "venue6",
+      "date": "2026-06-29",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price650",
+      "venueId": "venue6",
+      "date": "2026-06-29",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price651",
+      "venueId": "venue6",
+      "date": "2026-06-29",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price652",
+      "venueId": "venue6",
+      "date": "2026-06-29",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price653",
+      "venueId": "venue6",
+      "date": "2026-06-30",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price654",
+      "venueId": "venue6",
+      "date": "2026-06-30",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price655",
+      "venueId": "venue6",
+      "date": "2026-06-30",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price656",
+      "venueId": "venue6",
+      "date": "2026-06-30",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price657",
+      "venueId": "venue6",
+      "date": "2026-07-01",
+      "timeSlot": "morning",
+      "price": 18000,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price658",
+      "venueId": "venue6",
+      "date": "2026-07-01",
+      "timeSlot": "afternoon",
+      "price": 19800,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price659",
+      "venueId": "venue6",
+      "date": "2026-07-01",
+      "timeSlot": "evening",
+      "price": 23400,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price660",
+      "venueId": "venue6",
+      "date": "2026-07-01",
+      "timeSlot": "fullDay",
+      "price": 45000,
+      "isHoliday": true,
+      "isWeekend": false
+    },
+    {
+      "id": "price661",
+      "venueId": "venue6",
+      "date": "2026-07-02",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price662",
+      "venueId": "venue6",
+      "date": "2026-07-02",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price663",
+      "venueId": "venue6",
+      "date": "2026-07-02",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price664",
+      "venueId": "venue6",
+      "date": "2026-07-02",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price665",
+      "venueId": "venue6",
+      "date": "2026-07-03",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price666",
+      "venueId": "venue6",
+      "date": "2026-07-03",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price667",
+      "venueId": "venue6",
+      "date": "2026-07-03",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price668",
+      "venueId": "venue6",
+      "date": "2026-07-03",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price669",
+      "venueId": "venue6",
+      "date": "2026-07-04",
+      "timeSlot": "morning",
+      "price": 14400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price670",
+      "venueId": "venue6",
+      "date": "2026-07-04",
+      "timeSlot": "afternoon",
+      "price": 15800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price671",
+      "venueId": "venue6",
+      "date": "2026-07-04",
+      "timeSlot": "evening",
+      "price": 18700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price672",
+      "venueId": "venue6",
+      "date": "2026-07-04",
+      "timeSlot": "fullDay",
+      "price": 36000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price673",
+      "venueId": "venue6",
+      "date": "2026-07-05",
+      "timeSlot": "morning",
+      "price": 14400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price674",
+      "venueId": "venue6",
+      "date": "2026-07-05",
+      "timeSlot": "afternoon",
+      "price": 15800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price675",
+      "venueId": "venue6",
+      "date": "2026-07-05",
+      "timeSlot": "evening",
+      "price": 18700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price676",
+      "venueId": "venue6",
+      "date": "2026-07-05",
+      "timeSlot": "fullDay",
+      "price": 36000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price677",
+      "venueId": "venue6",
+      "date": "2026-07-06",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price678",
+      "venueId": "venue6",
+      "date": "2026-07-06",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price679",
+      "venueId": "venue6",
+      "date": "2026-07-06",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price680",
+      "venueId": "venue6",
+      "date": "2026-07-06",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price681",
+      "venueId": "venue6",
+      "date": "2026-07-07",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price682",
+      "venueId": "venue6",
+      "date": "2026-07-07",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price683",
+      "venueId": "venue6",
+      "date": "2026-07-07",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price684",
+      "venueId": "venue6",
+      "date": "2026-07-07",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price685",
+      "venueId": "venue6",
+      "date": "2026-07-08",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price686",
+      "venueId": "venue6",
+      "date": "2026-07-08",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price687",
+      "venueId": "venue6",
+      "date": "2026-07-08",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price688",
+      "venueId": "venue6",
+      "date": "2026-07-08",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price689",
+      "venueId": "venue6",
+      "date": "2026-07-09",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price690",
+      "venueId": "venue6",
+      "date": "2026-07-09",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price691",
+      "venueId": "venue6",
+      "date": "2026-07-09",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price692",
+      "venueId": "venue6",
+      "date": "2026-07-09",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price693",
+      "venueId": "venue6",
+      "date": "2026-07-10",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price694",
+      "venueId": "venue6",
+      "date": "2026-07-10",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price695",
+      "venueId": "venue6",
+      "date": "2026-07-10",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price696",
+      "venueId": "venue6",
+      "date": "2026-07-10",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price697",
+      "venueId": "venue6",
+      "date": "2026-07-11",
+      "timeSlot": "morning",
+      "price": 14400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price698",
+      "venueId": "venue6",
+      "date": "2026-07-11",
+      "timeSlot": "afternoon",
+      "price": 15800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price699",
+      "venueId": "venue6",
+      "date": "2026-07-11",
+      "timeSlot": "evening",
+      "price": 18700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price700",
+      "venueId": "venue6",
+      "date": "2026-07-11",
+      "timeSlot": "fullDay",
+      "price": 36000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price701",
+      "venueId": "venue6",
+      "date": "2026-07-12",
+      "timeSlot": "morning",
+      "price": 14400,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price702",
+      "venueId": "venue6",
+      "date": "2026-07-12",
+      "timeSlot": "afternoon",
+      "price": 15800,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price703",
+      "venueId": "venue6",
+      "date": "2026-07-12",
+      "timeSlot": "evening",
+      "price": 18700,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price704",
+      "venueId": "venue6",
+      "date": "2026-07-12",
+      "timeSlot": "fullDay",
+      "price": 36000,
+      "isHoliday": false,
+      "isWeekend": true
+    },
+    {
+      "id": "price705",
+      "venueId": "venue6",
+      "date": "2026-07-13",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price706",
+      "venueId": "venue6",
+      "date": "2026-07-13",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price707",
+      "venueId": "venue6",
+      "date": "2026-07-13",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price708",
+      "venueId": "venue6",
+      "date": "2026-07-13",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price709",
+      "venueId": "venue6",
+      "date": "2026-07-14",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price710",
+      "venueId": "venue6",
+      "date": "2026-07-14",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price711",
+      "venueId": "venue6",
+      "date": "2026-07-14",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price712",
+      "venueId": "venue6",
+      "date": "2026-07-14",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price713",
+      "venueId": "venue6",
+      "date": "2026-07-15",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price714",
+      "venueId": "venue6",
+      "date": "2026-07-15",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price715",
+      "venueId": "venue6",
+      "date": "2026-07-15",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price716",
+      "venueId": "venue6",
+      "date": "2026-07-15",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price717",
+      "venueId": "venue6",
+      "date": "2026-07-16",
+      "timeSlot": "morning",
+      "price": 12000,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price718",
+      "venueId": "venue6",
+      "date": "2026-07-16",
+      "timeSlot": "afternoon",
+      "price": 13200,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price719",
+      "venueId": "venue6",
+      "date": "2026-07-16",
+      "timeSlot": "evening",
+      "price": 15600,
+      "isHoliday": false,
+      "isWeekend": false
+    },
+    {
+      "id": "price720",
+      "venueId": "venue6",
+      "date": "2026-07-16",
+      "timeSlot": "fullDay",
+      "price": 30000,
+      "isHoliday": false,
+      "isWeekend": false
+    }
+  ],
+  "services": [
+    {
+      "id": "service1",
+      "venueId": "venue1",
+      "name": "中式婚宴套餐",
+      "category": "catering",
+      "price": 4267,
+      "unit": "桌",
+      "description": "精致中式菜肴，10人/桌，含冷盘、热菜、汤品、主食、甜品",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=catering%20%E4%B8%AD%E5%BC%8F%E5%A9%9A%E5%AE%B4%E5%A5%97%E9%A4%90%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service2",
+      "venueId": "venue1",
+      "name": "婚礼花艺布置",
+      "category": "decoration",
+      "price": 8021,
+      "unit": "套",
+      "description": "婚礼全场花艺布置，含迎宾区、仪式区、餐桌花艺",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=decoration%20%E5%A9%9A%E7%A4%BC%E8%8A%B1%E8%89%BA%E5%B8%83%E7%BD%AE%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service3",
+      "venueId": "venue1",
+      "name": "摄影摄像服务",
+      "category": "other",
+      "price": 6984,
+      "unit": "场",
+      "description": "专业摄影师全程跟拍，精修照片50张，全程录像剪辑",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=other%20%E6%91%84%E5%BD%B1%E6%91%84%E5%83%8F%E6%9C%8D%E5%8A%A1%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service4",
+      "venueId": "venue1",
+      "name": "主持人服务",
+      "category": "other",
+      "price": 6261,
+      "unit": "场",
+      "description": "专业活动主持人，含前期沟通、流程策划、现场主持",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=other%20%E4%B8%BB%E6%8C%81%E4%BA%BA%E6%9C%8D%E5%8A%A1%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service5",
+      "venueId": "venue1",
+      "name": "专业音响系统",
+      "category": "audio",
+      "price": 6669,
+      "unit": "套",
+      "description": "专业线阵音响系统，含无线话筒4支、调音台、专业音效师",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=audio%20%E4%B8%93%E4%B8%9A%E9%9F%B3%E5%93%8D%E7%B3%BB%E7%BB%9F%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service6",
+      "venueId": "venue2",
+      "name": "西式自助餐",
+      "category": "catering",
+      "price": 1257,
+      "unit": "人",
+      "description": "精选西式自助餐，开胃菜、主菜、甜点、饮品无限供应",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=catering%20%E8%A5%BF%E5%BC%8F%E8%87%AA%E5%8A%A9%E9%A4%90%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service7",
+      "venueId": "venue2",
+      "name": "专业音响系统",
+      "category": "audio",
+      "price": 5185,
+      "unit": "套",
+      "description": "专业线阵音响系统，含无线话筒4支、调音台、专业音效师",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=audio%20%E4%B8%93%E4%B8%9A%E9%9F%B3%E5%93%8D%E7%B3%BB%E7%BB%9F%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service8",
+      "venueId": "venue2",
+      "name": "灯光设计服务",
+      "category": "decoration",
+      "price": 9400,
+      "unit": "套",
+      "description": "专业灯光设计+现场执行，营造完美氛围",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=decoration%20%E7%81%AF%E5%85%89%E8%AE%BE%E8%AE%A1%E6%9C%8D%E5%8A%A1%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service9",
+      "venueId": "venue2",
+      "name": "鸡尾酒会",
+      "category": "catering",
+      "price": 1824,
+      "unit": "人",
+      "description": "精选鸡尾酒、葡萄酒、小食拼盘，适合商务招待和社交活动",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=catering%20%E9%B8%A1%E5%B0%BE%E9%85%92%E4%BC%9A%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service10",
+      "venueId": "venue3",
+      "name": "LED大屏租赁",
+      "category": "audio",
+      "price": 2200,
+      "unit": "平米",
+      "description": "P3高清LED显示屏，可定制尺寸，含安装调试",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=audio%20LED%E5%A4%A7%E5%B1%8F%E7%A7%9F%E8%B5%81%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service11",
+      "venueId": "venue3",
+      "name": "同声传译设备",
+      "category": "audio",
+      "price": 15906,
+      "unit": "套",
+      "description": "专业同声传译系统，含翻译间、接收机200台、技术支持",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=audio%20%E5%90%8C%E5%A3%B0%E4%BC%A0%E8%AF%91%E8%AE%BE%E5%A4%87%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service12",
+      "venueId": "venue3",
+      "name": "茶歇服务",
+      "category": "catering",
+      "price": 2045,
+      "unit": "人",
+      "description": "精致茶点、咖啡、茶饮，适合会议和活动中场休息",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=catering%20%E8%8C%B6%E6%AD%87%E6%9C%8D%E5%8A%A1%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service13",
+      "venueId": "venue3",
+      "name": "舞台背景搭建",
+      "category": "decoration",
+      "price": 11938,
+      "unit": "套",
+      "description": "专业舞台背景板搭建，含喷绘画面、灯光效果",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=decoration%20%E8%88%9E%E5%8F%B0%E8%83%8C%E6%99%AF%E6%90%AD%E5%BB%BA%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service14",
+      "venueId": "venue4",
+      "name": "婚礼花艺布置",
+      "category": "decoration",
+      "price": 8989,
+      "unit": "套",
+      "description": "婚礼全场花艺布置，含迎宾区、仪式区、餐桌花艺",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=decoration%20%E5%A9%9A%E7%A4%BC%E8%8A%B1%E8%89%BA%E5%B8%83%E7%BD%AE%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service15",
+      "venueId": "venue4",
+      "name": "西式自助餐",
+      "category": "catering",
+      "price": 2022,
+      "unit": "人",
+      "description": "精选西式自助餐，开胃菜、主菜、甜点、饮品无限供应",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=catering%20%E8%A5%BF%E5%BC%8F%E8%87%AA%E5%8A%A9%E9%A4%90%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service16",
+      "venueId": "venue4",
+      "name": "专业音响系统",
+      "category": "audio",
+      "price": 6039,
+      "unit": "套",
+      "description": "专业线阵音响系统，含无线话筒4支、调音台、专业音效师",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=audio%20%E4%B8%93%E4%B8%9A%E9%9F%B3%E5%93%8D%E7%B3%BB%E7%BB%9F%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service17",
+      "venueId": "venue4",
+      "name": "摄影摄像服务",
+      "category": "other",
+      "price": 6336,
+      "unit": "场",
+      "description": "专业摄影师全程跟拍，精修照片50张，全程录像剪辑",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=other%20%E6%91%84%E5%BD%B1%E6%91%84%E5%83%8F%E6%9C%8D%E5%8A%A1%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service18",
+      "venueId": "venue5",
+      "name": "同声传译设备",
+      "category": "audio",
+      "price": 15986,
+      "unit": "套",
+      "description": "专业同声传译系统，含翻译间、接收机200台、技术支持",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=audio%20%E5%90%8C%E5%A3%B0%E4%BC%A0%E8%AF%91%E8%AE%BE%E5%A4%87%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service19",
+      "venueId": "venue5",
+      "name": "茶歇服务",
+      "category": "catering",
+      "price": 843,
+      "unit": "人",
+      "description": "精致茶点、咖啡、茶饮，适合会议和活动中场休息",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=catering%20%E8%8C%B6%E6%AD%87%E6%9C%8D%E5%8A%A1%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service20",
+      "venueId": "venue5",
+      "name": "高清投影设备",
+      "category": "audio",
+      "price": 6229,
+      "unit": "套",
+      "description": "10000流明高清投影机+200寸电动幕布，含专业操作人员",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=audio%20%E9%AB%98%E6%B8%85%E6%8A%95%E5%BD%B1%E8%AE%BE%E5%A4%87%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service21",
+      "venueId": "venue5",
+      "name": "活动策划",
+      "category": "other",
+      "price": 13909,
+      "unit": "套",
+      "description": "专业活动策划团队，提供方案设计、流程规划、现场执行",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=other%20%E6%B4%BB%E5%8A%A8%E7%AD%96%E5%88%92%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service22",
+      "venueId": "venue6",
+      "name": "气球装饰",
+      "category": "decoration",
+      "price": 6655,
+      "unit": "套",
+      "description": "创意气球装饰布置，适合生日派对、宝宝宴、活动庆典",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=decoration%20%E6%B0%94%E7%90%83%E8%A3%85%E9%A5%B0%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service23",
+      "venueId": "venue6",
+      "name": "摄影摄像服务",
+      "category": "other",
+      "price": 6828,
+      "unit": "场",
+      "description": "专业摄影师全程跟拍，精修照片50张，全程录像剪辑",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=other%20%E6%91%84%E5%BD%B1%E6%91%84%E5%83%8F%E6%9C%8D%E5%8A%A1%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service24",
+      "venueId": "venue6",
+      "name": "专业音响系统",
+      "category": "audio",
+      "price": 6891,
+      "unit": "套",
+      "description": "专业线阵音响系统，含无线话筒4支、调音台、专业音效师",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=audio%20%E4%B8%93%E4%B8%9A%E9%9F%B3%E5%93%8D%E7%B3%BB%E7%BB%9F%20service%20event&image_size=square_hd"
+    },
+    {
+      "id": "service25",
+      "venueId": "venue6",
+      "name": "茶歇服务",
+      "category": "catering",
+      "price": 1788,
+      "unit": "人",
+      "description": "精致茶点、咖啡、茶饮，适合会议和活动中场休息",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=catering%20%E8%8C%B6%E6%AD%87%E6%9C%8D%E5%8A%A1%20service%20event&image_size=square_hd"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "booking1",
+      "venueId": "venue1",
+      "userId": "cust1",
+      "date": "2026-06-27",
+      "timeSlot": "fullDay",
+      "eventType": "婚礼婚宴",
+      "estimatedPeople": 300,
+      "specialRequirements": "需要中式婚礼布置，红色主题",
+      "selectedServices": [
+        {
+          "serviceId": "service1",
+          "quantity": 30
+        },
+        {
+          "serviceId": "service2",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 128000,
+      "deposit": 38400,
+      "status": "completed",
+      "hostReply": "已确认，期待为您服务",
+      "createdAt": "2026-04-01T10:00:00Z"
+    },
+    {
+      "id": "booking2",
+      "venueId": "venue2",
+      "userId": "cust2",
+      "date": "2026-06-21",
+      "timeSlot": "evening",
+      "eventType": "企业年会",
+      "estimatedPeople": 200,
+      "specialRequirements": "需要舞台和音响设备，提供自助餐",
+      "selectedServices": [
+        {
+          "serviceId": "service7",
+          "quantity": 1
+        },
+        {
+          "serviceId": "service6",
+          "quantity": 200
+        }
+      ],
+      "totalAmount": 85000,
+      "deposit": 25500,
+      "status": "confirmed",
+      "hostReply": "已安排，详情请见邮件",
+      "createdAt": "2026-04-15T14:30:00Z"
+    },
+    {
+      "id": "booking3",
+      "venueId": "venue3",
+      "userId": "cust1",
+      "date": "2026-06-18",
+      "timeSlot": "fullDay",
+      "eventType": "产品发布会",
+      "estimatedPeople": 500,
+      "specialRequirements": "需要LED大屏和同声传译设备",
+      "selectedServices": [
+        {
+          "serviceId": "service10",
+          "quantity": 30
+        },
+        {
+          "serviceId": "service11",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 180000,
+      "deposit": 54000,
+      "status": "depositPaid",
+      "hostReply": "定金已收到，正在准备方案",
+      "createdAt": "2026-05-01T09:00:00Z"
+    },
+    {
+      "id": "booking4",
+      "venueId": "venue4",
+      "userId": "cust2",
+      "date": "2026-06-27",
+      "timeSlot": "afternoon",
+      "eventType": "婚礼婚宴",
+      "estimatedPeople": 150,
+      "specialRequirements": "户外草坪婚礼，需要花艺布置",
+      "selectedServices": [
+        {
+          "serviceId": "service14",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 45000,
+      "deposit": 13500,
+      "status": "approved",
+      "hostReply": "已审核通过，请尽快支付定金",
+      "createdAt": "2026-05-10T11:20:00Z"
+    },
+    {
+      "id": "booking5",
+      "venueId": "venue5",
+      "userId": "cust1",
+      "date": "2026-06-19",
+      "timeSlot": "morning",
+      "eventType": "学术会议",
+      "estimatedPeople": 300,
+      "specialRequirements": "需要同声传译设备和茶歇服务",
+      "selectedServices": [
+        {
+          "serviceId": "service18",
+          "quantity": 1
+        },
+        {
+          "serviceId": "service19",
+          "quantity": 300
+        }
+      ],
+      "totalAmount": 68000,
+      "deposit": 20400,
+      "status": "pending",
+      "createdAt": "2026-06-15T16:00:00Z"
+    },
+    {
+      "id": "booking6",
+      "venueId": "venue1",
+      "userId": "cust2",
+      "date": "2026-06-13",
+      "timeSlot": "fullDay",
+      "eventType": "婚礼婚宴",
+      "estimatedPeople": 400,
+      "specialRequirements": "豪华婚礼布置",
+      "selectedServices": [
+        {
+          "serviceId": "service1",
+          "quantity": 40
+        },
+        {
+          "serviceId": "service2",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 168000,
+      "deposit": 50400,
+      "status": "completed",
+      "hostReply": "圆满完成，祝您幸福",
+      "createdAt": "2026-04-20T08:00:00Z"
+    },
+    {
+      "id": "booking7",
+      "venueId": "venue6",
+      "userId": "cust1",
+      "date": "2026-06-29",
+      "timeSlot": "evening",
+      "eventType": "生日派对",
+      "estimatedPeople": 80,
+      "specialRequirements": "需要气球装饰和摄影服务",
+      "selectedServices": [
+        {
+          "serviceId": "service22",
+          "quantity": 1
+        },
+        {
+          "serviceId": "service23",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 28000,
+      "deposit": 8400,
+      "status": "depositPaid",
+      "hostReply": "定金已收到，期待您的光临",
+      "createdAt": "2026-05-20T13:00:00Z"
+    },
+    {
+      "id": "booking8",
+      "venueId": "venue3",
+      "userId": "cust2",
+      "date": "2026-06-14",
+      "timeSlot": "fullDay",
+      "eventType": "展览展会",
+      "estimatedPeople": 1500,
+      "specialRequirements": "大型展览场地布置",
+      "selectedServices": [
+        {
+          "serviceId": "service10",
+          "quantity": 50
+        }
+      ],
+      "totalAmount": 250000,
+      "deposit": 75000,
+      "status": "completed",
+      "hostReply": "展会圆满成功",
+      "createdAt": "2026-03-15T09:30:00Z"
+    },
+    {
+      "id": "booking9",
+      "venueId": "venue5",
+      "userId": "cust1",
+      "date": "2026-06-18",
+      "timeSlot": "fullDay",
+      "eventType": "培训讲座",
+      "estimatedPeople": 200,
+      "specialRequirements": "需要投影和音响设备",
+      "selectedServices": [
+        {
+          "serviceId": "service20",
+          "quantity": 1
+        },
+        {
+          "serviceId": "service19",
+          "quantity": 200
+        }
+      ],
+      "totalAmount": 55000,
+      "deposit": 16500,
+      "status": "confirmed",
+      "hostReply": "已确认，设备已安排",
+      "createdAt": "2026-06-01T10:00:00Z"
+    },
+    {
+      "id": "booking10",
+      "venueId": "venue2",
+      "userId": "cust2",
+      "date": "2026-06-09",
+      "timeSlot": "evening",
+      "eventType": "团建活动",
+      "estimatedPeople": 100,
+      "specialRequirements": "需要餐饮和场地布置",
+      "selectedServices": [
+        {
+          "serviceId": "service9",
+          "quantity": 100
+        },
+        {
+          "serviceId": "service8",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 42000,
+      "deposit": 12600,
+      "status": "completed",
+      "hostReply": "活动顺利完成",
+      "createdAt": "2026-05-05T15:00:00Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "review1",
+      "bookingId": "booking1",
+      "venueId": "venue1",
+      "userId": "cust1",
+      "rating": 5,
+      "content": "场地非常漂亮，服务也很周到，婚礼办得很成功，亲朋好友都赞不绝口！强烈推荐！",
+      "hostReply": "感谢您的好评，祝您新婚快乐，永远幸福！",
+      "createdAt": "2026-05-20T10:00:00Z"
+    },
+    {
+      "id": "review2",
+      "bookingId": "booking6",
+      "venueId": "venue1",
+      "userId": "cust2",
+      "rating": 5,
+      "content": "水晶宴会厅名不虚传，场地宽敞明亮，布置精美，餐饮也很棒。整个团队服务态度非常好，从前期沟通到现场执行都很专业。",
+      "hostReply": "非常感谢您的认可，期待再次为您服务！",
+      "createdAt": "2026-05-25T14:00:00Z"
+    },
+    {
+      "id": "review3",
+      "bookingId": "booking8",
+      "venueId": "venue3",
+      "userId": "cust2",
+      "rating": 4,
+      "content": "展览场地很大，设施齐全，适合大型展会。唯一的缺点是停车位有点紧张，建议提前安排。",
+      "hostReply": "感谢您的反馈，我们已在协调更多停车位，期待下次合作！",
+      "createdAt": "2026-05-05T11:00:00Z"
+    },
+    {
+      "id": "review4",
+      "bookingId": "booking10",
+      "venueId": "venue2",
+      "userId": "cust2",
+      "rating": 5,
+      "content": "公司团建选在这里，环境很好，服务人员都很热情，餐饮品质也不错。大家玩得很开心，下次活动还会考虑这里。",
+      "createdAt": "2026-05-28T16:00:00Z"
+    },
+    {
+      "id": "review5",
+      "bookingId": "booking1",
+      "venueId": "venue1",
+      "userId": "cust1",
+      "rating": 5,
+      "content": "补充一下，摄影团队拍的照片非常棒，把我们的婚礼最美的瞬间都记录下来了，真的很感谢！",
+      "userReply": "再次感谢您的肯定，这是我们应该做的~",
+      "createdAt": "2026-05-22T09:00:00Z"
+    }
+  ],
+  "idCounter": {
+    "user": 100,
+    "venue": 100,
+    "price": 1000,
+    "service": 100,
+    "booking": 100,
+    "review": 100,
+    "cust": 100
+  }
+}

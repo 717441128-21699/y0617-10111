@@ -1,5 +1,5 @@
 import type { PriceConfig, PriceConfigRequest } from '../../shared/types.js';
-import { priceConfigs, venues, generateId } from '../inMemoryData.js';
+import { priceConfigs, venues, generateId, db } from '../persistedData.js';
 
 export class PriceConfigService {
   getPriceConfigsByVenue(venueId: string): PriceConfig[] {
@@ -31,6 +31,7 @@ export class PriceConfigService {
     };
 
     priceConfigs.push(config);
+    db.write();
     return config;
   }
 
@@ -58,6 +59,7 @@ export class PriceConfigService {
     if (!venue || venue.hostId !== hostId) return false;
 
     priceConfigs.splice(index, 1);
+    db.write();
     return true;
   }
 }

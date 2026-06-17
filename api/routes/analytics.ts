@@ -6,6 +6,7 @@ const router = Router()
 
 router.get('/host/analytics/booking-rate', authMiddleware, requireHost, analyticsController.getBookingRate)
 router.get('/host/analytics/revenue', authMiddleware, requireHost, analyticsController.getRevenue)
+router.get('/host/analytics/revenue-summary', authMiddleware, requireHost, analyticsController.getRevenueSummary)
 router.get('/host/analytics/event-types', authMiddleware, requireHost, analyticsController.getEventTypes)
 router.get('/host/analytics/overview', authMiddleware, requireHost, analyticsController.getHostOverview)
 router.get('/host/analytics/monthly-revenue', authMiddleware, requireHost, analyticsController.getMonthlyRevenue)

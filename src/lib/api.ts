@@ -16,9 +16,11 @@ import type {
   BookingStatus,
   BookingRateData,
   RevenueData,
+  RevenueSummary,
   EventTypeData,
   MonthlyRevenueData,
   UserRole,
+  TimeSlot,
 } from '../../shared/types';
 
 const BASE_URL = '/api';
@@ -155,6 +157,11 @@ export const venuesApi = {
 
   getVenueById: (id: string) =>
     request<Venue>(`/venues/${id}`, {
+      method: 'GET',
+    }),
+
+  getBookedSlots: (id: string) =>
+    request<{ date: string; timeSlot: TimeSlot }[]>(`/venues/${id}/booked-slots`, {
       method: 'GET',
     }),
 
@@ -324,6 +331,11 @@ interface AdminOverviewData {
   customerCount: number;
 }
 
+interface RevenueSummaryParams extends Omit<AnalyticsParams, 'venueId'> {
+  venueId?: string;
+  months?: number;
+}
+
 export const analyticsApi = {
   getBookingRate: (params?: AnalyticsParams) =>
     request<BookingRateData[]>('/host/analytics/booking-rate', {
@@ -334,6 +346,13 @@ export const analyticsApi = {
 
   getRevenue: (params?: Omit<AnalyticsParams, 'venueId'>) =>
     request<RevenueData[]>('/host/analytics/revenue', {
+      method: 'GET',
+      params: params as Record<string, unknown>,
+      requiresAuth: true,
+    }),
+
+  getRevenueSummary: (params?: RevenueSummaryParams) =>
+    request<RevenueSummary>('/host/analytics/revenue-summary', {
       method: 'GET',
       params: params as Record<string, unknown>,
       requiresAuth: true,

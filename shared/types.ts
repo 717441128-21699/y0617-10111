@@ -15,6 +15,15 @@ export interface SelectedService {
   quantity: number;
 }
 
+export interface ServiceDetail {
+  name: string;
+  category: ServiceCategory;
+  price: number;
+  unit: string;
+  quantity: number;
+  subtotal: number;
+}
+
 export interface Venue {
   id: string;
   name: string;
@@ -74,6 +83,7 @@ export interface Booking {
   createdAt: string;
   venue?: Venue;
   user?: User;
+  servicesDetail?: ServiceDetail[];
 }
 
 export interface Review {
@@ -190,6 +200,14 @@ export interface RevenueData {
   percentage: number;
 }
 
+export interface RevenueSummary {
+  totalRevenue: number;
+  totalVenueRevenue: number;
+  totalServiceRevenue: number;
+  venuePercentage: number;
+  servicePercentage: number;
+}
+
 export interface EventTypeData {
   type: string;
   count: number;
@@ -199,6 +217,8 @@ export interface EventTypeData {
 export interface MonthlyRevenueData {
   month: string;
   revenue: number;
+  venueRevenue: number;
+  serviceRevenue: number;
   bookings: number;
 }
 

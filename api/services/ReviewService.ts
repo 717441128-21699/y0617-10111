@@ -1,5 +1,5 @@
 import type { Review, CreateReviewRequest } from '../../shared/types.js';
-import { reviews, bookings, venues, generateId } from '../inMemoryData.js';
+import { reviews, bookings, venues, generateId, db } from '../persistedData.js';
 
 export class ReviewService {
   getReviewsByVenue(venueId: string, page: number = 1, pageSize: number = 10): { reviews: Review[]; total: number } {
@@ -61,6 +61,7 @@ export class ReviewService {
     if (!venue || venue.hostId !== hostId) return null;
 
     reviews[index] = { ...reviews[index], hostReply: reply };
+    db.write();
     return reviews[index];
   }
 }
